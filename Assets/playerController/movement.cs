@@ -11,20 +11,26 @@ public class Movement : MonoBehaviour
     [SerializeField] private float accelerationFactor = 5f;
     [SerializeField] private float decelerationFactor = 10f;
 
+    [Header("Jump")]
+    [SerializeField] private float jumpHeight = 2f;
+
     [Header("Gravity")]
     [SerializeField] private float gravity = -9.81f;
 
     private InputSystem_Actions _inputActions;
     private CharacterController _controller;
     private Vector3 _input;
-    private Vector3 _velocity;
+    private Vector3 _moveDirection;
     private float _currentSpeed;
     private bool _isGrounded;
+    private float _verticalVelocity;
+    private float _jumpVelocity;
 
     private void Awake()
     {
         _inputActions = new InputSystem_Actions();
         _controller = GetComponent<CharacterController>();
+        CalculateJumpVelocity();
     }
 
     private void OnEnable()
@@ -39,60 +45,86 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        // handle gravity
-        _isGrounded = _controller.isGrounded;
-        if (_isGrounded && _velocity.y < 0)
-            _velocity.y = -3f;     // small downward to keep grounded
-        else
-            _velocity.y += gravity * Time.deltaTime;
-
-        GatherInput();
-        HandleRotation();
-        HandleSpeed();
-        HandleMovement();
+        ReadGroundState();
+        ProcessJump();
+        ProcessGravity();
+        ReadInput();
+        ProcessRotation();
+        ProcessSpeed();
+        ProcessMovement();
     }
 
-    private void GatherInput()
+    private void CalculateJumpVelocity()
+    {
+
+        _jumpVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
+    private void ReadGroundState()
+    {
+        _isGrounded = _controller.isGrounded;
+        if (_isGrounded && _verticalVelocity < 0f)
+        {
+            _verticalVelocity = -2f;
+        }
+    }
+
+    private void ProcessJump()
+    {
+        if (_inputActions.Player.Jump.triggered && _isGrounded)
+        {
+            _verticalVelocity = _jumpVelocity;
+        }
+    }
+
+    private void ProcessGravity()
+    {
+        if (!_isGrounded)
+        {
+            _verticalVelocity += gravity * Time.deltaTime;
+        }
+    }
+
+    private void ReadInput()
     {
         Vector2 raw = _inputActions.Player.Move.ReadValue<Vector2>();
         _input = new Vector3(raw.x, 0f, raw.y);
     }
 
-    private void HandleRotation()
+    private void ProcessRotation()
     {
-        if (_input == Vector3.zero) return;
+        if (_input.sqrMagnitude < 0.001f) return;
 
-        // isometric rotation fix
         var isoMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45f, 0));
         Vector3 isoDir = isoMatrix.MultiplyPoint3x4(_input);
-
-        Quaternion targetRot = Quaternion.LookRotation(isoDir, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(
-            transform.rotation,
-            targetRot,
-            rotationSpeed * Time.deltaTime
-        );
+        Quaternion target = Quaternion.LookRotation(isoDir, Vector3.up);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, target, rotationSpeed * Time.deltaTime);
     }
 
-    private void HandleSpeed()
+    private void ProcessSpeed()
     {
-        if (_input == Vector3.zero && _currentSpeed > 0f)
+        if (_input.sqrMagnitude > 0.001f)
         {
-            _currentSpeed -= decelerationFactor * Time.deltaTime;
+            _currentSpeed = Mathf.Min(_currentSpeed + accelerationFactor * Time.deltaTime, maxSpeed);
         }
-        else if (_input != Vector3.zero && _currentSpeed < maxSpeed)
+        else
         {
-            _currentSpeed += accelerationFactor * Time.deltaTime;
+            _currentSpeed = Mathf.Max(_currentSpeed - decelerationFactor * Time.deltaTime, 0f);
         }
-
-        _currentSpeed = Mathf.Clamp(_currentSpeed, 0f, maxSpeed);
     }
 
-    private void HandleMovement()
+    private void ProcessMovement()
     {
-        // forward motion + gravity
-        Vector3 move = transform.forward * _currentSpeed * Time.deltaTime;
-        move += _velocity * Time.deltaTime;
-        _controller.Move(move);
+
+        _moveDirection = Vector3.zero;
+        if (_input.sqrMagnitude > 0.001f)
+        {
+            _moveDirection = transform.forward * _currentSpeed;
+        }
+
+
+        _moveDirection.y = _verticalVelocity;
+
+        _controller.Move(_moveDirection * Time.deltaTime);
     }
 }
