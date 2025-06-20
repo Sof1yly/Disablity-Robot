@@ -1,12 +1,17 @@
 using UnityEngine;
 
-public class MainModule : MonoBehaviour
+public class MainModule<T> : MonoBehaviour where T : MonoBehaviour
 {
 
     protected void Awake()
     {
-        ObjectFinder.Instance.AddComponent(this);
-        StartUp();
+        T component = GetComponent<T>();
+        if (component != null)
+        {
+            ObjectFinder.Instance.AddComponent(component);
+        }
+
+        StartUp(); StartUp();
     }
 
     protected virtual void StartUp()

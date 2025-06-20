@@ -1,5 +1,5 @@
 using System;
-public class MainBodyController : MainModule
+public class MainBodyController : MainModule<MainBodyController>
 {
     public event Action<Body[]> OnBodyChanged;
 

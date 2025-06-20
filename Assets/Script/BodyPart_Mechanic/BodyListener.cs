@@ -15,6 +15,7 @@ public class BodyListener : MonoBehaviour
     private void Start()
     {
         ObjectFinder.Instance.GetStoredComponent<MainBodyController>().OnBodyChanged += updateBodyState;
+        setUpEvent();
     }
 
 
