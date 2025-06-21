@@ -52,24 +52,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_input.sqrMagnitude < 0.001f) return;
 
-        Vector3 iso = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0))
-                        .MultiplyPoint3x4(_input)
-                        .normalized;
+        Vector3 iso = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0)).MultiplyPoint3x4(_input).normalized;
         Quaternion target = Quaternion.LookRotation(iso, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(
-            transform.rotation,
-            target,
-            settings.rotationSpeed * Time.deltaTime
-        );
+        transform.rotation = Quaternion.RotateTowards(transform.rotation,target,settings.rotationSpeed * Time.deltaTime);
     }
 
     private void HandleSpeed()
     {
         if (_input == Vector3.zero && _currentSpeed > 0f)
+        {
             _currentSpeed -= settings.decelerationFactor * Time.deltaTime;
+        }  
         else if (_input != Vector3.zero && _currentSpeed < settings.maxSpeed)
+        {
             _currentSpeed += settings.accelerationFactor * Time.deltaTime;
-
+        }
         _currentSpeed = Mathf.Clamp(_currentSpeed, 0f, settings.maxSpeed);
     }
 
