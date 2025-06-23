@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Slope & Acceleration[No need to change those]")]
     [Tooltip("° 0-90. Anything steeper is NOT walkable / slideable.")]
-    [Range(0f, 89f)] public float maxWalkSlope = 55f; //slop around 45 - 55 no need to change those shit
+    [Range(0f, 89f)] public float maxWalkSlope = 45f; //slop around 45 - 55 no need to change those shit
     [Tooltip("How many seconds to go from 0 → maxSpeed ")]
     public float accelTime = 0.12f;                          
 
