@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: NoLeg
   m_EditorClassIdentifier: 
   maxSpeed: 3.85
-  jumpForce: 4
+  jumpForce: 3.5
   speedMode: 1
   rotationSpeed: 360
   accelerationFactor: 5
   decelerationFactor: 10
+  groundSkin: 0.08
   gravity: -9.81
