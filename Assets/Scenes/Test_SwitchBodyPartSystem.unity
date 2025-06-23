@@ -386,7 +386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1708640640}
-  - component: {fileID: 1708640639}
+  - component: {fileID: 1708640641}
   m_Layer: 0
   m_Name: StateChanger
   m_TagString: Untagged
@@ -394,21 +394,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1708640639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1708640638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 848780b05f41fb74da0c8d2478875dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body1: {fileID: 11400000, guid: cc08407e4e0653d4cb92f02f8d7ed331, type: 2}
-  body2: {fileID: 11400000, guid: cc08407e4e0653d4cb92f02f8d7ed331, type: 2}
-  controller: {fileID: 904083382}
 --- !u!4 &1708640640
 Transform:
   m_ObjectHideFlags: 0
@@ -424,6 +409,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1708640641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708640638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb9d04b206e48940823debf94be77a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSwapModule: {fileID: 904083382}
+  swapBodyList:
+  - {fileID: 11400000, guid: fcb4ab9e427ff1e418ca05da98c5a1a6, type: 2}
+  - {fileID: 11400000, guid: cc08407e4e0653d4cb92f02f8d7ed331, type: 2}
+  - {fileID: 11400000, guid: cc08407e4e0653d4cb92f02f8d7ed331, type: 2}
 --- !u!1 &1765824703
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class BodyListener : MonoBehaviour
     Action onActive;
     Action onInActive;
 
+    bool currentState;
     private void Start()
     {
         ObjectFinder.Instance.GetStoredComponent<MainBodyController>().OnBodyChanged += updateBodyState;
@@ -42,6 +43,9 @@ public class BodyListener : MonoBehaviour
 
     void updateBodyState(Body[] selectedBody)
     {
+        bool newState = selectedBody.Contains(bodyType);
+        if (newState == currentState) return;
+        currentState = newState;
         if (selectedBody.Contains(bodyType))
         {
             onActive?.Invoke();
