@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     Vector3 smoothRef;                
     bool jumpQueued;
 
-
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -49,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 raw = input.Player.Move.ReadValue<Vector2>();
         rawInputDir = new Vector3(raw.x, 0f, raw.y).normalized;
 
-        if (input.Player.Jump.triggered) 
+        if (input.Player.Jump.triggered && IsGrounded()) 
         {
             jumpQueued = true;
             //Debug.Log("kuy");
@@ -95,8 +94,9 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * settings.jumpForce, ForceMode.Impulse);
             jumpQueued = false;
+            Debug.Log("jumped issus");
         }
-     
+
         Vector3 desiredMove = horizVel * Time.fixedDeltaTime;
 
         if (desiredMove.sqrMagnitude > 1e-5f)
@@ -126,13 +126,21 @@ public class PlayerMovement : MonoBehaviour
     bool IsGrounded()
     {
         float skin = settings.groundSkin;
-        float half = (col.height * 1.5f) - col.radius;
+        float half = (col.height * 0.85f) - col.radius;
         Vector3 ori = transform.position + Vector3.up * (col.radius - 0.01f);
 
-        if (Physics.SphereCast(ori, col.radius * 0.96f, Vector3.down,out RaycastHit hit, half + skin,solidMask, QueryTriggerInteraction.Ignore))
+        Debug.DrawLine(ori, ori + Vector3.down * (half + skin), Color.red); 
+
+        if (Physics.SphereCast(ori, col.radius * 0.96f, Vector3.down, out RaycastHit hit, half + skin, solidMask, QueryTriggerInteraction.Ignore))
         {
-            //Debug.DrawLine(ori, hit.point, Color.red);
+   
+            Debug.Log("Grounded! Normal: " + hit.normal);
+
             return hit.normal.y >= Mathf.Cos(maxWalkSlope * Mathf.Deg2Rad);
+        }
+        else
+        {
+            Debug.Log("Not grounded. Raycast failed.");
         }
         return false;
     }
