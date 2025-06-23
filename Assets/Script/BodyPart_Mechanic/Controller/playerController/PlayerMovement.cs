@@ -8,9 +8,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private MovementSettings settings;
     [SerializeField] private LayerMask solidMask = ~0;        
 
-    [Header("Slope & Acceleration")]
+    [Header("Slope & Acceleration[No need to change those]")]
     [Tooltip("° 0-90. Anything steeper is NOT walkable / slideable.")]
-    [Range(0f, 89f)] public float maxWalkSlope = 55f;
+    [Range(0f, 89f)] public float maxWalkSlope = 55f; //slop around 45 - 55 no need to change those shit
     [Tooltip("How many seconds to go from 0 → maxSpeed ")]
     public float accelTime = 0.12f;                          
 
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         if (input.Player.Jump.triggered) 
         {
             jumpQueued = true;
-            Debug.Log("kuy");
+            //Debug.Log("kuy");
         }
             
 
@@ -63,18 +63,28 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, tgt,settings.rotationSpeed * Time.deltaTime);
         }
 
-        float targetSpeed = rawInputDir.sqrMagnitude > 0.001f ? settings.maxSpeed : 0f;
+        float targetSpeed;
+        if (rawInputDir.sqrMagnitude > 0.001f)
+        {
+            targetSpeed = settings.maxSpeed;
+        }
+        else
+        {
+            targetSpeed = 0f;
+        }
+        
         Vector3 wishDir = Quaternion.Euler(0f, 45f, 0f) * rawInputDir;
         Vector3 wishVel = wishDir * targetSpeed;
 
         if (settings.speedMode == SpeedMode.Instant)
         {
+            //Debug.Log("Instant Speed Mode");
             smoothRef = Vector3.zero;
             horizVel = wishDir * settings.maxSpeed;
         }
         else if (settings.speedMode == SpeedMode.Accelerated)
         {
-
+            //Debug.Log("Accelerated Speed Mode");
             horizVel = Vector3.SmoothDamp(horizVel,wishVel,ref smoothRef,accelTime,settings.maxSpeed + 1f);
         }
     }
@@ -121,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Physics.SphereCast(ori, col.radius * 0.96f, Vector3.down,out RaycastHit hit, half + skin,solidMask, QueryTriggerInteraction.Ignore))
         {
-
+            //Debug.DrawLine(ori, hit.point, Color.red);
             return hit.normal.y >= Mathf.Cos(maxWalkSlope * Mathf.Deg2Rad);
         }
         return false;
