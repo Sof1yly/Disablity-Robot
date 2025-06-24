@@ -5,23 +5,25 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private MovementSettings settings;
-    [SerializeField] private LayerMask solidMask = ~0;        
+    [SerializeField] private MovementSettings settingsHaveLeg;  
+    [SerializeField] private MovementSettings settingsNoLeg;   
+    [SerializeField] private LayerMask solidMask = ~0;
 
-    [Header("Slope & Acceleration[No need to change those]")]
-    [Tooltip("° 0-90. Anything steeper is NOT walkable / slideable.")]
-    [Range(0f, 89f)] public float maxWalkSlope = 45f; //slop around 45 - 55 no need to change those shit
-    [Tooltip("How many seconds to go from 0 → maxSpeed ")]
-    public float accelTime = 0.12f;                          
+    [Header("Slope & Acceleration")]
+    [Range(0f, 89f)] public float maxWalkSlope = 45f;
+    public float accelTime = 0.12f;
 
-    Rigidbody rb;
-    CapsuleCollider col;
-    InputSystem_Actions input;
+    private Rigidbody rb;
+    private CapsuleCollider col;
+    private InputSystem_Actions input;
 
-    Vector3 rawInputDir;             
-    Vector3 horizVel;               
-    Vector3 smoothRef;                
-    bool jumpQueued;
+    private Vector3 rawInputDir;
+    private Vector3 horizVel;
+    private Vector3 smoothRef;
+
+    private bool jumpQueued;
+
+    private StateChanger stateChanger;
 
     void Awake()
     {
@@ -33,58 +35,53 @@ public class PlayerMovement : MonoBehaviour
 
         col = GetComponent<CapsuleCollider>();
         input = new InputSystem_Actions();
+        stateChanger = GetComponent<StateChanger>(); 
     }
-    void OnEnable()
-    {
-        input.Player.Enable();
-    }
-    void OnDisable()
-    {
-        input.Player.Disable();
-    } 
+
+    void OnEnable() { input.Player.Enable(); }
+    void OnDisable() { input.Player.Disable(); }
 
     void Update()
     {
         Vector2 raw = input.Player.Move.ReadValue<Vector2>();
         rawInputDir = new Vector3(raw.x, 0f, raw.y).normalized;
 
-        if (input.Player.Jump.triggered && IsGrounded()) 
+        if (input.Player.Jump.triggered && IsGrounded())
         {
             jumpQueued = true;
-            //Debug.Log("kuy");
         }
-            
 
         if (rawInputDir.sqrMagnitude > 0.001f)
         {
             Vector3 iso = Quaternion.Euler(0f, 45f, 0f) * rawInputDir;
             Quaternion tgt = Quaternion.LookRotation(iso, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, tgt,settings.rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, tgt, settingsHaveLeg.rotationSpeed * Time.deltaTime);
         }
 
-        float targetSpeed;
-        if (rawInputDir.sqrMagnitude > 0.001f)
-        {
-            targetSpeed = settings.maxSpeed;
-        }
-        else
-        {
-            targetSpeed = 0f;
-        }
-        
+        float targetSpeed = rawInputDir.sqrMagnitude > 0.001f ? settingsHaveLeg.maxSpeed : 0f;
         Vector3 wishDir = Quaternion.Euler(0f, 45f, 0f) * rawInputDir;
         Vector3 wishVel = wishDir * targetSpeed;
 
-        if (settings.speedMode == SpeedMode.Instant)
+        if (settingsHaveLeg.speedMode == SpeedMode.Instant)
         {
-            //Debug.Log("Instant Speed Mode");
             smoothRef = Vector3.zero;
-            horizVel = wishDir * settings.maxSpeed;
+            horizVel = wishDir * settingsHaveLeg.maxSpeed;
         }
-        else if (settings.speedMode == SpeedMode.Accelerated)
+        else if (settingsHaveLeg.speedMode == SpeedMode.Accelerated)
         {
-            //Debug.Log("Accelerated Speed Mode");
-            horizVel = Vector3.SmoothDamp(horizVel,wishVel,ref smoothRef,accelTime,settings.maxSpeed + 1f);
+            horizVel = Vector3.SmoothDamp(horizVel, wishVel, ref smoothRef, accelTime, settingsHaveLeg.maxSpeed + 1f);
+        }
+
+  
+        if (stateChanger.HasLeg())
+        {
+            
+            ApplyMovementSettings(settingsHaveLeg);
+        }
+        else
+        {
+         
+            ApplyMovementSettings(settingsNoLeg);
         }
     }
 
@@ -92,9 +89,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (jumpQueued && IsGrounded())
         {
-            rb.AddForce(Vector3.up * settings.jumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * settingsHaveLeg.jumpForce, ForceMode.Impulse);
             jumpQueued = false;
-            Debug.Log("jumped issus");
         }
 
         Vector3 desiredMove = horizVel * Time.fixedDeltaTime;
@@ -104,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 p1 = transform.position + Vector3.up * (col.radius - 0.01f);
             Vector3 p2 = p1 + Vector3.up * (col.height - 2f * col.radius);
 
-            if (Physics.CapsuleCast( p1, p2, col.radius * 0.96f,desiredMove.normalized,out RaycastHit hit,desiredMove.magnitude,solidMask,QueryTriggerInteraction.Ignore))
+            if (Physics.CapsuleCast(p1, p2, col.radius * 0.96f, desiredMove.normalized, out RaycastHit hit, desiredMove.magnitude, solidMask, QueryTriggerInteraction.Ignore))
             {
                 float slopeDeg = Vector3.Angle(hit.normal, Vector3.up);
                 if (slopeDeg <= maxWalkSlope)
@@ -119,29 +115,25 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + desiredMove);
-        rb.linearVelocity = new Vector3(desiredMove.x / Time.fixedDeltaTime,rb.linearVelocity.y,   desiredMove.z / Time.fixedDeltaTime);
+        rb.linearVelocity = new Vector3(desiredMove.x / Time.fixedDeltaTime, rb.linearVelocity.y, desiredMove.z / Time.fixedDeltaTime);
     }
-
 
     bool IsGrounded()
     {
-        float skin = settings.groundSkin;
+        float skin = settingsHaveLeg.groundSkin;
         float half = (col.height * 0.85f) - col.radius;
         Vector3 ori = transform.position + Vector3.up * (col.radius - 0.01f);
 
-        Debug.DrawLine(ori, ori + Vector3.down * (half + skin), Color.red); 
-
         if (Physics.SphereCast(ori, col.radius * 0.96f, Vector3.down, out RaycastHit hit, half + skin, solidMask, QueryTriggerInteraction.Ignore))
         {
-   
-            Debug.Log("Grounded! Normal: " + hit.normal);
-
             return hit.normal.y >= Mathf.Cos(maxWalkSlope * Mathf.Deg2Rad);
         }
-        else
-        {
-            Debug.Log("Not grounded. Raycast failed.");
-        }
         return false;
+    }
+
+
+    private void ApplyMovementSettings(MovementSettings settings)
+    {
+        this.settingsHaveLeg = settings;
     }
 }
