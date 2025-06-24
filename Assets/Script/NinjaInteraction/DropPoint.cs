@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// This script defines a drop-off point where a player can deposit a held item.
 /// When an item is dropped at this point by pressing the interaction key,
 /// it will be taken from the player and snapped to a specific position and rotation.
+///
+/// This updated version allows for optional restriction of items based on their tag,
+/// and can trigger a UnityEvent specifically when an item with a designated tag is dropped.
 ///
 /// Setup:
 /// 1. Attach this script to an empty GameObject.
@@ -14,6 +18,10 @@ using UnityEngine;
 ///    where you want items to rest.
 /// 4. Drag and drop your "SnapPoint" Transform into the 'Snap Point' field in the Inspector of this DropPoint script.
 /// 5. Ensure your Player GameObject has the tag specified in 'Player Tag' (default is "Player").
+/// 6. (Optional) To restrict what can be dropped, enter an 'Item Tag' in the 'Required Item Tag' field.
+///    Only items with this tag will be accepted. Leave empty to accept any item.
+/// 7. (Optional) To trigger an event for a specific item, enter its tag in the 'Mission Item Tag' field
+///    and configure the 'Mission Event' in the Inspector.
 /// </summary>
 public class DropPoint : MonoBehaviour
 {
@@ -22,11 +30,21 @@ public class DropPoint : MonoBehaviour
     [SerializeField] private Transform snapPoint;
 
     [Tooltip("The tag assigned to the player GameObject. Used to detect player presence.")]
-    public string playerTag = "Player";
+    private string playerTag = "Player"; // Made serialized for inspector access
+
+    [Tooltip("Optional: If set, only items with this tag can be dropped at this point. Leave empty to allow any item.")]
+    [SerializeField] private string requiredItemTag = "";
+
+    [Header("Mission Settings")]
+    [Tooltip("Optional: The tag of an item that, when successfully dropped here, will trigger the Mission Event. Leave empty if no specific item triggers the event.")]
+    [SerializeField] private string missionItemTag = "";
+
+    [Tooltip("Event triggered when an item with the 'Mission Item Tag' is successfully dropped at this point.")]
+    [SerializeField] UnityEvent Mission_event = new UnityEvent();
 
     // The dropKey is no longer directly used in DropPoint's Update,
     // but kept as a reminder that PickUpScript's key should match.
-    // public KeyCode dropKey = KeyCode.E; 
+    // public KeyCode dropKey = KeyCode.E;
 
     private bool isPlayerInTrigger = false; // Tracks if the player is currently within this drop point's trigger.
     private PickUpScript playerPickUpScript = null; // Reference to the player's PickUpScript
@@ -58,7 +76,7 @@ public class DropPoint : MonoBehaviour
         if (snapPoint == null)
         {
             Debug.LogError("Snap Point not assigned for DropPoint script on " + gameObject.name + ". " +
-                           "Please assign a Transform in the Inspector where items will snap to.");
+                            "Please assign a Transform in the Inspector where items will snap to.");
             enabled = false; // Disable script if essential setup is missing.
             return;
         }
@@ -77,7 +95,7 @@ public class DropPoint : MonoBehaviour
         if (playerPickUpScript == null)
         {
             Debug.LogError("DropPoint could not find an active PickUpScript in the scene. " +
-                           "Ensure your player GameObject has the PickUpScript attached and is active.");
+                            "Ensure your player GameObject has the PickUpScript attached and is active.");
         }
     }
 
@@ -92,6 +110,15 @@ public class DropPoint : MonoBehaviour
         // AND the player is actually holding the item that was just attempted to drop (safety check).
         if (isPlayerInTrigger && PickUpScript.currentHeldItem == itemAttemptingToDrop)
         {
+            // If a required item tag is specified, check if the item attempting to drop has that tag.
+            // If it doesn't, log a message and do not proceed with snapping.
+            if (!string.IsNullOrEmpty(requiredItemTag) && !itemAttemptingToDrop.CompareTag(requiredItemTag))
+            {
+                Debug.Log($"Cannot drop '{itemAttemptingToDrop.name}' here. This DropPoint only accepts items with the tag '{requiredItemTag}'.", itemAttemptingToDrop);
+                return; // Exit the method, preventing the item from being snapped.
+            }
+
+            // If no required tag, or if the item matches the required tag, proceed to snap.
             AttemptSnapItem();
         }
     }
@@ -154,7 +181,7 @@ public class DropPoint : MonoBehaviour
                 // It will no longer be affected by physics forces or gravity.
                 itemRb.isKinematic = true;
                 itemRb.useGravity = false;
-                itemRb.linearVelocity = Vector3.zero;     // Stop any lingering linear velocity
+                itemRb.linearVelocity = Vector3.zero;   // Stop any lingering linear velocity
                 itemRb.angularVelocity = Vector3.zero; // Stop any lingering angular velocity
 
                 // Explicitly wake up the Rigidbody to ensure it's re-evaluated by the physics system.
@@ -170,7 +197,15 @@ public class DropPoint : MonoBehaviour
                 itemCollider.enabled = true;
             }
 
-            Debug.Log($"Successfully snapped {itemToSnap.name} to DropPoint: {gameObject.name}.");
+            // Check if this specific item triggers the mission event.
+            // If a mission item tag is specified and the snapped item matches it, invoke the event.
+            if (!string.IsNullOrEmpty(missionItemTag) && itemToSnap.CompareTag(missionItemTag))
+            {
+                Mission_event?.Invoke();
+                Debug.Log($"Mission Event triggered by dropping '{itemToSnap.name}' at '{gameObject.name}'.", itemToSnap);
+            }
+
+            Debug.Log($"Successfully snapped '{itemToSnap.name}' to DropPoint: '{gameObject.name}'.", itemToSnap);
         }
         else
         {

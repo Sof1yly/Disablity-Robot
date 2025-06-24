@@ -1833,8 +1833,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapPoint: {fileID: 67600359}
-  playerTag: Player
-  dropKey: 101
+  requiredItemTag: 
+  missionItemTag: 'ring '
+  Mission_event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: e25b733d492e3c74e9a999da1b6b0546, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &700537013
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2483,7 +2498,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holdingPoint: {fileID: 1003055635}
   pickupDropKey: 101
-  pickableItemTag: canPickUp
 --- !u!1 &1310480940
 GameObject:
   m_ObjectHideFlags: 0
