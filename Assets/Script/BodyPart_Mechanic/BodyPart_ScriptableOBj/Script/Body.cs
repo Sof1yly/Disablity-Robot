@@ -1,6 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Body", menuName = "Body")]
+[CreateAssetMenu(fileName = "BodySO", menuName = "Body")]
 public class Body : ScriptableObject
 {
+    [SerializeField] private GameObject partPrefabs;
 }
