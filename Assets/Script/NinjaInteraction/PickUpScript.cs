@@ -17,7 +17,7 @@ public class PickUpScript : MonoBehaviour
     public KeyCode pickupDropKey = KeyCode.E;
 
     [Tooltip("The tag assigned to all pickable items in your scene.")]
-    public string pickableItemTag = "canPickUp"; // Confirmed pickable item tag
+    private string pickableItemTag = "canPickUp"; // Confirmed pickable item tag
 
     // --- Private Variables to manage item state ---
     // Make currentHeldItem public static so DropPoint can access it.
@@ -29,6 +29,20 @@ public class PickUpScript : MonoBehaviour
     // A list to keep track of all interactable items currently within this object's trigger zone.
     // When the pickup key is pressed, the first item in this list will be picked up.
     private List<GameObject> interactableItemsInTrigger = new List<GameObject>();
+
+    /// <summary>
+    /// Event that is invoked when an item is successfully picked up.
+    /// Subscribers can listen to this event to react to item pickups.
+    /// The GameObject passed is the item that was just picked up.
+    /// </summary>
+    public static event System.Action<GameObject> OnItemPickedUp;
+
+    /// <summary>
+    /// NEW EVENT: Event that is invoked when the player attempts to drop an item.
+    /// Subscribers (like DropPoint) can listen to this event to intercept the drop.
+    /// The GameObject passed is the item currently being held.
+    /// </summary>
+    public static event System.Action<GameObject> OnDropAttempt;
 
     /// <summary>
     /// Called when the script instance is being loaded.
@@ -56,11 +70,19 @@ public class PickUpScript : MonoBehaviour
         if (Input.GetKeyDown(pickupDropKey))
         {
             // --- Scenario 1: An item is currently being held ---
-            // If an item is held, pressing the key drops it.
-            // Note: DropPoint script will intercept this if player is in a DropPoint zone.
             if (currentHeldItem != null)
             {
-                DropItem();
+                // --- Observer Pattern: Notify observers about the drop attempt. ---
+                // An observer (like DropPoint) might handle the drop and nullify currentHeldItem.
+                OnDropAttempt?.Invoke(currentHeldItem);
+
+                // If currentHeldItem is still not null after observers have had a chance to react,
+                // it means no observer handled the drop (e.g., player not in a DropPoint zone),
+                // so proceed with a normal drop to the world.
+                if (currentHeldItem != null)
+                {
+                    DropItem();
+                }
             }
             // --- Scenario 2: No item is held, but there are items available in the trigger ---
             else if (interactableItemsInTrigger.Count > 0)
@@ -154,6 +176,10 @@ public class PickUpScript : MonoBehaviour
         currentHeldItem.transform.localScale = Vector3.one;
 
         Debug.Log($"Successfully picked up item: {currentHeldItem.name}");
+
+        // --- Observer Pattern: Invoke the event after a successful pickup ---
+        // The '?' (null-conditional operator) ensures the event is only invoked if there are any subscribers.
+        OnItemPickedUp?.Invoke(currentHeldItem);
     }
 
     /// <summary>

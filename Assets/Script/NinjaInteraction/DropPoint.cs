@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 /// <summary>
 /// This script defines a drop-off point where a player can deposit a held item.
@@ -25,16 +24,30 @@ public class DropPoint : MonoBehaviour
     [Tooltip("The tag assigned to the player GameObject. Used to detect player presence.")]
     public string playerTag = "Player";
 
-    [Tooltip("The KeyCode the player presses to drop an item onto this point. " +
-             "It should typically match the pickup/drop key in your PickUpScript.")]
-    public KeyCode dropKey = KeyCode.E;
+    // The dropKey is no longer directly used in DropPoint's Update,
+    // but kept as a reminder that PickUpScript's key should match.
+    // public KeyCode dropKey = KeyCode.E; 
 
     private bool isPlayerInTrigger = false; // Tracks if the player is currently within this drop point's trigger.
     private PickUpScript playerPickUpScript = null; // Reference to the player's PickUpScript
 
-    [SerializeField] UnityEvent interacted_event = new UnityEvent();
+    /// <summary>
+    /// Called when this script is enabled. Used for event subscription.
+    /// </summary>
+    void OnEnable()
+    {
+        // Subscribe to the OnDropAttempt event from PickUpScript.
+        PickUpScript.OnDropAttempt += HandleDropAttempt;
+    }
 
-
+    /// <summary>
+    /// Called when this script is disabled. Used for event unsubscription to prevent memory leaks.
+    /// </summary>
+    void OnDisable()
+    {
+        // Unsubscribe from the OnDropAttempt event.
+        PickUpScript.OnDropAttempt -= HandleDropAttempt;
+    }
 
     /// <summary>
     /// Called when the script instance is being loaded.
@@ -60,7 +73,6 @@ public class DropPoint : MonoBehaviour
 
         // Try to find the PickUpScript on the player. This is done once at Start.
         // Assumes there's only one PickUpScript in the scene on the player.
-        // Updated to use FindFirstObjectByType as FindObjectOfType is obsolete.
         playerPickUpScript = FindFirstObjectByType<PickUpScript>();
         if (playerPickUpScript == null)
         {
@@ -70,17 +82,15 @@ public class DropPoint : MonoBehaviour
     }
 
     /// <summary>
-    /// Called once per frame. Handles input for dropping items onto this point.
+    /// This method is called when PickUpScript's OnDropAttempt event is invoked.
+    /// It acts as the observer's reaction to a drop attempt.
     /// </summary>
-    void Update()
+    /// <param name="itemAttemptingToDrop">The GameObject the player is currently holding.</param>
+    private void HandleDropAttempt(GameObject itemAttemptingToDrop)
     {
-        // Check if:
-        // 1. The player is in the trigger zone (isPlayerInTrigger is true).
-        // 2. The defined drop key is pressed down during this frame.
-        // 3. The player is currently holding an item according to PickUpScript.
-        // 4. We successfully found the player's PickUpScript at Start.
-        if (isPlayerInTrigger && Input.GetKeyDown(dropKey) &&
-            PickUpScript.currentHeldItem != null && playerPickUpScript != null)
+        // Only attempt to snap the item if the player is within this DropPoint's trigger
+        // AND the player is actually holding the item that was just attempted to drop (safety check).
+        if (isPlayerInTrigger && PickUpScript.currentHeldItem == itemAttemptingToDrop)
         {
             AttemptSnapItem();
         }
@@ -96,7 +106,6 @@ public class DropPoint : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             isPlayerInTrigger = true;
-            interacted_event?.Invoke();
             Debug.Log("Player entered DropPoint trigger: " + gameObject.name);
         }
     }
@@ -145,15 +154,29 @@ public class DropPoint : MonoBehaviour
                 // It will no longer be affected by physics forces or gravity.
                 itemRb.isKinematic = true;
                 itemRb.useGravity = false;
-                itemRb.linearVelocity = Vector3.zero;    // Stop any lingering linear velocity
+                itemRb.linearVelocity = Vector3.zero;     // Stop any lingering linear velocity
                 itemRb.angularVelocity = Vector3.zero; // Stop any lingering angular velocity
+
+                // Explicitly wake up the Rigidbody to ensure it's re-evaluated by the physics system.
+                // This can help ensure trigger detections are consistent.
+                itemRb.WakeUp();
+            }
+
+            // Ensure the item's collider is enabled after being snapped.
+            // This is a common point of failure for trigger detection if implicitly disabled.
+            Collider itemCollider = itemToSnap.GetComponent<Collider>();
+            if (itemCollider != null)
+            {
+                itemCollider.enabled = true;
             }
 
             Debug.Log($"Successfully snapped {itemToSnap.name} to DropPoint: {gameObject.name}.");
         }
         else
         {
-            Debug.Log("No item was currently held by the player to snap at this DropPoint.");
+            Debug.Log("No item was currently held by the player to snap at this DropPoint. " +
+                      "This message might appear if another DropPoint handled the item first, " +
+                      "or the player wasn't holding an item when the event fired.");
         }
     }
 }
