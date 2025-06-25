@@ -8,36 +8,35 @@ public class StateChanger : MonoBehaviour
 
     Body[] setNewBody = new Body[3];
 
-    [ContextMenu("Swap Menu")]
+    [ContextMenu("Swap Body Test")]
     void SwapBody()
     {
-        for (int j = 0; j < swapBodyList.Count; j++)
+        for (int i = 0; i < setNewBody.Length; i++)
         {
-            Body b = swapBodyList[j];
-            if (b != null && b.PartPrefabs != null)
+            if (i <= swapBodyList.Count - 1)
             {
-                if (j == 0)
-                {
-                    b.PartPrefabs.SetActive(true);
-                }
-                else
-                {
-                    b.PartPrefabs.SetActive(false);
-                }
+                setNewBody[i] = swapBodyList[i];
+                Debug.Log($"Played Count {i} , Set Obj");
+
+            }
+            else
+            {
+                setNewBody[i] = null;
+                Debug.Log($"Played Count {i} , Set To Null");
 
             }
         }
 
-        for (int i = 0; i < setNewBody.Length; i++)
-        {
-            if (i == 0 && swapBodyList.Count > 0 && swapBodyList[0] != null)
-                setNewBody[i] = swapBodyList[0];
-            else
-                setNewBody[i] = null;
-        }
-
 
         mainSwapModule.SetNewBody(setNewBody);
+    }
+
+
+    public void AssignNewBody(List<Body> newBodyList)
+    {
+        swapBodyList = new List<Body>(newBodyList);
+        Debug.Log($"swapBody Count {swapBodyList.Count}");
+        SwapBody();
     }
 
 }

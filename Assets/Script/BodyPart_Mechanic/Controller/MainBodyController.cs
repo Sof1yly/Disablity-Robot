@@ -15,7 +15,6 @@ public class MainBodyController : MainModule<MainBodyController>
             Debug.Log("Played");
         }
 
-
         OnBodyChanged?.Invoke(currentBody);
     }
 }
