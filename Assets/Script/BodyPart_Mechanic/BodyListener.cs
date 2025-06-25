@@ -43,8 +43,7 @@ public class BodyListener : MonoBehaviour
     void updateBodyState(Body[] selectedBody)
     {
         bool newState = selectedBody.Contains(bodyType);
-        if (isResolved && newState == currentState) return;
-        isResolved = true;
+
 
         if (newState)
         {
