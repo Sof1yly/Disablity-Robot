@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
   
-        if (stateChanger.HasLeg())
+        if (stateChanger !=null && stateChanger.HasLeg())
         {
             
             ApplyMovementSettings(settingsHaveLeg);

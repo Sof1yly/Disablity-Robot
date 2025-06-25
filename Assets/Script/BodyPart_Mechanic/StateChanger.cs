@@ -11,25 +11,32 @@ public class StateChanger : MonoBehaviour
     [ContextMenu("Swap Menu")]
     void SwapBody()
     {
-        for (int i = 0; i < setNewBody.Length; i++)
+        for (int j = 0; j < swapBodyList.Count; j++)
         {
-            if (i >= swapBodyList.Count)
+            Body b = swapBodyList[j];
+            if (b != null && b.PartPrefabs != null)
             {
-                setNewBody[i] = null;
-
-                if (swapBodyList[i]?.PartPrefabs == null)
+                if (j == 0)
                 {
-                    swapBodyList[i].PartPrefabs.SetActive(false);
+                    b.PartPrefabs.SetActive(true);
                 }
-                continue;
+                else
+                {
+                    b.PartPrefabs.SetActive(false);
+                }
+                    
             }
-            else
-            {
-                setNewBody[i] = swapBodyList[i];
-            }
-            
         }
 
+        for (int i = 0; i < setNewBody.Length; i++)
+        {
+            if (i == 0 && swapBodyList.Count > 0 && swapBodyList[0] != null)
+                setNewBody[i] = swapBodyList[0];
+            else
+                setNewBody[i] = null;
+        }
+
+ 
         mainSwapModule.SetNewBody(setNewBody);
     }
 
@@ -38,10 +45,8 @@ public class StateChanger : MonoBehaviour
         foreach (Body body in swapBodyList)
         {
             if (body != null && body.PartName == "Leg")
-            {
                 return true;
-            }
         }
-        return false; 
+        return false;
     }
 }
