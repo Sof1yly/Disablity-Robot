@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private MovementSettings settingsHaveLeg;  
-    [SerializeField] private MovementSettings settingsNoLeg;   
+    [SerializeField] MovementSettings baseSetting;
+    private MovementSettings currentSetting;
     [SerializeField] private LayerMask solidMask = ~0;
 
     [Header("Slope & Acceleration")]
@@ -23,10 +22,11 @@ public class PlayerMovement : MonoBehaviour
 
     private bool jumpQueued;
 
-    private StateChanger stateChanger;
 
     void Awake()
     {
+        currentSetting = baseSetting;
+
         rb = GetComponent<Rigidbody>();
         rb.useGravity = true;
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
 
         col = GetComponent<CapsuleCollider>();
         input = new InputSystem_Actions();
-        stateChanger = GetComponent<StateChanger>(); 
     }
 
     void OnEnable() { input.Player.Enable(); }
@@ -55,41 +54,32 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 iso = Quaternion.Euler(0f, 45f, 0f) * rawInputDir;
             Quaternion tgt = Quaternion.LookRotation(iso, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, tgt, settingsHaveLeg.rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, tgt, currentSetting.rotationSpeed * Time.deltaTime);
         }
 
-        float targetSpeed = rawInputDir.sqrMagnitude > 0.001f ? settingsHaveLeg.maxSpeed : 0f;
+        float targetSpeed = rawInputDir.sqrMagnitude > 0.001f ? currentSetting.maxSpeed : 0f;
         Vector3 wishDir = Quaternion.Euler(0f, 45f, 0f) * rawInputDir;
         Vector3 wishVel = wishDir * targetSpeed;
 
-        if (settingsHaveLeg.speedMode == SpeedMode.Instant)
+        if (currentSetting.speedMode == SpeedMode.Instant)
         {
             smoothRef = Vector3.zero;
-            horizVel = wishDir * settingsHaveLeg.maxSpeed;
+            horizVel = wishDir * currentSetting.maxSpeed;
         }
-        else if (settingsHaveLeg.speedMode == SpeedMode.Accelerated)
+        else if (currentSetting.speedMode == SpeedMode.Accelerated)
         {
-            horizVel = Vector3.SmoothDamp(horizVel, wishVel, ref smoothRef, accelTime, settingsHaveLeg.maxSpeed + 1f);
+            horizVel = Vector3.SmoothDamp(horizVel, wishVel, ref smoothRef, accelTime, currentSetting.maxSpeed + 1f);
         }
 
-  
-        if (stateChanger !=null && stateChanger.HasLeg())
-        {
-            
-            ApplyMovementSettings(settingsHaveLeg);
-        }
-        else
-        {
-         
-            ApplyMovementSettings(settingsNoLeg);
-        }
+
+
     }
 
     void FixedUpdate()
     {
         if (jumpQueued && IsGrounded())
         {
-            rb.AddForce(Vector3.up * settingsHaveLeg.jumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * currentSetting.jumpForce, ForceMode.Impulse);
             jumpQueued = false;
         }
 
@@ -120,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool IsGrounded()
     {
-        float skin = settingsHaveLeg.groundSkin;
+        float skin = currentSetting.groundSkin;
         float half = (col.height * 0.85f) - col.radius;
         Vector3 ori = transform.position + Vector3.up * (col.radius - 0.01f);
 
@@ -132,8 +122,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void ApplyMovementSettings(MovementSettings settings)
+    public void ApplyMovementSettings(MovementSettings settings)
     {
-        this.settingsHaveLeg = settings;
+        this.currentSetting = settings;
     }
 }

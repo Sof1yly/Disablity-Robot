@@ -24,7 +24,7 @@ public class StateChanger : MonoBehaviour
                 {
                     b.PartPrefabs.SetActive(false);
                 }
-                    
+
             }
         }
 
@@ -36,17 +36,8 @@ public class StateChanger : MonoBehaviour
                 setNewBody[i] = null;
         }
 
- 
+
         mainSwapModule.SetNewBody(setNewBody);
     }
 
-    public bool HasLeg()
-    {
-        foreach (Body body in swapBodyList)
-        {
-            if (body != null && body.PartName == "Leg")
-                return true;
-        }
-        return false;
-    }
 }
