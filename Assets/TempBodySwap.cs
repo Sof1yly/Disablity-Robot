@@ -4,11 +4,13 @@ public class TempBodySwap : MonoBehaviour
 {
     [SerializeField] int BodyIndex;
     [SerializeField] Body SwapBody;
+    [SerializeField] PartSpawner partSpawner;
     TempBodySwapperManage TempBodySwapperManage;
 
     private void Start()
     {
         TempBodySwapperManage = FindAnyObjectByType<TempBodySwapperManage>();
+        
     }
 
     [ContextMenu("Add NewBody")]
@@ -21,6 +23,8 @@ public class TempBodySwap : MonoBehaviour
     public void RemoveBody()
     {
         TempBodySwapperManage.RemoveBody(BodyIndex);
+        
+        partSpawner.SpawnPart(SwapBody); 
 
     }
 
