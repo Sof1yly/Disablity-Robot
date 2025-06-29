@@ -2,17 +2,8 @@ using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    [SerializeField] private float walkSpeed = 5.0f;
-    [SerializeField] private float sprintMultiplier = 2.0f;
-
-    [Header("Jump Settings")]
-    [SerializeField] private float jumpForce = 5.0f;
-    [SerializeField] private float gravityMultiplier = 1.0f;
-
-    [Header("Mouse Sensitivity")]
-    [SerializeField] private float mouseSensitivity = 2.0f;
-    [SerializeField] private float verticalLookRange = 80.0f;
+    [Header("Settings")]
+    [SerializeField] private FPScontrollSettings settings;
 
     [Header("References")]
     [SerializeField] private CharacterController characterController;
@@ -21,7 +12,7 @@ public class FirstPersonController : MonoBehaviour
 
     private Vector3 currentMovement;
     private float verticalRotation;
-    private float CurrentSpeed => walkSpeed *(playerInputHandler.SprintTriggered ? sprintMultiplier : 1.0f);
+    private float CurrentSpeed => settings.walkSpeed * (playerInputHandler.SprintTriggered ? settings.sprintMultiplier : 1.0f);
 
     void Start()
     {
@@ -38,8 +29,7 @@ public class FirstPersonController : MonoBehaviour
     private Vector3 CalculateWorldDirection()
     {
         Vector3 inputDirection = new Vector3(playerInputHandler.MovementInput.x, 0f, playerInputHandler.MovementInput.y);
-        Vector3 worldDirection = transform.TransformDirection(inputDirection);
-        return worldDirection.normalized;
+        return transform.TransformDirection(inputDirection).normalized;
     }
 
     private void HandleJumping()
@@ -49,13 +39,11 @@ public class FirstPersonController : MonoBehaviour
             currentMovement.y = -0.5f;
 
             if (playerInputHandler.JumpTriggered)
-            {
-                currentMovement.y = jumpForce;
-            }
+                currentMovement.y = settings.jumpForce;
         }
         else
         {
-            currentMovement.y += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
+            currentMovement.y += Physics.gravity.y * settings.gravityMultiplier * Time.deltaTime;
         }
     }
 
@@ -76,14 +64,14 @@ public class FirstPersonController : MonoBehaviour
 
     private void ApplyVerticalRotation(float rotationAmount)
     {
-        verticalRotation = Mathf.Clamp(verticalRotation - rotationAmount, -verticalLookRange, verticalLookRange);
+        verticalRotation = Mathf.Clamp(verticalRotation - rotationAmount, -settings.verticalLookRange, settings.verticalLookRange);
         mainCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
 
     private void HandleRotation()
     {
-        float mouseXRotation = playerInputHandler.RotationInput.x * mouseSensitivity;
-        float mouseYRotation = playerInputHandler.RotationInput.y * mouseSensitivity;
+        float mouseXRotation = playerInputHandler.RotationInput.x * settings.mouseSensitivity;
+        float mouseYRotation = playerInputHandler.RotationInput.y * settings.mouseSensitivity;
 
         ApplyHorizontalRotation(mouseXRotation);
         ApplyVerticalRotation(mouseYRotation);

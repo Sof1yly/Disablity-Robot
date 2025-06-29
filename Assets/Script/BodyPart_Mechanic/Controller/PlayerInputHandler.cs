@@ -18,7 +18,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction movementAction;
     private InputAction rotationAction;
     private InputAction jumpAction;
-    private InputAction SprintAction;
+    private InputAction sprintAction;
 
     public Vector2 MovementInput { get; private set; }
     public Vector2 RotationInput { get; private set; }
@@ -26,12 +26,12 @@ public class PlayerInputHandler : MonoBehaviour
     public bool SprintTriggered { get; private set; }
     private void Awake()
     {
-        InputActionMap mapReference = playerControls.FindActionMap("actionMapName");
+        InputActionMap mapReference = playerControls.FindActionMap(actionMapName);
        
         movementAction = mapReference.FindAction(movement);
         rotationAction = mapReference.FindAction(rotation);
         jumpAction = mapReference.FindAction(jump);
-        SprintAction = mapReference.FindAction(sprint);
+        sprintAction = mapReference.FindAction(sprint);
 
         ActionValuesToInputEvents();
     }
@@ -47,8 +47,8 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.performed += inputInfo => JumpTriggered = true;
         jumpAction.canceled += inputInfo => JumpTriggered = false;
 
-        SprintAction.performed += inputInfo => SprintTriggered = true;
-        SprintAction.canceled += inputInfo => SprintTriggered = false;
+        sprintAction.performed += inputInfo => SprintTriggered = true;
+        sprintAction.canceled += inputInfo => SprintTriggered = false;
     }
 
     private void OnEnable()
