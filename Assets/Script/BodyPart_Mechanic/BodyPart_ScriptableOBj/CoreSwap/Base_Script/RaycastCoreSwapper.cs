@@ -7,18 +7,27 @@ public class RaycastCoreSwapper : MonoBehaviour
     [Header("SO settings")]
     [SerializeField] private CoreSwapSO configSO;
 
+    [SerializeField] private Camera mainCamera;
+
     private Transform currentCore;                          
     private bool isSwapping = false;                        
 
     private void Awake()
     {
         currentCore = transform;
-        currentCore.tag = "Core";                           
+        currentCore.tag = "Core";
+
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
     }
      
     private void Update()
     {
-        Debug.DrawLine(currentCore.position, currentCore.position + currentCore.forward * configSO.maxDistance, Color.green);
+       Vector3 camPos = mainCamera.transform.position;
+       Vector3 camDir = mainCamera.transform.forward;
+       Debug.DrawLine(camPos, camPos + camDir * configSO.maxDistance, Color.blue);
         if (!isSwapping && Input.GetKeyDown(configSO.swapKey))
         {
             StartCoroutine(SwapWithDelay());
@@ -32,8 +41,8 @@ public class RaycastCoreSwapper : MonoBehaviour
         Debug.Log(" waiting ");
         yield return new WaitForSeconds(configSO.clickDelay);
 
-        Vector3 origin = currentCore.position + Vector3.down * 0.22f;
-        Vector3 direction = currentCore.forward;
+        Vector3 origin = mainCamera.transform.position;
+        Vector3 direction = mainCamera.transform.forward;
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, configSO.maxDistance, configSO.coreLayerMask))
         {
