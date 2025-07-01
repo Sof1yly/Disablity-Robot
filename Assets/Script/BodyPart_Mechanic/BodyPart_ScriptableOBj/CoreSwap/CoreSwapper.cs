@@ -21,6 +21,7 @@ public class CoreSwapper : MonoBehaviour
 
     private void Update()
     {
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * configSO.maxDistance, Color.blue);
         // Trigger swap if the correct key is pressed
         if (!isSwapping && Input.GetKeyDown(configSO.swapKey))
         {
@@ -62,10 +63,6 @@ public class CoreSwapper : MonoBehaviour
         else if (hit.collider.CompareTag("Mirror"))
         {
             raycastHandler.HandleReflection(hit, configSO.maxDistance, configSO.coreLayerMask, DoSwap);
-        }
-        else
-        {
-            Debug.Log("[Hit] Hit is neither Core nor Mirror.");
         }
     }
 
