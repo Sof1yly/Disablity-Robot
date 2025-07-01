@@ -8,7 +8,7 @@ public class CoreSwapSO : ScriptableObject
     public LayerMask coreLayerMask; //coreLayer
 
     [Header("Prefab Setting")]
-    public GameObject corePrefab; //body_core
+    public GameObject corePrefab; //body_core the thing you wanna spawn
 
     [Header("Input Settings")]
     public KeyCode swapKey = KeyCode.T;
