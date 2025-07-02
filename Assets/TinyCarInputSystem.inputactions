@@ -1,0 +1,74 @@
+{
+    "name": "TinyCarInputSystem",
+    "maps": [
+        {
+            "name": "TinyCarInputSystem",
+            "id": "a2c501c7-d45f-4ec4-8323-ae2f2f233db5",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "a032fcc1-387f-4d40-97f8-7a9d8b49f7c7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Steer",
+                    "type": "Button",
+                    "id": "77580da9-b17c-4570-897e-e7b43118a12d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Boost",
+                    "type": "Button",
+                    "id": "7757cfbd-8830-4375-b4c2-45e22e935b52",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fa1b6407-438d-4bae-9235-1afda002338d",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "043c1cd8-f4f2-401c-bc33-7f101b1db4f1",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db6534c3-601e-4bcf-8ce2-a31124e1f971",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
