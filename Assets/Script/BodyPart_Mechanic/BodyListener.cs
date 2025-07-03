@@ -11,7 +11,7 @@ public class BodyListener : MonoBehaviour
     Action onActive;
     Action onInActive;
     bool currentState;
-    bool isResolved = false;
+    //bool isResolved = false;
     private void Awake()
     {
         FindAnyObjectByType<MainBodyController>().OnBodyChanged += updateBodyState;
