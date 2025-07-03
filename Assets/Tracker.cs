@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public enum TrackerType
-{
-    WinTrack, EarlyTrack, MiddleTrack, LastTrack
-}
 
 public class Tracker : MonoBehaviour
 {
-    [SerializeField] TrackerType trackerType;
-    public TrackerType GetTrackerType => trackerType;
+    [SerializeField] int trackerType;
+    public int GetTrackerType => trackerType;
+    [SerializeField] bool isLastTrack;
+    public bool IsLastTrack => isLastTrack;
+    [SerializeField] bool IsWinFlag;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<TrackUpdate>(out TrackUpdate trackerUpdate))
@@ -20,31 +20,25 @@ public class Tracker : MonoBehaviour
 
     void updateTracker(TrackUpdate trackerUpdate)
     {
-        if (trackerType == TrackerType.EarlyTrack)
+        if (trackerType == 1 && IsWinFlag == false)
         {
             trackerUpdate.SetTracker(this);
             return;
         }
 
-        if (trackerUpdate.currentTracker == null) return;
 
-        if (trackerType == TrackerType.MiddleTrack && trackerUpdate.currentTracker.trackerType == TrackerType.EarlyTrack)
+        if (IsWinFlag && trackerUpdate.currentTracker.IsLastTrack)
         {
             trackerUpdate.SetTracker(this);
-            return;
-        }
-
-        if (trackerType == TrackerType.LastTrack && trackerUpdate.currentTracker.trackerType == TrackerType.MiddleTrack)
-        {
-            trackerUpdate.SetTracker(this);
-            return;
-        }
-
-        if (trackerType == TrackerType.WinTrack && trackerUpdate.currentTracker.trackerType == TrackerType.LastTrack)
-        {
             trackerUpdate.OnFinishOneRound();
-            trackerUpdate.SetTracker(null);
             return;
         }
+
+
+        if (trackerUpdate.currentTracker.GetTrackerType + 1 == trackerType)
+        {
+            trackerUpdate.SetTracker(this);
+        }
+
     }
 }
