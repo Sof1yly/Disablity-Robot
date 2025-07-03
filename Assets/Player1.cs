@@ -61,7 +61,18 @@ namespace CarInput
                 {
                     ""name"": """",
                     ""id"": ""dd375446-8d70-4663-99f2-c5c3f7533339"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""Boost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8781165a-b1b2-4926-9497-2c9a9e3f3d76"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard"",
