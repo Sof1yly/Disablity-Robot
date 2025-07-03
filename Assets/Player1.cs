@@ -26,7 +26,7 @@ namespace CarInput
     ""name"": ""Player1"",
     ""maps"": [
         {
-            ""name"": ""PlayerMove"",
+            ""name"": ""TinyCarInputSystem"",
             ""id"": ""a2c501c7-d45f-4ec4-8323-ae2f2f233db5"",
             ""actions"": [
                 {
@@ -229,16 +229,16 @@ namespace CarInput
         }
     ]
 }");
-            // PlayerMove
-            m_PlayerMove = asset.FindActionMap("PlayerMove", throwIfNotFound: true);
-            m_PlayerMove_Move = m_PlayerMove.FindAction("Move", throwIfNotFound: true);
-            m_PlayerMove_Boost = m_PlayerMove.FindAction("Boost", throwIfNotFound: true);
-            m_PlayerMove_Move2 = m_PlayerMove.FindAction("Move2", throwIfNotFound: true);
+            // TinyCarInputSystem
+            m_TinyCarInputSystem = asset.FindActionMap("TinyCarInputSystem", throwIfNotFound: true);
+            m_TinyCarInputSystem_Move = m_TinyCarInputSystem.FindAction("Move", throwIfNotFound: true);
+            m_TinyCarInputSystem_Boost = m_TinyCarInputSystem.FindAction("Boost", throwIfNotFound: true);
+            m_TinyCarInputSystem_Move2 = m_TinyCarInputSystem.FindAction("Move2", throwIfNotFound: true);
         }
 
         ~@Player1()
         {
-            UnityEngine.Debug.Assert(!m_PlayerMove.enabled, "This will cause a leak and performance issues, Player1.PlayerMove.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_TinyCarInputSystem.enabled, "This will cause a leak and performance issues, Player1.TinyCarInputSystem.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -297,28 +297,28 @@ namespace CarInput
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // PlayerMove
-        private readonly InputActionMap m_PlayerMove;
-        private List<IPlayerMoveActions> m_PlayerMoveActionsCallbackInterfaces = new List<IPlayerMoveActions>();
-        private readonly InputAction m_PlayerMove_Move;
-        private readonly InputAction m_PlayerMove_Boost;
-        private readonly InputAction m_PlayerMove_Move2;
-        public struct PlayerMoveActions
+        // TinyCarInputSystem
+        private readonly InputActionMap m_TinyCarInputSystem;
+        private List<ITinyCarInputSystemActions> m_TinyCarInputSystemActionsCallbackInterfaces = new List<ITinyCarInputSystemActions>();
+        private readonly InputAction m_TinyCarInputSystem_Move;
+        private readonly InputAction m_TinyCarInputSystem_Boost;
+        private readonly InputAction m_TinyCarInputSystem_Move2;
+        public struct TinyCarInputSystemActions
         {
             private @Player1 m_Wrapper;
-            public PlayerMoveActions(@Player1 wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Move => m_Wrapper.m_PlayerMove_Move;
-            public InputAction @Boost => m_Wrapper.m_PlayerMove_Boost;
-            public InputAction @Move2 => m_Wrapper.m_PlayerMove_Move2;
-            public InputActionMap Get() { return m_Wrapper.m_PlayerMove; }
+            public TinyCarInputSystemActions(@Player1 wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Move => m_Wrapper.m_TinyCarInputSystem_Move;
+            public InputAction @Boost => m_Wrapper.m_TinyCarInputSystem_Boost;
+            public InputAction @Move2 => m_Wrapper.m_TinyCarInputSystem_Move2;
+            public InputActionMap Get() { return m_Wrapper.m_TinyCarInputSystem; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(PlayerMoveActions set) { return set.Get(); }
-            public void AddCallbacks(IPlayerMoveActions instance)
+            public static implicit operator InputActionMap(TinyCarInputSystemActions set) { return set.Get(); }
+            public void AddCallbacks(ITinyCarInputSystemActions instance)
             {
-                if (instance == null || m_Wrapper.m_PlayerMoveActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_PlayerMoveActionsCallbackInterfaces.Add(instance);
+                if (instance == null || m_Wrapper.m_TinyCarInputSystemActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_TinyCarInputSystemActionsCallbackInterfaces.Add(instance);
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
@@ -330,7 +330,7 @@ namespace CarInput
                 @Move2.canceled += instance.OnMove2;
             }
 
-            private void UnregisterCallbacks(IPlayerMoveActions instance)
+            private void UnregisterCallbacks(ITinyCarInputSystemActions instance)
             {
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
@@ -343,21 +343,21 @@ namespace CarInput
                 @Move2.canceled -= instance.OnMove2;
             }
 
-            public void RemoveCallbacks(IPlayerMoveActions instance)
+            public void RemoveCallbacks(ITinyCarInputSystemActions instance)
             {
-                if (m_Wrapper.m_PlayerMoveActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_TinyCarInputSystemActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
-            public void SetCallbacks(IPlayerMoveActions instance)
+            public void SetCallbacks(ITinyCarInputSystemActions instance)
             {
-                foreach (var item in m_Wrapper.m_PlayerMoveActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_TinyCarInputSystemActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_PlayerMoveActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_TinyCarInputSystemActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
-        public PlayerMoveActions @PlayerMove => new PlayerMoveActions(this);
+        public TinyCarInputSystemActions @TinyCarInputSystem => new TinyCarInputSystemActions(this);
         private int m_KeyboardSchemeIndex = -1;
         public InputControlScheme KeyboardScheme
         {
@@ -376,7 +376,7 @@ namespace CarInput
                 return asset.controlSchemes[m_GamepadSchemeIndex];
             }
         }
-        public interface IPlayerMoveActions
+        public interface ITinyCarInputSystemActions
         {
             void OnMove(InputAction.CallbackContext context);
             void OnBoost(InputAction.CallbackContext context);
