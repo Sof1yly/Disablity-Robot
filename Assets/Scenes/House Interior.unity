@@ -6001,6 +6001,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112864001}
   m_Mesh: {fileID: -8634060567236447461, guid: 4e630d52eb0a7c94d81a76c596960e1a, type: 3}
+--- !u!134 &113177259
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DynamicMaterial
+  serializedVersion: 2
+  m_DynamicFriction: 0
+  m_StaticFriction: 0
+  m_Bounciness: 0
+  m_FrictionCombine: 2
+  m_BounceCombine: 2
 --- !u!1 &114230512
 GameObject:
   m_ObjectHideFlags: 0
@@ -54360,7 +54373,7 @@ MonoBehaviour:
   m_NotificationBehavior: 3
   m_MaxPlayerCount: -1
   m_AllowJoining: 0
-  m_JoinBehavior: 2
+  m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -69769,19 +69782,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170924628}
   m_Mesh: {fileID: -5097680320962588185, guid: 4e630d52eb0a7c94d81a76c596960e1a, type: 3}
---- !u!134 &1171431036
-PhysicsMaterial:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DynamicMaterial
-  serializedVersion: 2
-  m_DynamicFriction: 0
-  m_StaticFriction: 0
-  m_Bounciness: 0
-  m_FrictionCombine: 2
-  m_BounceCombine: 2
 --- !u!1 &1173012829
 GameObject:
   m_ObjectHideFlags: 0
@@ -90792,19 +90792,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528589020}
   m_Mesh: {fileID: -3802287317836583566, guid: 4e630d52eb0a7c94d81a76c596960e1a, type: 3}
---- !u!134 &1530479173
-PhysicsMaterial:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DynamicMaterial
-  serializedVersion: 2
-  m_DynamicFriction: 0
-  m_StaticFriction: 0
-  m_Bounciness: 0
-  m_FrictionCombine: 2
-  m_BounceCombine: 2
 --- !u!1 &1533052996
 GameObject:
   m_ObjectHideFlags: 0
@@ -93437,7 +93424,7 @@ PrefabInstance:
     - target: {fileID: 8741384243946893529, guid: b629f639f12cdf7489628504a018ac2b, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 1171431036}
+      objectReference: {fileID: 1878290321}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6715386587110097115, guid: b629f639f12cdf7489628504a018ac2b, type: 3}
@@ -110723,6 +110710,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876104686}
   m_Mesh: {fileID: 3320184997738873532, guid: 1637adc8e6a18a741918d842c605f9ae, type: 3}
+--- !u!134 &1878290321
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DynamicMaterial
+  serializedVersion: 2
+  m_DynamicFriction: 0
+  m_StaticFriction: 0
+  m_Bounciness: 0
+  m_FrictionCombine: 2
+  m_BounceCombine: 2
 --- !u!1 &1879578689
 GameObject:
   m_ObjectHideFlags: 0
@@ -115289,7 +115289,7 @@ PrefabInstance:
     - target: {fileID: 866496540159899722, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 1530479173}
+      objectReference: {fileID: 113177259}
     - target: {fileID: 4170303997572857124, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
       propertyPath: m_Name
       value: Player1
