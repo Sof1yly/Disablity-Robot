@@ -14,8 +14,10 @@ namespace DavidJalbert
         public float boostDuration = 1;
         public float boostCoolOff = 0;
         public float boostMultiplier = 2;
-
         private float boostTimer = 0;
+
+        [SerializeField] string MoveScheme = "Move";
+
 
         void Awake()
         {
@@ -26,7 +28,7 @@ namespace DavidJalbert
         void OnEnable()
         {
             // Bind actions
-            moveAction = playerInput.actions["Move"];   // "Move" action (WASD or Gamepad Left Stick)
+            moveAction = playerInput.actions[MoveScheme];   // "Move" action (WASD or Gamepad Left Stick)
             boostAction = playerInput.actions["Boost"]; // "Boost" action
         }
 
@@ -52,9 +54,12 @@ namespace DavidJalbert
                 carController.setBoostMultiplier(boostTimer > boostCoolOff ? boostMultiplier : 1);
             }
 
-            // Apply motor and steering input to the car controller
+            Debug.Log($"{this.transform.gameObject.name} : Input State {moveInput.x} {moveInput.y}");
+
             carController.setSteering(steeringDelta);  // Steering (left/right)
             carController.setMotor(motorDelta);       // Motor movement (forward/backward)
         }
+
+
     }
 }

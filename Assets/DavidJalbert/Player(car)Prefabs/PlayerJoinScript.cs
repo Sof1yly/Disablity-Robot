@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-
 public class PlayerJoinScript : MonoBehaviour
 {
     public Transform SpawnPoint1, SpawnPoint2;
@@ -7,7 +7,17 @@ public class PlayerJoinScript : MonoBehaviour
 
     private void Awake()
     {
+
+        StartCoroutine(SpawnDelay());
+    }
+
+
+    IEnumerator SpawnDelay()
+    {
         Instantiate(Player1, SpawnPoint1.position, SpawnPoint1.rotation);
-        Instantiate(Player2, SpawnPoint2.position, SpawnPoint2.rotation);
+
+        yield return new WaitForSeconds(3);
+        Instantiate(Player2, SpawnPoint2.position, SpawnPoint1.rotation);
+
     }
 }
