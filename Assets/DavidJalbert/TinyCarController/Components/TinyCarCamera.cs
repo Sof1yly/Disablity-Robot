@@ -33,10 +33,11 @@ namespace DavidJalbert
         public float thirdPersonSkinWidth = 0.1f;
         [Tooltip("Smoothing of the camera's rotation. The lower the value, the smoother the rotation. Set to 0 to disable smoothing.")]
         public float thirdPersonInterpolation = 10;
+        [Tooltip("Smoothing of the camera's position. The lower the value, the smoother the transition.")]
+        public float thirdPersonPositionInterpolation = 10;
 
         private void Start()
         {
-            
         }
 
         void FixedUpdate()
@@ -52,17 +53,20 @@ namespace DavidJalbert
             switch (viewMode)
             {
                 case CAMERA_MODE.ThirdPerson:
+                    // Calculate rotation based on the vehicle's rotation
                     Vector3 rotationEuler = thirdPersonAngle + Vector3.up * followRotation.eulerAngles.y;
 
-                    targetPosition = followPosition;
+                    // Smoothly interpolate the camera's rotation
                     targetRotation = Quaternion.Lerp(targetRotation, Quaternion.Euler(rotationEuler), Mathf.Clamp01(thirdPersonInterpolation <= 0 ? 1 : thirdPersonInterpolation * deltaTime));
 
+                    // Calculate the direction for the camera's position
                     Vector3 forwardDirection = targetRotation * Vector3.forward;
                     Vector3 rightDirection = targetRotation * Vector3.right;
                     Vector3 directionVector = forwardDirection * thirdPersonOffset.z + Vector3.up * thirdPersonOffset.y + rightDirection * thirdPersonOffset.x;
                     Vector3 directionVectorNormal = directionVector.normalized;
                     float directionMagnitude = directionVector.magnitude;
 
+                    // Check if there is an obstacle between the camera and the target
                     Vector3 cameraWorldDirection = directionVectorNormal;
                     Vector3 startCast = followPosition;
                     RaycastHit hit;
@@ -74,15 +78,20 @@ namespace DavidJalbert
                     {
                         targetPosition = directionVector + followPosition;
                     }
+
+                    // Smoothly interpolate the camera's position
+                    targetPosition = Vector3.Lerp(transform.position, targetPosition, Mathf.Clamp01(thirdPersonPositionInterpolation <= 0 ? 1 : thirdPersonPositionInterpolation * deltaTime));
+
                     break;
 
                 case CAMERA_MODE.TopDown:
                     targetRotation = Quaternion.Euler(topDownAngle);
-                    //transform.position = followPosition + transform.rotation * Vector3.back * topDownDistance;
+                    // Interpolate the camera's position in the TopDown view
                     targetPosition = Vector3.Lerp(targetPosition, followPosition + targetRotation * Vector3.back * topDownDistance, Mathf.Clamp01(topDownInterpolation <= 0 ? 1 : topDownInterpolation * deltaTime));
                     break;
             }
 
+            // Update the camera's position and rotation
             transform.position = targetPosition;
             transform.rotation = targetRotation;
         }
