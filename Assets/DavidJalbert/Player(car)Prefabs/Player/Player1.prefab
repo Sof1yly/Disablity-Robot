@@ -1,5 +1,104 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2858556124812064647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3839352923193647181}
+  - component: {fileID: 2885854292209584953}
+  - component: {fileID: 3311498350812021007}
+  m_Layer: 0
+  m_Name: KeyboardInput
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3839352923193647181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2858556124812064647}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 46.19998, y: 140.82, z: -17.93267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7042329777660510487}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2885854292209584953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2858556124812064647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b723174d2a69b2442bc7d88277ddc048, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a032fcc1-387f-4d40-97f8-7a9d8b49f7c7
+    m_ActionName: 'TinyCarInputSystem/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7757cfbd-8830-4375-b4c2-45e22e935b52
+    m_ActionName: 'TinyCarInputSystem/Boost[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 921cbd2b-edbd-4576-a151-fec2a63547c2
+    m_ActionName: 'PlayerMove2/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 03608812-4a54-425f-8ec3-e49ad65a081e
+    m_ActionName: 'PlayerMove2/Boost[/Keyboard/q]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: TinyCarInputSystem
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 7389753745575174365}
+--- !u!114 &3311498350812021007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2858556124812064647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0788664444e2b1f4c978e694830e3efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carController: {fileID: 2624296201377230852}
+  boostDuration: 0
+  boostCoolOff: 0
+  boostMultiplier: 3
+  triggerHoldDuration: 0.2
+  triggerFullyPressed: 1
+  MoveScheme: Move
+  Restarter: {fileID: 3913283670152832662}
 --- !u!1001 &7531079213799295504
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10,15 +109,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 76.39404
+      value: 20.24
       objectReference: {fileID: 0}
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 166.7
+      value: -1.32
       objectReference: {fileID: 0}
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -23.041262
+      value: -7.51
       objectReference: {fileID: 0}
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalRotation.w
@@ -76,9 +175,77 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8067508610828888025, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_VolumeLayerMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1933391159545835042, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+    - {fileID: 7397018483904402053, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4682569907109904984, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    - {fileID: 5469202612200862059, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3839352923193647181}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6901194487115291267, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3913283670152832662}
   m_SourcePrefab: {fileID: 100100000, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+--- !u!114 &2624296201377230852 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+  m_PrefabInstance: {fileID: 7531079213799295504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3982927505235497107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13eb19281dc5d514782f46c6e58033b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3982927505235497107 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6901194487115291267, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+  m_PrefabInstance: {fileID: 7531079213799295504}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3913283670152832662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3982927505235497107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67dc5cf9323fae4498565b7d4a13b481, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startTrack: {fileID: 0}
+  OnRankingUpdate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UpdateRank, Assembly-CSharp
+        m_MethodName: UpdateRankText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  RestartCD: 1
+--- !u!4 &7042329777660510487 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+  m_PrefabInstance: {fileID: 7531079213799295504}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &7389753745575174365 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1012862714622192333, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+  m_PrefabInstance: {fileID: 7531079213799295504}
+  m_PrefabAsset: {fileID: 0}
