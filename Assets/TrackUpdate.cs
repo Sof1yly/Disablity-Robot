@@ -8,8 +8,9 @@ public class TrackUpdate : MonoBehaviour
     int currentRoundPlay = 0;
     public int CurrentRoundPlay => currentRoundPlay;
     int MaxRound;
-    IsGameEnd gameEndController;
+    int finalRank = 5; public int FinalRank => finalRank;
 
+    IsGameEnd gameEndController;
     [SerializeField] UnityEvent<int> OnRankingUpdate;
 
     private void Start()
@@ -29,12 +30,18 @@ public class TrackUpdate : MonoBehaviour
         currentRoundPlay++;
         if (currentRoundPlay >= MaxRound)
         {
-            gameEndController.OnPlayerFinishAllRound(this.gameObject);
+            gameEndController.OnPlayerFinishAllRound(this);
         }
+    }
+
+    public void UpdateFinalRanking(int FinalRank)
+    {
+        finalRank = FinalRank;
     }
 
     public void UpdateRanking(int Rank)
     {
+
         OnRankingUpdate?.Invoke(Rank);
     }
 }

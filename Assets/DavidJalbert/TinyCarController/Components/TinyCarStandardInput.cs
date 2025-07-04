@@ -54,7 +54,6 @@ namespace DavidJalbert
                 carController.setBoostMultiplier(boostTimer > boostCoolOff ? boostMultiplier : 1);
             }
 
-            Debug.Log($"{this.transform.gameObject.name} : Input State {moveInput.x} {moveInput.y}");
 
             carController.setSteering(steeringDelta);  // Steering (left/right)
             carController.setMotor(motorDelta);       // Motor movement (forward/backward)

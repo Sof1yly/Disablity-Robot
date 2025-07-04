@@ -4,16 +4,20 @@ using UnityEngine.Events;
 
 public class IsGameEnd : MonoBehaviour
 {
-    List<GameObject> finishedList = new List<GameObject>();
+    List<TrackUpdate> finishedList = new List<TrackUpdate>();
     [SerializeField] int roundToFinish = 0;
     public int RoundToFinish => roundToFinish;
     [SerializeField] int debugMaxPlayer = 1;
 
     [SerializeField] UnityEvent OnGameFinish;
 
-    public void OnPlayerFinishAllRound(GameObject Player)
+    public void OnPlayerFinishAllRound(TrackUpdate Player)
     {
+        if (finishedList.Contains(Player)) return;
         finishedList.Add(Player);
+        int ranking = finishedList.IndexOf(Player);
+        Player.UpdateFinalRanking(ranking + 1);
+        isGameEnd();
         Debug.Log("Yippe! , Player Finish da Game NOWWWWWW");
     }
 
