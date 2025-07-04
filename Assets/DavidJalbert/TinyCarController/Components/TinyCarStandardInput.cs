@@ -8,14 +8,18 @@ namespace DavidJalbert
         public TinyCarController carController;
 
         private PlayerInput playerInput;    // Reference to PlayerInput
-        private InputAction moveAction;     // Action for movement (Vector2)
+        private InputAction moveAction;     // Action for movement (Steering)
         private InputAction boostAction;    // Action for boosting
+        private InputAction accelerateAction; // Action for acceleration (Right Trigger)
 
         public float boostDuration = 1;
-        public float boostCoolOff = 0;
+        public float boostCoolOff = 2;  // Time to wait before the next boost is available
         public float boostMultiplier = 2;
+        public float triggerHoldDuration = 1; // Time in seconds to hold the trigger at max for boost
+        public float triggerFullyPressed = 1f; // Trigger value when fully pressed (max = 1)
         private float boostTimer = 0;
         private bool isBoosting = false;
+        private float triggerHoldTime = 0; // Time the trigger has been held at max
 
         [SerializeField] string MoveScheme = "Move";
 
@@ -28,8 +32,9 @@ namespace DavidJalbert
         void OnEnable()
         {
             // Bind actions
-            moveAction = playerInput.actions[MoveScheme];   // "Move" action (WASD or Gamepad Left Stick)
-            boostAction = playerInput.actions["Boost"]; // "Boost" action
+            moveAction = playerInput.actions[MoveScheme];  // "Move" action (WASD or Gamepad Left Stick)
+            boostAction = playerInput.actions["Boost"];    // "Boost" action (East Button)
+            accelerateAction = playerInput.actions["Accelerate"]; // "Accelerate" (Right Trigger)
         }
 
         void Update()
@@ -37,28 +42,27 @@ namespace DavidJalbert
             // Get the movement input as Vector2 (X = left/right, Y = forward/backward)
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
 
-            // Forward/Backward movement is based on the Y-axis (W/S or Gamepad vertical axis)
-            float motorDelta = moveInput.y;  // Forward/Backward movement (W/S or Gamepad)
-
-            // Steering (Left/Right) is based on the X-axis (A/D or Gamepad horizontal axis)
+            // Steering (Left/Right) is based on the X-axis (Gamepad horizontal axis)
             float steeringDelta = moveInput.x;  // Steering (A/D or Gamepad horizontal axis)
 
-            // Handle boosting
-            float boostInput = boostAction.ReadValue<float>();
+            // Get the right trigger value (used for acceleration)
+            float motorDelta = accelerateAction.ReadValue<float>(); // Right trigger for acceleration
 
-            if (boostInput > 0.5f)  // Boosting when button is held down (threshold for trigger)
+            // Track trigger value and time held at max
+            if (motorDelta >= triggerFullyPressed)  // If right trigger is fully pressed
             {
-                if (boostTimer == 0)
-                {
-                    // Start boosting
-                    isBoosting = true;
-                    boostTimer = boostDuration;
-                }
+                triggerHoldTime += Time.deltaTime;
             }
             else
             {
-                // Stop boosting when button is released
-                isBoosting = false;
+                triggerHoldTime = 0; // Reset the timer if the trigger is not at max
+            }
+
+            // Check if the trigger has been held for the required duration to activate the boost
+            if (triggerHoldTime >= triggerHoldDuration && !isBoosting && boostTimer <= 0)
+            {
+                isBoosting = true;  // Activate boost
+                boostTimer = boostDuration; // Start boost timer
             }
 
             // Handle timer and apply boost multiplier if boosting
@@ -79,10 +83,10 @@ namespace DavidJalbert
                 }
             }
 
-            Debug.Log($"{this.transform.gameObject.name} : Input State {moveInput.x} {moveInput.y} Boost: {boostInput}");
+            Debug.Log($"{this.transform.gameObject.name} : Input State {moveInput.x} {motorDelta} Boost: {isBoosting} Trigger Hold Time: {triggerHoldTime}");
 
             carController.setSteering(steeringDelta);  // Steering (left/right)
-            carController.setMotor(motorDelta);       // Motor movement (forward/backward)
+            carController.setMotor(motorDelta);       // Motor movement (accelerate/decelerate)
         }
     }
 }

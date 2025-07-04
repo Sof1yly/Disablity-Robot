@@ -55,6 +55,15 @@ namespace CarInput
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Accelerate"",
+                    ""type"": ""Button"",
+                    ""id"": ""601d040c-20f7-43df-ba0d-2ca8c819a060"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -72,10 +81,10 @@ namespace CarInput
                 {
                     ""name"": """",
                     ""id"": ""8781165a-b1b2-4926-9497-2c9a9e3f3d76"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Keyboard"",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""Boost"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -211,6 +220,17 @@ namespace CarInput
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2440812a-e2c1-4a61-8560-140405f4a601"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -245,6 +265,7 @@ namespace CarInput
             m_TinyCarInputSystem_Move = m_TinyCarInputSystem.FindAction("Move", throwIfNotFound: true);
             m_TinyCarInputSystem_Boost = m_TinyCarInputSystem.FindAction("Boost", throwIfNotFound: true);
             m_TinyCarInputSystem_Move2 = m_TinyCarInputSystem.FindAction("Move2", throwIfNotFound: true);
+            m_TinyCarInputSystem_Accelerate = m_TinyCarInputSystem.FindAction("Accelerate", throwIfNotFound: true);
         }
 
         ~@Player1()
@@ -314,6 +335,7 @@ namespace CarInput
         private readonly InputAction m_TinyCarInputSystem_Move;
         private readonly InputAction m_TinyCarInputSystem_Boost;
         private readonly InputAction m_TinyCarInputSystem_Move2;
+        private readonly InputAction m_TinyCarInputSystem_Accelerate;
         public struct TinyCarInputSystemActions
         {
             private @Player1 m_Wrapper;
@@ -321,6 +343,7 @@ namespace CarInput
             public InputAction @Move => m_Wrapper.m_TinyCarInputSystem_Move;
             public InputAction @Boost => m_Wrapper.m_TinyCarInputSystem_Boost;
             public InputAction @Move2 => m_Wrapper.m_TinyCarInputSystem_Move2;
+            public InputAction @Accelerate => m_Wrapper.m_TinyCarInputSystem_Accelerate;
             public InputActionMap Get() { return m_Wrapper.m_TinyCarInputSystem; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -339,6 +362,9 @@ namespace CarInput
                 @Move2.started += instance.OnMove2;
                 @Move2.performed += instance.OnMove2;
                 @Move2.canceled += instance.OnMove2;
+                @Accelerate.started += instance.OnAccelerate;
+                @Accelerate.performed += instance.OnAccelerate;
+                @Accelerate.canceled += instance.OnAccelerate;
             }
 
             private void UnregisterCallbacks(ITinyCarInputSystemActions instance)
@@ -352,6 +378,9 @@ namespace CarInput
                 @Move2.started -= instance.OnMove2;
                 @Move2.performed -= instance.OnMove2;
                 @Move2.canceled -= instance.OnMove2;
+                @Accelerate.started -= instance.OnAccelerate;
+                @Accelerate.performed -= instance.OnAccelerate;
+                @Accelerate.canceled -= instance.OnAccelerate;
             }
 
             public void RemoveCallbacks(ITinyCarInputSystemActions instance)
@@ -392,6 +421,7 @@ namespace CarInput
             void OnMove(InputAction.CallbackContext context);
             void OnBoost(InputAction.CallbackContext context);
             void OnMove2(InputAction.CallbackContext context);
+            void OnAccelerate(InputAction.CallbackContext context);
         }
     }
 }
