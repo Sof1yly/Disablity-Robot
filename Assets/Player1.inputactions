@@ -31,16 +31,36 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Accelerate",
+                    "type": "Button",
+                    "id": "601d040c-20f7-43df-ba0d-2ca8c819a060",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "dd375446-8d70-4663-99f2-c5c3f7533339",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard",
+                    "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8781165a-b1b2-4926-9497-2c9a9e3f3d76",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "Boost",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -176,6 +196,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "2440812a-e2c1-4a61-8560-140405f4a601",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Accelerate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
