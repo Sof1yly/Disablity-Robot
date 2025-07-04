@@ -64,6 +64,15 @@ namespace CarInput
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""67f15379-4c39-493f-b7ac-22417d0b0926"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -231,6 +240,17 @@ namespace CarInput
                     ""action"": ""Accelerate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e91c0c28-d0f0-4406-8d87-34dd4a8184d1"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -266,6 +286,7 @@ namespace CarInput
             m_TinyCarInputSystem_Boost = m_TinyCarInputSystem.FindAction("Boost", throwIfNotFound: true);
             m_TinyCarInputSystem_Move2 = m_TinyCarInputSystem.FindAction("Move2", throwIfNotFound: true);
             m_TinyCarInputSystem_Accelerate = m_TinyCarInputSystem.FindAction("Accelerate", throwIfNotFound: true);
+            m_TinyCarInputSystem_Restart = m_TinyCarInputSystem.FindAction("Restart", throwIfNotFound: true);
         }
 
         ~@Player1()
@@ -336,6 +357,7 @@ namespace CarInput
         private readonly InputAction m_TinyCarInputSystem_Boost;
         private readonly InputAction m_TinyCarInputSystem_Move2;
         private readonly InputAction m_TinyCarInputSystem_Accelerate;
+        private readonly InputAction m_TinyCarInputSystem_Restart;
         public struct TinyCarInputSystemActions
         {
             private @Player1 m_Wrapper;
@@ -344,6 +366,7 @@ namespace CarInput
             public InputAction @Boost => m_Wrapper.m_TinyCarInputSystem_Boost;
             public InputAction @Move2 => m_Wrapper.m_TinyCarInputSystem_Move2;
             public InputAction @Accelerate => m_Wrapper.m_TinyCarInputSystem_Accelerate;
+            public InputAction @Restart => m_Wrapper.m_TinyCarInputSystem_Restart;
             public InputActionMap Get() { return m_Wrapper.m_TinyCarInputSystem; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -365,6 +388,9 @@ namespace CarInput
                 @Accelerate.started += instance.OnAccelerate;
                 @Accelerate.performed += instance.OnAccelerate;
                 @Accelerate.canceled += instance.OnAccelerate;
+                @Restart.started += instance.OnRestart;
+                @Restart.performed += instance.OnRestart;
+                @Restart.canceled += instance.OnRestart;
             }
 
             private void UnregisterCallbacks(ITinyCarInputSystemActions instance)
@@ -381,6 +407,9 @@ namespace CarInput
                 @Accelerate.started -= instance.OnAccelerate;
                 @Accelerate.performed -= instance.OnAccelerate;
                 @Accelerate.canceled -= instance.OnAccelerate;
+                @Restart.started -= instance.OnRestart;
+                @Restart.performed -= instance.OnRestart;
+                @Restart.canceled -= instance.OnRestart;
             }
 
             public void RemoveCallbacks(ITinyCarInputSystemActions instance)
@@ -422,6 +451,7 @@ namespace CarInput
             void OnBoost(InputAction.CallbackContext context);
             void OnMove2(InputAction.CallbackContext context);
             void OnAccelerate(InputAction.CallbackContext context);
+            void OnRestart(InputAction.CallbackContext context);
         }
     }
 }

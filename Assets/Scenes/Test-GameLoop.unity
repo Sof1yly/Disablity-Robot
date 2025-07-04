@@ -584,19 +584,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!134 &359056681
-PhysicsMaterial:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DynamicMaterial
-  serializedVersion: 2
-  m_DynamicFriction: 0
-  m_StaticFriction: 0
-  m_Bounciness: 0
-  m_FrictionCombine: 2
-  m_BounceCombine: 2
 --- !u!1001 &363037314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -914,6 +901,105 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1982408384}
   m_LocalEulerAnglesHint: {x: 0, y: -7.553, z: 0}
+--- !u!1 &517112879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 517112882}
+  - component: {fileID: 517112881}
+  - component: {fileID: 517112880}
+  m_Layer: 0
+  m_Name: KeyboardInput
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &517112880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517112879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0788664444e2b1f4c978e694830e3efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carController: {fileID: 1320985478}
+  boostDuration: 0
+  boostCoolOff: 0
+  boostMultiplier: 3
+  triggerHoldDuration: 0.2
+  triggerFullyPressed: 1
+  MoveScheme: Move
+  Restarter: {fileID: 317500332}
+--- !u!114 &517112881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517112879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b723174d2a69b2442bc7d88277ddc048, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a032fcc1-387f-4d40-97f8-7a9d8b49f7c7
+    m_ActionName: 'TinyCarInputSystem/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7757cfbd-8830-4375-b4c2-45e22e935b52
+    m_ActionName: 'TinyCarInputSystem/Boost[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 921cbd2b-edbd-4576-a151-fec2a63547c2
+    m_ActionName: 'PlayerMove2/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 03608812-4a54-425f-8ec3-e49ad65a081e
+    m_ActionName: 'PlayerMove2/Boost[/Keyboard/q]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: TinyCarInputSystem
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 1320985479}
+--- !u!4 &517112882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517112879}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 66.43998, y: 139.5, z: -25.44267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &520262586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -929,7 +1015,7 @@ PrefabInstance:
     - target: {fileID: 866496540159899722, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 359056681}
+      objectReference: {fileID: 2118421739}
     - target: {fileID: 2837326177078963687, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
       propertyPath: viewMode
       value: 1
@@ -1008,6 +1094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8239069027856147506, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
+    - {fileID: 1019143626284538005, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2550522179570318203, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
     m_AddedGameObjects: []
@@ -1239,6 +1326,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   enableSetActiveObj: 1
+--- !u!134 &671793056
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DynamicMaterial
+  serializedVersion: 2
+  m_DynamicFriction: 0
+  m_StaticFriction: 0
+  m_Bounciness: 0
+  m_FrictionCombine: 2
+  m_BounceCombine: 2
 --- !u!1 &757346552
 GameObject:
   m_ObjectHideFlags: 0
@@ -2047,19 +2147,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057024706}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!134 &1159946574
-PhysicsMaterial:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: DynamicMaterial
-  serializedVersion: 2
-  m_DynamicFriction: 0
-  m_StaticFriction: 0
-  m_Bounciness: 0
-  m_FrictionCombine: 2
-  m_BounceCombine: 2
 --- !u!1 &1221669888
 GameObject:
   m_ObjectHideFlags: 0
@@ -2395,7 +2482,7 @@ PrefabInstance:
     - target: {fileID: 866496540159899722, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 1159946574}
+      objectReference: {fileID: 671793056}
     - target: {fileID: 2837326177078963687, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
       propertyPath: viewMode
       value: 1
@@ -2474,6 +2561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8239069027856147506, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
+    - {fileID: 1019143626284538005, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2550522179570318203, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
     m_AddedGameObjects: []
@@ -2482,6 +2570,121 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 317500332}
   m_SourcePrefab: {fileID: 100100000, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
+--- !u!114 &1320985478 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2624296201377230852, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
+  m_PrefabInstance: {fileID: 1320985477}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317500327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13eb19281dc5d514782f46c6e58033b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!20 &1320985479 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7389753745575174365, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
+  m_PrefabInstance: {fileID: 1320985477}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1354341512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1354341515}
+  - component: {fileID: 1354341514}
+  - component: {fileID: 1354341513}
+  m_Layer: 0
+  m_Name: KeyboardInput (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1354341513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354341512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0788664444e2b1f4c978e694830e3efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carController: {fileID: 1359487194}
+  boostDuration: 0
+  boostCoolOff: 0
+  boostMultiplier: 3
+  triggerHoldDuration: 0.2
+  triggerFullyPressed: 1
+  MoveScheme: Move
+  Restarter: {fileID: 1359487193}
+--- !u!114 &1354341514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354341512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b723174d2a69b2442bc7d88277ddc048, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a032fcc1-387f-4d40-97f8-7a9d8b49f7c7
+    m_ActionName: 'TinyCarInputSystem/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7757cfbd-8830-4375-b4c2-45e22e935b52
+    m_ActionName: 'TinyCarInputSystem/Boost[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 921cbd2b-edbd-4576-a151-fec2a63547c2
+    m_ActionName: 'PlayerMove2/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 03608812-4a54-425f-8ec3-e49ad65a081e
+    m_ActionName: 'PlayerMove2/Boost[/Keyboard/q]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: TinyCarInputSystem
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 1631104459}
+--- !u!4 &1354341515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354341512}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 66.43998, y: 139.5, z: -25.44267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1359487191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3982927505235497107, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
@@ -2515,6 +2718,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1359487194 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2624296201377230852, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
+  m_PrefabInstance: {fileID: 520262586}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359487191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13eb19281dc5d514782f46c6e58033b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1457372984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2619,6 +2833,11 @@ Transform:
   - {fileID: 894408976}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1631104459 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7389753745575174365, guid: f68e4c2d5f42f1e42b9a40033a01c96a, type: 3}
+  m_PrefabInstance: {fileID: 520262586}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1689387300
 GameObject:
   m_ObjectHideFlags: 0
@@ -3084,6 +3303,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!134 &2118421739
+PhysicsMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DynamicMaterial
+  serializedVersion: 2
+  m_DynamicFriction: 0
+  m_StaticFriction: 0
+  m_Bounciness: 0
+  m_FrictionCombine: 2
+  m_BounceCombine: 2
 --- !u!1 &2125899530
 GameObject:
   m_ObjectHideFlags: 0
@@ -3147,3 +3379,5 @@ SceneRoots:
   - {fileID: 230558280}
   - {fileID: 535717541}
   - {fileID: 1221669889}
+  - {fileID: 517112882}
+  - {fileID: 1354341515}

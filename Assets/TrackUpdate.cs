@@ -12,7 +12,8 @@ public class TrackUpdate : MonoBehaviour
 
     IsGameEnd gameEndController;
     [SerializeField] UnityEvent<int> OnRankingUpdate;
-
+    [SerializeField] float RestartCD = 1;
+    float SnapTime;
     private void Start()
     {
         SetTracker(startTrack);
@@ -20,11 +21,19 @@ public class TrackUpdate : MonoBehaviour
         MaxRound = gameEndController.RoundToFinish;
     }
 
+    public void RestartCar()
+    {
+        if (Time.time < SnapTime) return;
+
+        SnapTime = Time.time + RestartCD;
+        this.transform.position = currentTracker.transform.position;
+        this.transform.rotation = currentTracker.transform.rotation;
+    }
+
     public void SetTracker(Tracker newTracker)
     {
         currentTracker = newTracker;
     }
-
     public void OnFinishOneRound()
     {
         currentRoundPlay++;
@@ -33,7 +42,6 @@ public class TrackUpdate : MonoBehaviour
             gameEndController.OnPlayerFinishAllRound(this);
         }
     }
-
     public void UpdateFinalRanking(int FinalRank)
     {
         finalRank = FinalRank;
