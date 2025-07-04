@@ -1,98 +1,129 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private MovementSettings settings;
+    [Header("References")]
+    [SerializeField] MovementSettings baseSetting;
+    private MovementSettings currentSetting;
+    [SerializeField] private LayerMask solidMask = ~0;
 
-    private CharacterController _cc;
-    private InputSystem_Actions _inputActions;
+    [Header("Slope & Acceleration")]
+    [Range(0f, 89f)] public float maxWalkSlope = 45f;
+    public float accelTime = 0.12f;
 
-    private Vector3 _input;
-    private float _currentSpeed;
+    private Rigidbody rb;
+    private CapsuleCollider col;
+    private InputSystem_Actions input;
 
-    private bool _isJumping;
-    private float _verticalVelocity;
-    private bool _jumpInput;
+    private Vector3 rawInputDir;
+    private Vector3 horizVel;
+    private Vector3 smoothRef;
 
-    private void Awake()
+    private bool jumpQueued;
+
+
+    void Awake()
     {
-        _cc = GetComponent<CharacterController>();
-        _inputActions = new InputSystem_Actions();
+        currentSetting = baseSetting;
+
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = true;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+        col = GetComponent<CapsuleCollider>();
+        input = new InputSystem_Actions();
     }
 
-    private void OnEnable()
+    void OnEnable() { input.Player.Enable(); }
+    void OnDisable() { input.Player.Disable(); }
+
+    void Update()
     {
-        _inputActions.Player.Enable();
-    }
+        Vector2 raw = input.Player.Move.ReadValue<Vector2>();
+        rawInputDir = new Vector3(raw.x, 0f, raw.y).normalized;
 
-    private void OnDisable()
-    {
-        _inputActions.Player.Disable();
-    }
-
-    private void Update()
-    {
-        GatherInput();
-        HandleLook();
-        HandleSpeed();
-        HandleMove();
-    }
-
-    private void GatherInput()
-    {
-        Vector2 mv = _inputActions.Player.Move.ReadValue<Vector2>();
-        _input = new Vector3(mv.x, 0f, mv.y);
-
-        _jumpInput = _inputActions.Player.Jump.triggered;
-    }
-
-    private void HandleLook()
-    {
-        if (_input.sqrMagnitude < 0.001f) return;
-
-        Vector3 iso = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0)).MultiplyPoint3x4(_input).normalized;
-        Quaternion target = Quaternion.LookRotation(iso, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation,target,settings.rotationSpeed * Time.deltaTime);
-    }
-
-    private void HandleSpeed()
-    {
-        if (_input == Vector3.zero && _currentSpeed > 0f)
+        if (input.Player.Jump.triggered && IsGrounded())
         {
-            _currentSpeed -= settings.decelerationFactor * Time.deltaTime;
-        }  
-        else if (_input != Vector3.zero && _currentSpeed < settings.maxSpeed)
-        {
-            _currentSpeed += settings.accelerationFactor * Time.deltaTime;
-        }
-        _currentSpeed = Mathf.Clamp(_currentSpeed, 0f, settings.maxSpeed);
-    }
-
-    private void HandleMove()
-    {
-        Vector3 horiz = transform.forward * _currentSpeed * Time.deltaTime;
-
-        Vector3 vert = Vector3.zero;
-        if (_jumpInput && !_isJumping)
-        {
-            _isJumping = true;
-            _verticalVelocity = settings.jumpForce;
+            jumpQueued = true;
         }
 
-        if (_isJumping)
+        if (rawInputDir.sqrMagnitude > 0.001f)
         {
-            _verticalVelocity += settings.gravity * Time.deltaTime;
-            vert = Vector3.up * _verticalVelocity * Time.deltaTime;
+            Vector3 iso = Quaternion.Euler(0f, 45f, 0f) * rawInputDir;
+            Quaternion tgt = Quaternion.LookRotation(iso, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, tgt, currentSetting.rotationSpeed * Time.deltaTime);
+        }
 
-            if (_cc.isGrounded && _verticalVelocity <= 0f)
+        float targetSpeed = rawInputDir.sqrMagnitude > 0.001f ? currentSetting.maxSpeed : 0f;
+        Vector3 wishDir = Quaternion.Euler(0f, 45f, 0f) * rawInputDir;
+        Vector3 wishVel = wishDir * targetSpeed;
+
+        if (currentSetting.speedMode == SpeedMode.Instant)
+        {
+            smoothRef = Vector3.zero;
+            horizVel = wishDir * currentSetting.maxSpeed;
+        }
+        else if (currentSetting.speedMode == SpeedMode.Accelerated)
+        {
+            horizVel = Vector3.SmoothDamp(horizVel, wishVel, ref smoothRef, accelTime, currentSetting.maxSpeed + 1f);
+        }
+
+
+
+    }
+
+    void FixedUpdate()
+    {
+        if (jumpQueued && IsGrounded())
+        {
+            rb.AddForce(Vector3.up * currentSetting.jumpForce, ForceMode.Impulse);
+            jumpQueued = false;
+        }
+
+        Vector3 desiredMove = horizVel * Time.fixedDeltaTime;
+
+        if (desiredMove.sqrMagnitude > 1e-5f)
+        {
+            Vector3 p1 = transform.position + Vector3.up * (col.radius - 0.01f);
+            Vector3 p2 = p1 + Vector3.up * (col.height - 2f * col.radius);
+
+            if (Physics.CapsuleCast(p1, p2, col.radius * 0.96f, desiredMove.normalized, out RaycastHit hit, desiredMove.magnitude, solidMask, QueryTriggerInteraction.Ignore))
             {
-                _isJumping = false;
-                _verticalVelocity = 0f;
+                float slopeDeg = Vector3.Angle(hit.normal, Vector3.up);
+                if (slopeDeg <= maxWalkSlope)
+                {
+                    desiredMove = Vector3.ProjectOnPlane(desiredMove, hit.normal);
+                }
+                else
+                {
+                    desiredMove = Vector3.zero;
+                }
             }
         }
 
-        _cc.Move(horiz + vert);
+        rb.MovePosition(rb.position + desiredMove);
+        rb.linearVelocity = new Vector3(desiredMove.x / Time.fixedDeltaTime, rb.linearVelocity.y, desiredMove.z / Time.fixedDeltaTime);
+    }
+
+    bool IsGrounded()
+    {
+        float skin = currentSetting.groundSkin;
+        float half = (col.height * 0.85f) - col.radius;
+        Vector3 ori = transform.position + Vector3.up * (col.radius - 0.01f);
+
+        if (Physics.SphereCast(ori, col.radius * 0.96f, Vector3.down, out RaycastHit hit, half + skin, solidMask, QueryTriggerInteraction.Ignore))
+        {
+            return hit.normal.y >= Mathf.Cos(maxWalkSlope * Mathf.Deg2Rad);
+        }
+        return false;
+    }
+
+
+    public void ApplyMovementSettings(MovementSettings settings)
+    {
+        this.currentSetting = settings;
     }
 }

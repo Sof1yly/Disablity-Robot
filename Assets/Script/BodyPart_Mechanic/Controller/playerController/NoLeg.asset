@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22fc6f985336534f91905a4de857105, type: 3}
   m_Name: NoLeg
   m_EditorClassIdentifier: 
-  maxSpeed: 3.75
-  jumpForce: 5
+  maxSpeed: 3.5
+  jumpForce: 3.5
+  speedMode: 1
   rotationSpeed: 360
   accelerationFactor: 5
   decelerationFactor: 10
+  groundSkin: 0.08
   gravity: -9.81
