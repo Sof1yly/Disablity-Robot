@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DavidJalbert
 {
@@ -33,10 +31,11 @@ namespace DavidJalbert
         public float thirdPersonSkinWidth = 0.1f;
         [Tooltip("Smoothing of the camera's rotation. The lower the value, the smoother the rotation. Set to 0 to disable smoothing.")]
         public float thirdPersonInterpolation = 10;
+        public float thirdPersonPositionInterpolation = 10;
 
         private void Start()
         {
-            
+
         }
 
         void FixedUpdate()
@@ -74,6 +73,9 @@ namespace DavidJalbert
                     {
                         targetPosition = directionVector + followPosition;
                     }
+
+                    targetPosition = Vector3.Lerp(transform.position, targetPosition, Mathf.Clamp01(thirdPersonPositionInterpolation <= 0 ? 1 : thirdPersonPositionInterpolation * deltaTime));
+
                     break;
 
                 case CAMERA_MODE.TopDown:
