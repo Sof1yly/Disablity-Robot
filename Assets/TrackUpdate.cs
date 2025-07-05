@@ -9,13 +9,16 @@ public class TrackUpdate : MonoBehaviour
     public int CurrentRoundPlay => currentRoundPlay;
     int MaxRound;
     int finalRank = 5; public int FinalRank => finalRank;
-
     IsGameEnd gameEndController;
     [SerializeField] UnityEvent<int> OnRankingUpdate;
     [SerializeField] float RestartCD = 1;
+
+    Rigidbody rb;
+
     float SnapTime;
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         SetTracker(startTrack);
         gameEndController = FindAnyObjectByType<IsGameEnd>();
         MaxRound = gameEndController.RoundToFinish;
@@ -24,7 +27,7 @@ public class TrackUpdate : MonoBehaviour
     public void RestartCar()
     {
         if (Time.time < SnapTime) return;
-
+        rb.linearVelocity = Vector3.zero;
         SnapTime = Time.time + RestartCD;
         this.transform.position = currentTracker.transform.position;
         this.transform.rotation = currentTracker.transform.rotation;
