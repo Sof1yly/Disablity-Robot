@@ -88,7 +88,8 @@ namespace DavidJalbert
         private Vector3 gravityDirection = Vector3.zero;
         private float inputSteering = 0;
         private float inputMotor = 0;
-        private PhysicMaterial customPhysicMaterial;
+        private PhysicsMaterial customPhysicMaterial;
+
         private Quaternion groundRotation;
         private TinyCarSurfaceParameters surfaceParameters = null;
         private TinyCarSurfaceParameters triggersParameters = null;
@@ -99,18 +100,20 @@ namespace DavidJalbert
         private float scaleAdjustment = 1;
         private float cubicScale = 1;
         private float inverseScaleAdjustment = 1;
+        private bool wasOnGroundLastFrame = false;
 
         virtual protected void Start()
         {
             body = GetComponent<Rigidbody>();
             sphereCollider = GetComponent<SphereCollider>();
 
-            customPhysicMaterial = new PhysicMaterial();
+            customPhysicMaterial = new PhysicsMaterial();
+
             customPhysicMaterial.bounciness = 0;
-            customPhysicMaterial.bounceCombine = PhysicMaterialCombine.Minimum;
+            customPhysicMaterial.bounceCombine = PhysicsMaterialCombine.Minimum;
             customPhysicMaterial.staticFriction = 0;
             customPhysicMaterial.dynamicFriction = 0;
-            customPhysicMaterial.frictionCombine = PhysicMaterialCombine.Minimum;
+            customPhysicMaterial.frictionCombine = PhysicsMaterialCombine.Minimum;
 
             if (!Application.isPlaying) return;
 
@@ -128,8 +131,8 @@ namespace DavidJalbert
             sphereCollider.hideFlags = HideFlags.NotEditable;
 
             body.mass = bodyMass * (adjustToScale ? cubicScale : 1);
-            body.drag = 0;
-            body.angularDrag = 0;
+            body.linearDamping = 0;
+            body.angularDamping = 0;
             body.constraints = RigidbodyConstraints.FreezeRotation;
             body.useGravity = false;
             body.isKinematic = false;
@@ -225,7 +228,8 @@ namespace DavidJalbert
             crossUp = (crossUp + triFRNormal + triBLNormal).normalized;
 
             //// calculate ground rotation
-            Vector3 velocity = body.velocity;
+            Vector3 velocity = body.linearVelocity;
+
             groundVelocity = (velocity - Vector3.up * velocity.y).magnitude;
             crossForward = Vector3.Cross(-crossUp, transform.right);
             crossRight = Vector3.Cross(-crossUp, transform.forward);
@@ -277,8 +281,15 @@ namespace DavidJalbert
                 float velocityDecrement = Mathf.Clamp01(deltaTime * sideFriction * scaleAdjustment * hitSideForce * surfaceParameters.sideFrictionMultiplier);
                 velocity *= 1f - velocityDecrement;
             }
+            // Drop-off impulse boost when leaving ramp
+            if (wasOnGroundLastFrame && !onGround)
+            {
+                float impulseForce = Mathf.Clamp(forwardVelocity, 10f, 50f); // tweak as needed
+                velocity += crossForward * impulseForce * 0.1f; // small burst forward
+            }
 
-            body.velocity = velocity;
+            body.linearVelocity = velocity;
+
             // ---
 
             // reset current frame vars
@@ -290,6 +301,8 @@ namespace DavidJalbert
             hitGroundForce = 0;
             hitSidePosition = Vector3.zero;
             triggersParameters = null;
+            wasOnGroundLastFrame = onGround;
+
             // ---
         }
 
@@ -315,7 +328,7 @@ namespace DavidJalbert
 
         public void clearVelocity()
         {
-            body.velocity = Vector3.zero;
+            body.linearVelocity = Vector3.zero;
         }
 
         public float getSlopeDelta()
