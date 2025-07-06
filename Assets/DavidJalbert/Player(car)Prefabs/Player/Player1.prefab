@@ -94,7 +94,7 @@ MonoBehaviour:
   carController: {fileID: 2624296201377230852}
   boostDuration: 0
   boostCoolOff: 0
-  boostMultiplier: 2
+  boostMultiplier: 1.5
   triggerHoldDuration: 0.2
   triggerFullyPressed: 1
   MoveScheme: Move
@@ -161,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1012862714622192333, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: orthographic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1880069174013096003, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalRotation.w
@@ -213,7 +213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: maxSteering
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: adjustToScale
@@ -237,7 +237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: maxSpeedForward
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: steeringMultiplierInAir
