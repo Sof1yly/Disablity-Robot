@@ -263,6 +263,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6620205868856450003, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8067508610828888025, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_VolumeLayerMask.m_Bits
       value: 0
@@ -278,6 +282,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3839352923193647181}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1134060025505703447, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 543832816788145333}
     - targetCorrespondingSourceObject: {fileID: 6901194487115291267, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3913283670152832662}
@@ -325,3 +332,46 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1012862714622192333, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
   m_PrefabInstance: {fileID: 7531079213799295504}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7439727993933081607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1134060025505703447, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+  m_PrefabInstance: {fileID: 7531079213799295504}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &543832816788145333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7439727993933081607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03e6ba5957bd286448ad822a1bd72a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carController: {fileID: 2624296201377230852}
+  velocityToFOV:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 60
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 100
+      value: 80
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fovLerpSpeed: 5
