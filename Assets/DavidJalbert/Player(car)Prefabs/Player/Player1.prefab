@@ -94,7 +94,7 @@ MonoBehaviour:
   carController: {fileID: 2624296201377230852}
   boostDuration: 0
   boostCoolOff: 0
-  boostMultiplier: 1.5
+  boostMultiplier: 2
   triggerHoldDuration: 0.2
   triggerFullyPressed: 1
   MoveScheme: Move
@@ -108,16 +108,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 779.2
+      value: 698.4
       objectReference: {fileID: 0}
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.22
+      value: 5.4
       objectReference: {fileID: 0}
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1635.6891
+      value: 1490.7
       objectReference: {fileID: 0}
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalRotation.w
@@ -146,6 +158,26 @@ PrefabInstance:
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012862714622192333, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1880069174013096003, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8795912
+      objectReference: {fileID: 0}
+    - target: {fileID: 1880069174013096003, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.28261757
+      objectReference: {fileID: 0}
+    - target: {fileID: 1880069174013096003, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.36433867
+      objectReference: {fileID: 0}
+    - target: {fileID: 1880069174013096003, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.11706404
       objectReference: {fileID: 0}
     - target: {fileID: 3219942902465766601, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_NotificationBehavior
@@ -181,7 +213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: maxSteering
-      value: 150
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: adjustToScale
@@ -205,7 +237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: maxSpeedForward
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: steeringMultiplierInAir
@@ -213,11 +245,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: steeringBySpeed.m_Curve.Array.data[1].time
-      value: 0.5
+      value: 0.8291626
       objectReference: {fileID: 0}
     - target: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: steeringBySpeed.m_Curve.Array.data[1].value
-      value: 0.9943466
+      value: 0.9967041
       objectReference: {fileID: 0}
     - target: {fileID: 5541850699763743252, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: accelerationCurve.m_Curve.Array.data[0].time
@@ -237,7 +269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5756710301460375543, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: thirdPersonOffset.z
-      value: -15
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 5756710301460375543, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: thirdPersonInterpolation
@@ -245,7 +277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5756710301460375543, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: thirdPersonPositionInterpolation
-      value: 30
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 5862597954542335796, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_Name
@@ -354,8 +386,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 60
+      time: -0.51631165
+      value: 50.175232
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -363,15 +395,24 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 100
-      value: 80
-      inSlope: 0
-      outSlope: 0
+      time: 184.70764
+      value: 69.9963
+      inSlope: 0.014355475
+      outSlope: 0.014355475
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.29910704
+      outWeight: 0.23314811
+    - serializedVersion: 3
+      time: 299.88788
+      value: 90.070496
+      inSlope: 0.02247983
+      outSlope: 0.02247983
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.44550017
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  fovLerpSpeed: 5
+  fovLerpSpeed: 15
