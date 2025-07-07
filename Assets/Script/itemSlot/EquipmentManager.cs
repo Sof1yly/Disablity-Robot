@@ -44,6 +44,17 @@ public class EquipmentManager : MonoBehaviour
     public void UseMain()
     {
         if (mainSlot == null) return;
+
+        if(mainSlot.ability != null)
+        {
+            Debug.Log("using ability: " + mainSlot.ability.name);
+            mainSlot.ability.Activate(gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("No ability script on main slot item bro");
+        }
+
         mainSlot = null;
         mainSlotImage.sprite = null;
         mainSlotImage.enabled = false;
@@ -62,6 +73,11 @@ public class EquipmentManager : MonoBehaviour
     public void UseSup()
     {
         if (supSlot == null) return;
+
+        if (supSlot.ability != null)
+        {
+            supSlot.ability.Activate(gameObject);
+        }
 
         supSlot = null;
         supSlotImage.sprite = null;
