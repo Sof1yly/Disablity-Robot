@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class Tracker : MonoBehaviour
 {
-    [SerializeField] int trackerType;
-    public int GetTrackerType => trackerType;
+    [SerializeField] float trackerType;
+    public float GetTrackerType => trackerType;
     [SerializeField] bool isLastTrack;
     public bool IsLastTrack => isLastTrack;
+    [SerializeField] bool IsAutoTrack = true;
     [SerializeField] bool IsWinFlag;
 
     private void OnTriggerEnter(Collider other)
@@ -20,12 +21,11 @@ public class Tracker : MonoBehaviour
 
     void updateTracker(TrackUpdate trackerUpdate)
     {
-        if (trackerType == 1 && IsWinFlag == false)
+        if (IsAutoTrack && IsWinFlag == false)
         {
             trackerUpdate.SetTracker(this);
             return;
         }
-
 
         if (IsWinFlag && trackerUpdate.currentTracker.IsLastTrack)
         {
@@ -34,8 +34,7 @@ public class Tracker : MonoBehaviour
             return;
         }
 
-
-        if (trackerUpdate.currentTracker.GetTrackerType + 1 == trackerType)
+        if (Mathf.Abs(trackerUpdate.currentTracker.GetTrackerType - trackerType) <= 1 && Mathf.Abs(trackerUpdate.currentTracker.GetTrackerType - trackerType) > 0)
         {
             trackerUpdate.SetTracker(this);
         }
