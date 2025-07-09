@@ -75,7 +75,7 @@ MonoBehaviour:
     m_ActionId: 03608812-4a54-425f-8ec3-e49ad65a081e
     m_ActionName: 'PlayerMove2/Boost[/Keyboard/q]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: TinyCarInputSystem
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 7389753745575174365}
@@ -161,6 +161,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1012862714622192333, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012862714622192333, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_OcclusionCulling
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1880069174013096003, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
@@ -268,8 +272,20 @@ PrefabInstance:
       value: 0.022399902
       objectReference: {fileID: 0}
     - target: {fileID: 5756710301460375543, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: thirdPersonAngle.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5756710301460375543, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: thirdPersonAngle.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5756710301460375543, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: thirdPersonOffset.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5756710301460375543, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: thirdPersonOffset.z
-      value: -30
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 5756710301460375543, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: thirdPersonInterpolation
@@ -277,7 +293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5756710301460375543, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: thirdPersonPositionInterpolation
-      value: 45
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5862597954542335796, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_Name
@@ -300,8 +316,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8067508610828888025, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8067508610828888025, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_VolumeLayerMask.m_Bits
-      value: 0
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1933391159545835042, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
@@ -320,6 +340,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6901194487115291267, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3913283670152832662}
+    - targetCorrespondingSourceObject: {fileID: 6901194487115291267, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7437310733864981765}
   m_SourcePrefab: {fileID: 100100000, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
 --- !u!114 &2624296201377230852 stripped
 MonoBehaviour:
@@ -354,6 +377,21 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   RestartCD: 1
+--- !u!114 &7437310733864981765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3982927505235497107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb93fdab94e0f541b3ac15a18104a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackForce: 100
+  Obstruct: Obstruct
+  knockbackCooldown: 0.25
 --- !u!4 &7042329777660510487 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
@@ -386,8 +424,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.51631165
-      value: 50.175232
+      time: 1.1654608
+      value: 89.858
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -395,8 +433,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 184.70764
-      value: 69.9963
+      time: 155.80646
+      value: 105.61752
       inSlope: 0.014355475
       outSlope: 0.014355475
       tangentMode: 0
@@ -404,8 +442,8 @@ MonoBehaviour:
       inWeight: 0.29910704
       outWeight: 0.23314811
     - serializedVersion: 3
-      time: 299.88788
-      value: 90.070496
+      time: 260.61005
+      value: 120.06255
       inSlope: 0.02247983
       outSlope: 0.02247983
       tangentMode: 0

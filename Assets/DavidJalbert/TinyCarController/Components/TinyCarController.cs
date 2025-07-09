@@ -241,7 +241,8 @@ namespace DavidJalbert
             // ---
 
             // steering
-            float steeringForce = (onGround ? 1 : steeringMultiplierInAir) * (forwardVelocity < 0 ? -1 : 1) * steeringBySpeed.Evaluate(getForwardVelocityDelta()) * surfaceParameters.steeringMultiplier;
+            float steeringForce = (onGround ? 1 : steeringMultiplierInAir) * steeringBySpeed.Evaluate(getForwardVelocityDelta()) * surfaceParameters.steeringMultiplier;
+
             body.MoveRotation(Quaternion.Euler(0, transform.rotation.eulerAngles.y + steering * deltaTime * steeringForce, 0));
             // ---
 
