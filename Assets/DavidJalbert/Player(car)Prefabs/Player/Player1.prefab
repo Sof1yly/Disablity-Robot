@@ -121,15 +121,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 698.4
+      value: 692
       objectReference: {fileID: 0}
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.4
+      value: 83.02226
       objectReference: {fileID: 0}
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1490.7
+      value: 1609
       objectReference: {fileID: 0}
     - target: {fileID: 664462614457846535, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_LocalRotation.w
@@ -376,7 +376,7 @@ MonoBehaviour:
   OnRankingUpdate:
     m_PersistentCalls:
       m_Calls: []
-  RestartCD: 1
+  RestartCD: 0.25
 --- !u!114 &7437310733864981765
 MonoBehaviour:
   m_ObjectHideFlags: 0

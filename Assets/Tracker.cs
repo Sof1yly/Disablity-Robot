@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Tracker : MonoBehaviour
 {
-    [SerializeField] float trackerType;
-    public float GetTrackerType => trackerType;
+    [SerializeField] float trackerindex;
+    public float GetTrackerindex => trackerindex;
     [SerializeField] bool isLastTrack;
     public bool IsLastTrack => isLastTrack;
     [SerializeField] bool IsAutoTrack = true;
@@ -34,7 +34,7 @@ public class Tracker : MonoBehaviour
             return;
         }
 
-        if (Mathf.Abs(trackerUpdate.currentTracker.GetTrackerType - trackerType) <= 1 && Mathf.Abs(trackerUpdate.currentTracker.GetTrackerType - trackerType) > 0)
+        if (trackerUpdate.currentTracker.GetTrackerindex - trackerindex <= 1 &&  trackerUpdate.currentTracker.GetTrackerindex - trackerindex > 0)
         {
             trackerUpdate.SetTracker(this);
         }

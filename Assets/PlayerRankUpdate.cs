@@ -15,7 +15,7 @@ public class PlayerRankUpdate : MonoBehaviour
         trackerList = trackerList
             .OrderBy(i => i.FinalRank)
             .ThenByDescending(i => i.CurrentRoundPlay)
-            .ThenByDescending(i => i.currentTracker.GetTrackerType)
+            .ThenByDescending(i => i.currentTracker.GetTrackerindex)
             .ThenByDescending(i => Vector3.Distance(i.transform.position, i.currentTracker.transform.position))
             .ToList();
 
