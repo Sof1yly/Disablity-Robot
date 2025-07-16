@@ -156,7 +156,7 @@ namespace PathCreation.Examples {
         [SerializeField] float checkpointOffset = 0.5f;
         [SerializeField] Transform checkpointParent;
         [SerializeField, Tooltip("Create a checkpoint every N points")]
-        public int checkpointSpacing = 5;
+        int checkpointSpacing = 5;
 
         void SpawnCheckpoints()
         {

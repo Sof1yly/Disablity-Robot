@@ -9,20 +9,21 @@ namespace DavidJalbert
 
         private PlayerInput playerInput;    // Reference to PlayerInput
         private InputAction moveAction;     // Action for movement (Steering)
-        private InputAction boostAction;    // Action for boosting
+        private InputAction boostAction;    // Action for boosting (East Button)
         private InputAction accelerateAction; // Action for acceleration (Right Trigger)
+        private InputAction brakeAction;    // Action for braking (Left Trigger)
         private InputAction Restart;
-        public float boostDuration = 1;
-        public float boostCoolOff = 2;  // Time to wait before the next boost is available
-        public float boostMultiplier = 2;
-        public float triggerHoldDuration = 1; // Time in seconds to hold the trigger at max for boost
-        public float triggerFullyPressed = 1f; // Trigger value when fully pressed (max = 1)
-        private float boostTimer = 0;
-        private bool isBoosting = false;
-        private float triggerHoldTime = 0; // Time the trigger has been held at max
+
+        public float boostTankCapacity = 2; // The total boost tank capacity (how much boost is available)
+        public float boostMultiplier = 2;   // Multiplier for boost
+        private float currentBoost = 2;     // Current amount of boost in the tank (starts full)
+        private bool isBoosting = false;    // Flag to track if the car is boosting
+        private float boostDrainRate = 1f;  // How fast the boost drains when the boost button is held
+
         [SerializeField] string MoveScheme = "Move";
 
         [SerializeField] TrackUpdate Restarter;
+
         void Awake()
         {
             // Get PlayerInput component and bind actions
@@ -35,13 +36,12 @@ namespace DavidJalbert
             moveAction = playerInput.actions[MoveScheme];  // "Move" action (WASD or Gamepad Left Stick)
             boostAction = playerInput.actions["Boost"];    // "Boost" action (East Button)
             accelerateAction = playerInput.actions["Accelerate"]; // "Accelerate" (Right Trigger)
+            brakeAction = playerInput.actions["Brake"];  // "Brake" action (Left Trigger)
             Restart = playerInput.actions["Restart"];
         }
 
         void Update()
         {
-
-
             // Get the movement input as Vector2 (X = left/right, Y = forward/backward)
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
 
@@ -50,51 +50,42 @@ namespace DavidJalbert
 
             // Get the right trigger value (used for acceleration)
             float motorDelta = accelerateAction.ReadValue<float>(); // Right trigger for acceleration
+            float brakeDelta = brakeAction.ReadValue<float>(); // Left trigger for braking (reverse)
             float RestartData = Restart.ReadValue<float>();
-
 
             if (RestartData > 0)
             {
                 Restarter.RestartCar();
             }
 
-
-            // Track trigger value and time held at max
-            if (motorDelta >= triggerFullyPressed)  // If right trigger is fully pressed
+            // Check if the Left Trigger is pressed for reverse movement
+            if (brakeDelta >= 1f)  // Left trigger is pressed
             {
-                triggerHoldTime += Time.deltaTime;
+                motorDelta = -1; // Move backward by setting motor value to negative
+            }
+
+            // Handle Boost Action (East Button press)
+            if (boostAction.ReadValue<float>() > 0 && currentBoost > 0) // If the boost button is held and there's enough fuel
+            {
+                isBoosting = true;
+                currentBoost -= boostDrainRate * Time.deltaTime; // Drain the boost tank while holding the button
             }
             else
             {
-                triggerHoldTime = 0; // Reset the timer if the trigger is not at max
+                isBoosting = false; // Stop boosting when the button is released or when the tank is empty
             }
 
-            // Check if the trigger has been held for the required duration to activate the boost
-            if (triggerHoldTime >= triggerHoldDuration && !isBoosting && boostTimer <= 0)
-            {
-                isBoosting = true;  // Activate boost
-                boostTimer = boostDuration; // Start boost timer
-            }
-
-            // Handle timer and apply boost multiplier if boosting
+            // Apply the boost multiplier if boosting
             if (isBoosting)
             {
-                boostTimer = Mathf.Max(boostTimer - Time.deltaTime, 0);  // Decrease boost timer
                 carController.setBoostMultiplier(boostMultiplier); // Apply boost multiplier
             }
             else
             {
-                if (boostTimer > boostCoolOff)
-                {
-                    boostTimer = Mathf.Max(boostTimer - Time.deltaTime, 0); // Cooldown timer
-                }
-                else
-                {
-                    carController.setBoostMultiplier(1); // Reset to normal multiplier
-                }
+                carController.setBoostMultiplier(1); // Reset to normal multiplier
             }
 
-            Debug.Log($"{this.transform.gameObject.name} : Input State {moveInput.x} {motorDelta} Boost: {isBoosting} Trigger Hold Time: {triggerHoldTime}");
+            Debug.Log($"{this.transform.gameObject.name} : Input State {moveInput.x} {motorDelta} Boost: {isBoosting} Boost Level: {currentBoost}");
 
             carController.setSteering(steeringDelta);  // Steering (left/right)
             carController.setMotor(motorDelta);       // Motor movement (accelerate/decelerate)
