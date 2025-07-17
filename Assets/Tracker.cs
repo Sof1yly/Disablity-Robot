@@ -11,7 +11,6 @@ public class Tracker : MonoBehaviour
     [SerializeField] bool IsWinFlag;
 
     public Transform futureTrack { get; private set; }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<TrackUpdate>(out TrackUpdate trackerUpdate))
