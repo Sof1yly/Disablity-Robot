@@ -20,6 +20,12 @@ public class WaitPlayerActiveInput : MonoBehaviour
             OnAllPlayerActiveInput?.Invoke();
         }
     }
+    [ContextMenu("Skip Wait")]
+    void Skip()
+    {
+        state = true;
+        OnAllPlayerActiveInput?.Invoke();
+    }
 
 
     bool Check()

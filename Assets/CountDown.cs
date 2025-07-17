@@ -15,8 +15,8 @@ public class CountDown : MonoBehaviour
     {
         for (float i = Timer; i > 0; i -= Time.deltaTime)
         {
-            TimerUpdate?.Invoke(Mathf.CeilToInt(Timer));
-            Debug.Log(Mathf.CeilToInt(Timer));
+            TimerUpdate?.Invoke(Mathf.CeilToInt(i));
+            Debug.Log(Mathf.CeilToInt(i));
             yield return null;
         }
 
