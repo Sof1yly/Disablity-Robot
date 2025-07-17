@@ -39,7 +39,7 @@ public class Tracker : MonoBehaviour
             return;
         }
 
-        if (trackerUpdate.currentTracker.GetTrackerindex - trackerindex <= 1 && trackerUpdate.currentTracker.GetTrackerindex - trackerindex > 0)
+        if (trackerindex - trackerUpdate.currentTracker.GetTrackerindex <= 5 && trackerindex - trackerUpdate.currentTracker.GetTrackerindex > 0)
         {
             trackerUpdate.SetTracker(this);
         }
