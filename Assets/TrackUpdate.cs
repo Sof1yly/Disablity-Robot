@@ -56,6 +56,7 @@ public class TrackUpdate : MonoBehaviour
     public void UpdateRanking(int Rank)
     {
         Debug.Log($"Player  {playerInput.playerIndex} , Current Rank {Rank}");
+        this.transform.parent.gameObject.name = $"Player : {playerInput.playerIndex} Rank : {Rank}";
         OnRankingUpdate?.Invoke(Rank);
     }
 }
