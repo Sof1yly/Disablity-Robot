@@ -4,6 +4,10 @@ using UnityEngine;
 public class Tracker : MonoBehaviour
 {
     [SerializeField] float trackerindex;
+    public void SetTrackerIndex(float index)
+    {
+        trackerindex = index;
+    }
     public float GetTrackerindex => trackerindex;
     [SerializeField] bool isLastTrack;
     public bool IsLastTrack => isLastTrack;
