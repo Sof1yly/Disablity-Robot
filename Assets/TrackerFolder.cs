@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TrackerFolder : MonoBehaviour
@@ -13,6 +14,11 @@ public class TrackerFolder : MonoBehaviour
         {
             tracker.SetTrackerIndex(index);
             index++;
+            if (index <= TrackerList.Length - 1)
+            {
+                tracker.futureTrack = TrackerList[index].transform;
+            }
+            else { tracker.futureTrack = TrackerList[0].transform; }
         }
 
     }
