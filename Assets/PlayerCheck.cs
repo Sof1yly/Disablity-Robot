@@ -1,10 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 public class PlayerCheck : MonoBehaviour
 {
-    public event Action<bool> StateUpdater;
+    [SerializeField] UnityEvent OnActive;
+    [SerializeField] UnityEvent OffActive;
 
+    public event Action<bool> StateUpdater;
     PlayerInput playerInput;
 
     private void Awake()
@@ -12,25 +15,37 @@ public class PlayerCheck : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
     }
 
-    bool inputState;
+
+    public bool inputState { get; private set; }
 
     private void Start()
     {
         StateUpdater?.Invoke(inputState);
+        OffActive?.Invoke();
     }
 
     private void Update()
     {
-        UpdateState(playerInput.user != null);
+        if (playerInput.user != null && playerInput.actions["Restart"].ReadValue<float>() > 0)
+        {
+            UpdateState(true);
+        }
+    }
+
+    [ContextMenu("Active Player Input")]
+    void Complier()
+    {
+        inputState = true;
+        OnActive?.Invoke();
+        Debug.Log("Player Join");
+        StateUpdater?.Invoke(inputState);
     }
 
     void UpdateState(bool stateNewState)
     {
         if (stateNewState != inputState)
         {
-            Debug.Log("Player Join");
-            inputState = stateNewState;
-            StateUpdater?.Invoke(inputState);
+            Complier();
         }
     }
 }
