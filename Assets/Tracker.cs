@@ -10,6 +10,7 @@ public class Tracker : MonoBehaviour
     [SerializeField] bool IsAutoTrack = true;
     [SerializeField] bool IsWinFlag;
 
+    public Transform futureTrack { get; private set; }
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<TrackUpdate>(out TrackUpdate trackerUpdate))
@@ -34,7 +35,7 @@ public class Tracker : MonoBehaviour
             return;
         }
 
-        if (trackerUpdate.currentTracker.GetTrackerindex - trackerindex <= 1 &&  trackerUpdate.currentTracker.GetTrackerindex - trackerindex > 0)
+        if (trackerUpdate.currentTracker.GetTrackerindex - trackerindex <= 1 && trackerUpdate.currentTracker.GetTrackerindex - trackerindex > 0)
         {
             trackerUpdate.SetTracker(this);
         }
