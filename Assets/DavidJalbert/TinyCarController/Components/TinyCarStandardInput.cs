@@ -94,7 +94,6 @@ namespace DavidJalbert
                 }
             }
 
-            Debug.Log($"{this.transform.gameObject.name} : Input State {moveInput.x} {motorDelta} Boost: {isBoosting} Trigger Hold Time: {triggerHoldTime}");
 
             carController.setSteering(steeringDelta);  // Steering (left/right)
             carController.setMotor(motorDelta);       // Motor movement (accelerate/decelerate)
