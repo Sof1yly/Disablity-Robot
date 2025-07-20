@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 public abstract class Status : MonoBehaviour
 {
+    [SerializeField] float _debuffTime;
+    [SerializeField] List<StatusType> _inharmoniousStatus = new List<StatusType>();
+    public List<StatusType> InharmoniousStatus => _inharmoniousStatus;
     public virtual StatusType StatusType => StatusType.None; // Declear status type here
     public virtual StatusType NextStatusType => StatusType.None; // None => NO apply any status after this Status End 
-    [SerializeField] float _debuffTime;
-    [SerializeField] List<StatusType> _inharmoniousStatus;
-    public List<StatusType> InharmoniousStatus => _inharmoniousStatus;
     protected abstract void OnActive();
     protected abstract void OffActive();
 

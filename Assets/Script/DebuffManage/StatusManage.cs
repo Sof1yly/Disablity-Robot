@@ -12,7 +12,7 @@ public class StatusManage : MonoBehaviour
     public event Action OnActiveStatus;
     public event Action UnActiveStatus;
 
-    List<Status> statusList = new List<Status> { null };
+    List<Status> statusList = new List<Status>();
     private void Awake()
     {
         setUpList();
