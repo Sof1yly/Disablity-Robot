@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -25,29 +24,28 @@ public class StatusManage : MonoBehaviour
             if (child.TryGetComponent<Status>(out Status foundStatus))
             {
                 statusList.Add(foundStatus);
+                foundStatus.AddStatusManage(this);
             }
         }
     }
-
+    List<StatusType> currentActiveStatus = new List<StatusType>();
     public void OnApplyStatus(StatusType addedStatus)
     {
-        if (currentStatus != null) return;
-        currentStatus = statusList.FirstOrDefault(i => i.StatusType == addedStatus);
-        StartCoroutine(statusTimer(currentStatus));
-    }
-
-    IEnumerator statusTimer(Status status)
-    {
-        OnActiveStatus?.Invoke();
-        status.OnActive();
-        yield return new WaitForSeconds(status.DebuffTime);
-        UnActiveStatus?.Invoke();
-        status.OffActive();
-        currentStatus = null;
-        if (currentStatus.NextStatusType != StatusType.None)
+        Status getStatus = statusList.FirstOrDefault(i => i.StatusType == addedStatus);
+        foreach (StatusType incompeteType in getStatus.InharmoniousStatus)
         {
-            OnApplyStatus(currentStatus.NextStatusType);
+            if (currentActiveStatus.Contains(incompeteType))
+            {
+                return;
+            }
         }
-
+        currentActiveStatus.Add(addedStatus);
+        getStatus.ApplyEffect();
     }
+
+    public void DisactiveStatus(StatusType unactiveStatus)
+    {
+        currentActiveStatus.Remove(unactiveStatus);
+    }
+
 }
