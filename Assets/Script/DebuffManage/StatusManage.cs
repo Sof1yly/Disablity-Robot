@@ -39,6 +39,9 @@ public class StatusManage : MonoBehaviour
                 return;
             }
         }
+        if (currentActiveStatus.Contains(addedStatus)) return;
+
+
         currentActiveStatus.Add(addedStatus);
         getStatus.ApplyEffect();
     }
