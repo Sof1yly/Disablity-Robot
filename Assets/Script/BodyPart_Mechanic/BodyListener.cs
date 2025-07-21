@@ -6,15 +6,15 @@ using UnityEngine;
 public class BodyListener : MonoBehaviour
 {
     [SerializeField] Body bodyType;
+
     [SerializeField] List<Activeable> activeList = new System.Collections.Generic.List<Activeable>();
 
     Action onActive;
     Action onInActive;
-    bool currentState;
-    //bool isResolved = false;
-    private void Awake()
+
+    private void Start()
     {
-        FindAnyObjectByType<MainBodyController>().OnBodyChanged += updateBodyState;
+        ObjectFinder.Instance.GetStoredComponent<MainBodyController>().OnBodyChanged += updateBodyState;
         setUpEvent();
     }
 
@@ -42,10 +42,7 @@ public class BodyListener : MonoBehaviour
 
     void updateBodyState(Body[] selectedBody)
     {
-        bool newState = selectedBody.Contains(bodyType);
-
-
-        if (newState)
+        if (selectedBody.Contains(bodyType))
         {
             onActive?.Invoke();
         }
