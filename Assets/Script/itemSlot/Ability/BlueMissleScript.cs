@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Linq;
 
 [RequireComponent(typeof(Rigidbody))]
 public class BlueMissleScript : MonoBehaviour
@@ -34,15 +34,7 @@ public class BlueMissleScript : MonoBehaviour
     {
         if (target == null)
         {
-            TrackUpdate targetPlayer = null;
-            foreach (var player in players)
-            {
-                if (player.CurrentRank == 1)  
-                {
-                    targetPlayer = player;
-                    break;
-                }
-            }
+            var targetPlayer = players.OrderBy(player => player.CurrentRank).FirstOrDefault();
 
             if (targetPlayer != null)
             {
