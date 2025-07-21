@@ -12,11 +12,7 @@ public class EquipmentManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.JoystickButton4)) //will change to input action later dont worry my nigga
-        {
-            Debug.Log("use item");
-            UseMain();
-        }
+
     }
 
     public bool HasFreeSlot()
@@ -45,7 +41,7 @@ public class EquipmentManager : MonoBehaviour
     {
         if (mainSlot == null) return;
 
-        if(mainSlot.ability != null)
+        if (mainSlot.ability != null)
         {
             Debug.Log("using ability: " + mainSlot.ability.name);
             mainSlot.ability.Activate(gameObject);

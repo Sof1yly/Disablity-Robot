@@ -20388,6 +20388,7 @@ GameObject:
   - component: {fileID: 4651099274819636084}
   - component: {fileID: 4717458299473137942}
   - component: {fileID: 1741698258984385733}
+  - component: {fileID: 6820270656027544465}
   m_Layer: 0
   m_Name: Car Controller
   m_TagString: Untagged
@@ -20609,6 +20610,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugStatus: 0
+--- !u!114 &6820270656027544465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6901194487115291267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9a753dde2ae9249884d7347964f540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSlotImage: {fileID: 0}
+  supSlotImage: {fileID: 0}
 --- !u!1 &7279919318780166665
 GameObject:
   m_ObjectHideFlags: 0
@@ -25563,6 +25578,7 @@ MonoBehaviour:
   triggerFullyPressed: 1
   MoveScheme: Move
   Restarter: {fileID: 4651099274819636084}
+  equipmentManager: {fileID: 6820270656027544465}
 --- !u!114 &6526617969604317129
 MonoBehaviour:
   m_ObjectHideFlags: 0

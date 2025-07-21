@@ -23,6 +23,7 @@ namespace DavidJalbert
         [SerializeField] string MoveScheme = "Move";
 
         [SerializeField] TrackUpdate Restarter;
+        [SerializeField] EquipmentManager equipmentManager;
         void Awake()
         {
             // Get PlayerInput component and bind actions
@@ -53,11 +54,15 @@ namespace DavidJalbert
             float RestartData = Restart.ReadValue<float>();
 
 
-            if (RestartData > 0)
+            if (playerInput.actions["Restart"].IsPressed())
             {
                 Restarter.RestartCar();
             }
 
+            if (playerInput.actions["Item"].IsPressed())
+            {
+                equipmentManager.UseMain();
+            }
 
             // Track trigger value and time held at max
             if (motorDelta >= triggerFullyPressed)  // If right trigger is fully pressed
