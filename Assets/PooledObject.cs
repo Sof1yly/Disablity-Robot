@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor.ShaderGraph.Internal;
+
 public class PooledObject : MonoBehaviour
 {
     private ObjectPool parentPool; // Renamed for clarity, matches previous explanation
