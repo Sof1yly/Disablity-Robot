@@ -11,6 +11,7 @@ namespace DavidJalbert
         private InputAction moveAction;     // Action for movement (Steering)
         private InputAction boostAction;    // Action for boosting
         private InputAction accelerateAction; // Action for acceleration (Right Trigger)
+        private InputAction brakeAction;    // Action for braking (Left Trigger)
         private InputAction Restart;
         public float boostDuration = 1;
         public float boostCoolOff = 2;  // Time to wait before the next boost is available
@@ -35,13 +36,12 @@ namespace DavidJalbert
             moveAction = playerInput.actions[MoveScheme];  // "Move" action (WASD or Gamepad Left Stick)
             boostAction = playerInput.actions["Boost"];    // "Boost" action (East Button)
             accelerateAction = playerInput.actions["Accelerate"]; // "Accelerate" (Right Trigger)
+            brakeAction = playerInput.actions["Brake"];  // "Brake" action (Left Trigger)
             Restart = playerInput.actions["Restart"];
         }
 
         void Update()
         {
-
-
             // Get the movement input as Vector2 (X = left/right, Y = forward/backward)
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
 
@@ -50,14 +50,19 @@ namespace DavidJalbert
 
             // Get the right trigger value (used for acceleration)
             float motorDelta = accelerateAction.ReadValue<float>(); // Right trigger for acceleration
+            float brakeDelta = brakeAction.ReadValue<float>(); // Left trigger for braking (reverse)
             float RestartData = Restart.ReadValue<float>();
-
 
             if (RestartData > 0)
             {
                 Restarter.RestartCar();
             }
 
+            // Check if the Left Trigger is pressed for reverse movement
+            if (brakeDelta >= triggerFullyPressed)  // Left trigger is pressed
+            {
+                motorDelta = -1; // Move backward by setting motor value to negative
+            }
 
             // Track trigger value and time held at max
             if (motorDelta >= triggerFullyPressed)  // If right trigger is fully pressed
@@ -94,6 +99,7 @@ namespace DavidJalbert
                 }
             }
 
+            //Debug.Log($"{this.transform.gameObject.name} : Input State {moveInput.x} {motorDelta} Boost: {isBoosting} Trigger Hold Time: {triggerHoldTime}");
 
             carController.setSteering(steeringDelta);  // Steering (left/right)
             carController.setMotor(motorDelta);       // Motor movement (accelerate/decelerate)
