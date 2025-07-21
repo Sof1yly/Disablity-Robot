@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 public enum StatusType
-{ None } // add new Status Here
+{ None, Stun, Iframe, Invincible, VisualObscured } // add new Status Here
 
 
 public class StatusManage : MonoBehaviour
@@ -13,6 +13,7 @@ public class StatusManage : MonoBehaviour
     public event Action UnActiveStatus;
 
     List<Status> statusList = new List<Status>();
+    List<StatusType> currentActiveStatus = new List<StatusType>();
     private void Awake()
     {
         setUpList();
@@ -28,10 +29,21 @@ public class StatusManage : MonoBehaviour
             }
         }
     }
-    List<StatusType> currentActiveStatus = new List<StatusType>();
+    [SerializeField] StatusType DebugStatus;
+    [ContextMenu("Apply Status")]
+    void DebugApply()
+    {
+        OnApplyStatus(DebugStatus);
+    }
+
     public void OnApplyStatus(StatusType addedStatus)
     {
         Status getStatus = statusList.FirstOrDefault(i => i.StatusType == addedStatus);
+        if (getStatus == null)
+        {
+            Debug.LogWarning($"Status does not exit , can't apply :(");
+            return;
+        }
         foreach (StatusType incompeteType in getStatus.InharmoniousStatus)
         {
             if (currentActiveStatus.Contains(incompeteType))

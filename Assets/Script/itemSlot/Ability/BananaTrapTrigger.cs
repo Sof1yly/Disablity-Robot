@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 public class BananaTrapTrigger : MonoBehaviour
@@ -15,8 +15,12 @@ public class BananaTrapTrigger : MonoBehaviour
         if (used) return;
 
         used = true;
-        StartCoroutine(SpinCoroutine(other.transform));
-        Destroy(gameObject, spinDuration + 0.1f);
+
+        if (other.TryGetComponent<StatusManage>(out StatusManage manage))
+        {
+            manage.OnApplyStatus(StatusType.Stun);
+        }
+        Destroy(this.gameObject);
     }
 
     IEnumerator SpinCoroutine(Transform t)
