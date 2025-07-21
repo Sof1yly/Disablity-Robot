@@ -104,7 +104,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -135,7 +135,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &6466535944547153871
 MonoBehaviour:
@@ -149,6 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9815d811a18648f45b16b41a030ce66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 32
-  lifeTime: 7.5
-  pushForce: 4
+  speed: 105
+  lifeTime: 6
+  pushForce: 6
