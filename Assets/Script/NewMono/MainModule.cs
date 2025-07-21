@@ -11,7 +11,7 @@ public class MainModule<T> : MonoBehaviour where T : MonoBehaviour
             ObjectFinder.Instance.AddComponent(component);
         }
 
-        StartUp();
+        StartUp(); StartUp();
     }
 
     protected virtual void StartUp()
