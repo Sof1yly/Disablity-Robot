@@ -37,7 +37,7 @@ public class PlayerCheck : MonoBehaviour
     {
         inputState = true;
         OnActive?.Invoke();
-        Debug.Log("Player Join");
+        Debug.Log($"Player Join {playerInput.user}");
         StateUpdater?.Invoke(inputState);
     }
 
