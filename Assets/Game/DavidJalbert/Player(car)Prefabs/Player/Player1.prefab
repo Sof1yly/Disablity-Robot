@@ -387,7 +387,7 @@ CharacterJoint:
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 70
+    limit: 10
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
@@ -583,15 +583,15 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -20
+    limit: -35
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 20
+    limit: 10
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
-    spring: 0
+    spring: 10
     damper: 0
   m_Swing1Limit:
     limit: 10
@@ -1399,7 +1399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.42
+      value: -0.17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1407,23 +1407,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.96
+      value: -3.12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.7049479
+      value: -0.70710194
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.70494795
+      value: -0.70710206
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0552124
+      value: -0.0026079044
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.05521241
+      value: 0.0026079193
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1435,7 +1435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -8.957
+      value: -0.423
       objectReference: {fileID: 0}
     - target: {fileID: -8425928955962108715, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: m_Layer
@@ -1453,9 +1453,53 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: -4626452372889518528, guid: a84888931940c1f49a44e142440be4aa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.72415817
+      objectReference: {fileID: 0}
+    - target: {fileID: -4626452372889518528, guid: a84888931940c1f49a44e142440be4aa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000027336206
+      objectReference: {fileID: 0}
+    - target: {fileID: -4626452372889518528, guid: a84888931940c1f49a44e142440be4aa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.68963397
+      objectReference: {fileID: 0}
+    - target: {fileID: -4626452372889518528, guid: a84888931940c1f49a44e142440be4aa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.00000014524224
+      objectReference: {fileID: 0}
+    - target: {fileID: -4626452372889518528, guid: a84888931940c1f49a44e142440be4aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 87.202
+      objectReference: {fileID: 0}
     - target: {fileID: -4563184558286832072, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -3802985021692113876, guid: a84888931940c1f49a44e142440be4aa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5818014
+      objectReference: {fileID: 0}
+    - target: {fileID: -3802985021692113876, guid: a84888931940c1f49a44e142440be4aa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.46339253
+      objectReference: {fileID: 0}
+    - target: {fileID: -3802985021692113876, guid: a84888931940c1f49a44e142440be4aa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.52283883
+      objectReference: {fileID: 0}
+    - target: {fileID: -3802985021692113876, guid: a84888931940c1f49a44e142440be4aa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.41643012
+      objectReference: {fileID: 0}
+    - target: {fileID: -3802985021692113876, guid: a84888931940c1f49a44e142440be4aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -77.073
+      objectReference: {fileID: 0}
+    - target: {fileID: -3802985021692113876, guid: a84888931940c1f49a44e142440be4aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -83.889
       objectReference: {fileID: 0}
     - target: {fileID: -2827873731504850022, guid: a84888931940c1f49a44e142440be4aa, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -1670,9 +1714,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.5896418, y: 0.4501518, z: 0.32081935}
   m_Center: {x: -0.0000041127205, y: 0.17843187, z: -0.018674955}
@@ -1723,7 +1767,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1855,9 +1899,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!144 &4343349366696493968
 CharacterJoint:
@@ -1878,7 +1922,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -70
+    limit: -10
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
@@ -1956,7 +2000,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 16
   m_CollisionDetection: 0
 --- !u!144 &9184151932390524245
 CharacterJoint:
@@ -2055,9 +2099,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!144 &295609171596548673
 CharacterJoint:
@@ -2078,7 +2122,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -70
+    limit: -10
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
@@ -2156,9 +2200,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!144 &5485013027157709423
 CharacterJoint:
@@ -2179,7 +2223,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -90
+    limit: -10
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
@@ -2226,7 +2270,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2358,9 +2402,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!144 &4077614810220049937
 CharacterJoint:
@@ -2381,7 +2425,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -90
+    limit: -10
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
@@ -2433,7 +2477,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2534,7 +2578,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2635,7 +2679,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2796,7 +2840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6620205868856450003, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 8.000003
       objectReference: {fileID: 0}
     - target: {fileID: 7038175362540468347, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_IsActive
