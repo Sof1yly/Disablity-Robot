@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class TrackUpdate : MonoBehaviour
 {
@@ -8,7 +9,10 @@ public class TrackUpdate : MonoBehaviour
     int currentRoundPlay = 0;
     public int CurrentRoundPlay => currentRoundPlay;
     int MaxRound;
-    int finalRank = 5; public int FinalRank => finalRank;
+    int finalRank = 5;
+    public int FinalRank => finalRank;
+    public int CurrentRank { get; private set; }
+
     IsGameEnd gameEndController;
     [SerializeField] UnityEvent<int> OnRankingUpdate;
     [SerializeField] float RestartCD = 1;
@@ -18,6 +22,7 @@ public class TrackUpdate : MonoBehaviour
     float SnapTime;
     private void Start()
     {
+        playerInput = this.transform.parent.GetComponentInChildren<PlayerInput>();
         rb = GetComponent<Rigidbody>();
         SetTracker(startTrack);
         gameEndController = FindAnyObjectByType<IsGameEnd>();
@@ -50,9 +55,12 @@ public class TrackUpdate : MonoBehaviour
         finalRank = FinalRank;
     }
 
+    PlayerInput playerInput;
     public void UpdateRanking(int Rank)
     {
-
+        CurrentRank = Rank;
+        Debug.Log($"Player  {playerInput.playerIndex} , Current Rank {Rank}");
+        this.transform.parent.gameObject.name = $"Player : {playerInput.playerIndex} Rank : {Rank}";
         OnRankingUpdate?.Invoke(Rank);
     }
 }

@@ -264,20 +264,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "04c400cc9f5045628add68fc97afa5a8"
-                },
-                "m_SlotId": 1
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "ccc8663fe96746fd8a9a497f6a82f40a"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "067c1a55daf944b897747a55c5050269"
                 },
                 "m_SlotId": 1
@@ -1062,6 +1048,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "d7dc1a3576964aff8d87f531447a7dac"
+                },
+                "m_SlotId": 7
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "ccc8663fe96746fd8a9a497f6a82f40a"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "e46858296d444268bf28df66e295b565"
                 },
                 "m_SlotId": 0
@@ -1789,8 +1789,8 @@
     "m_ObjectId": "161343041c7d4531b26e13381aaf83fa",
     "m_Title": "Rim Ligjt",
     "m_Position": {
-        "x": -3349.999755859375,
-        "y": -648.9999389648438
+        "x": -3350.39990234375,
+        "y": -649.6000366210938
     }
 }
 
@@ -1830,8 +1830,8 @@
     "m_ObjectId": "1cf50b39e40e4c57876eec229e9c648c",
     "m_Title": "Base Color Sample",
     "m_Position": {
-        "x": -2088.999755859375,
-        "y": -308.99993896484377
+        "x": -2089.599853515625,
+        "y": -309.6000671386719
     }
 }
 
@@ -3524,8 +3524,8 @@
     "m_ObjectId": "5bc507dc02ab419daf2500300231c855",
     "m_Title": "Generate halftone grid",
     "m_Position": {
-        "x": -2328.999755859375,
-        "y": 919.000244140625
+        "x": -2329.599853515625,
+        "y": 918.3999633789063
     }
 }
 
@@ -6127,8 +6127,8 @@
     "m_ObjectId": "bfdf724dcb554156b2ea2d270368b8b7",
     "m_Title": "Reduce lightness of base color",
     "m_Position": {
-        "x": -1405.0,
-        "y": -74.99993896484375
+        "x": -1405.599853515625,
+        "y": -76.00006103515625
     }
 }
 
@@ -6905,8 +6905,8 @@
     "m_ObjectId": "d9fe08a2bfad482682495d5c68476e77",
     "m_Title": "Get diffuse lighting value",
     "m_Position": {
-        "x": -3675.999755859375,
-        "y": 159.0
+        "x": -3676.0,
+        "y": 158.39996337890626
     }
 }
 
@@ -7741,8 +7741,8 @@
     "m_ObjectId": "f9e55f0697804a0a81f1ef445b6cccce",
     "m_Title": "Correct screen space aspect ratio",
     "m_Position": {
-        "x": -3237.999755859375,
-        "y": 799.9998779296875
+        "x": -3238.39990234375,
+        "y": 799.1998901367188
     }
 }
 

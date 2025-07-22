@@ -4,13 +4,17 @@ using UnityEngine;
 public class Tracker : MonoBehaviour
 {
     [SerializeField] float trackerindex;
+    public void SetTrackerIndex(float index)
+    {
+        trackerindex = index;
+    }
     public float GetTrackerindex => trackerindex;
     [SerializeField] bool isLastTrack;
     public bool IsLastTrack => isLastTrack;
     [SerializeField] bool IsAutoTrack = true;
     [SerializeField] bool IsWinFlag;
 
-    public Transform futureTrack { get; private set; }
+    public Transform futureTrack;
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<TrackUpdate>(out TrackUpdate trackerUpdate))
@@ -35,7 +39,7 @@ public class Tracker : MonoBehaviour
             return;
         }
 
-        if (trackerUpdate.currentTracker.GetTrackerindex - trackerindex <= 1 && trackerUpdate.currentTracker.GetTrackerindex - trackerindex > 0)
+        if (trackerindex - trackerUpdate.currentTracker.GetTrackerindex <= 5 && trackerindex - trackerUpdate.currentTracker.GetTrackerindex > 0)
         {
             trackerUpdate.SetTracker(this);
         }
