@@ -63,7 +63,7 @@ public class TrackUpdate : MonoBehaviour
     {
         CurrentRank = Rank;
         Debug.Log($"Player  {playerInput.playerIndex} , Current Rank {Rank}");
-        this.transform.parent.gameObject.name = $"Player : {playerInput.playerIndex} Rank : {Rank}";
+        this.transform.parent.gameObject.name = $"Player : {playerInput.playerIndex + 1} Rank : {Rank}";
         OnRankingUpdate?.Invoke(Rank);
     }
     
