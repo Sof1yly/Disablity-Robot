@@ -3,7 +3,7 @@ using UnityEngine;
 public class CarKnockBack : MonoBehaviour
 {
     public float knockbackForce = 10f;
-    public string Obstruct = "Obstruct";
+    private string Obstruct = "Obstruct";
     public float knockbackCooldown = 0.5f;
 
     private float lastKnockbackTime = -999f;

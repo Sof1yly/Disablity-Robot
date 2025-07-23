@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections; // Required for Coroutines
+using System.Collections.Generic; // Required for List
 
-namespace DavidJalbert
+namespace DavidJalbert // Keep your existing namespace
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(SphereCollider))]
-
     [ExecuteInEditMode]
-
     public class TinyCarController : MonoBehaviour
     {
         private static float GroundCheckDistanceDelta = 0.1f;
@@ -90,7 +90,7 @@ namespace DavidJalbert
 
         private Quaternion groundRotation;
         private TinyCarSurfaceParameters surfaceParameters = null;
-        private TinyCarSurfaceParameters triggersParameters = null;
+        private TinyCarSurfaceParameters triggersParameters = null; // This is the field we'll temporarily modify
         private float slopeDelta = 0;
         private float boostMultiplier = 1;
         private float averageScale = 1;
@@ -99,6 +99,10 @@ namespace DavidJalbert
         private float cubicScale = 1;
         private float inverseScaleAdjustment = 1;
         private bool wasOnGroundLastFrame = false;
+
+        // NEW: Field to hold the active temporary surface parameters from a pickup
+        private TinyCarSurfaceParameters activePickupParameters = null;
+        private Coroutine currentEffectCoroutine; // To manage the temporary effect coroutine
 
         virtual protected void Start()
         {
@@ -178,17 +182,49 @@ namespace DavidJalbert
             }
 
             //// adjust surface parameters from ground and triggers
-            if (surfaceParameters == null)
+            // IMPORTANT: Now we combine current triggersParameters with any activePickupParameters
+            TinyCarSurfaceParameters finalTriggersParameters = triggersParameters;
+            if (activePickupParameters != null)
             {
-                if (triggersParameters == null)
+                if (finalTriggersParameters == null)
                 {
-                    surfaceParameters = new TinyCarSurfaceParameters();
+                    finalTriggersParameters = activePickupParameters.clone(); // If no other triggers, just use pickup
                 }
                 else
                 {
-                    surfaceParameters = triggersParameters;
+                    // This is crucial: how do active pickup parameters combine with other triggers?
+                    // You have several options here based on your game design:
+                    // 1. OVERRIDE: Pickup parameters completely replace other trigger parameters.
+                    //    finalTriggersParameters = activePickupParameters.clone();
+                    // 2. ADD: Pickup parameters are added to other trigger parameters.
+                    //    finalTriggersParameters += activePickupParameters;
+                    // 3. MULTIPLY: Pickup parameters multiply other trigger parameters.
+                    //    finalTriggersParameters *= activePickupParameters; // You'd need an operator for this
+                    // For now, I'll use addition, as it's common for boosts/penalties.
+                    finalTriggersParameters += activePickupParameters;
                 }
             }
+
+
+            if (surfaceParameters == null)
+            {
+                if (finalTriggersParameters == null) // Use finalTriggersParameters here
+                {
+                    surfaceParameters = new TinyCarSurfaceParameters(); // Default if nothing else
+                }
+                else
+                {
+                    surfaceParameters = finalTriggersParameters; // Use combined triggers
+                }
+            }
+            else
+            {
+                // If the car is on a specific surface AND there are active triggers/pickups,
+                // you might want to combine them too. For simplicity, the ground surface usually takes precedence
+                // but if you want pickups to affect ground surfaces, you'd combine here.
+                // Example: surfaceParameters += finalTriggersParameters;
+            }
+
 
             //// get average ground direction from corners (forward-left, forward-right, back-left, back-right)
             Vector3[] groundCheckSource = new Vector3[]{
@@ -299,7 +335,7 @@ namespace DavidJalbert
             hitSideForce = 0;
             hitGroundForce = 0;
             hitSidePosition = Vector3.zero;
-            triggersParameters = null;
+            triggersParameters = null; // Reset triggersParameters each frame to be recalculated by OnTriggerStay
             wasOnGroundLastFrame = onGround;
 
             // ---
@@ -535,9 +571,14 @@ namespace DavidJalbert
 
         private void checkSurfaceParameters(GameObject obj)
         {
+            // The existing logic sets `triggersParameters` based on what the car is currently in contact with.
+            // We want the PickupEffect to modify `activePickupParameters` instead.
+            // The combination logic is handled in FixedUpdate.
             TinyCarSurface[] surfaces = obj.GetComponentsInParent<TinyCarSurface>();
             if (surfaces.Length > 0)
             {
+                // This logic correctly averages current trigger surfaces, so we'll keep it as is.
+                // The pickup effect will interact with `activePickupParameters`
                 triggersParameters = new TinyCarSurfaceParameters(0);
                 foreach (TinyCarSurface surface in surfaces)
                 {
@@ -605,5 +646,39 @@ namespace DavidJalbert
                 }
             }
         }
+
+        // --- NEW METHODS FOR PICKUP EFFECT INTEGRATION ---
+
+        /// <summary>
+        /// Applies temporary surface parameters to the car for a given duration.
+        /// This is what the PickupEffect will call.
+        /// </summary>
+        /// <param name="newParameters">The parameters to apply.</param>
+        /// <param name="duration">How long the parameters should be active.</param>
+        public void ApplyTemporarySurfaceEffect(TinyCarSurfaceParameters newParameters, float duration)
+        {
+            // Stop any existing coroutine to prevent conflicts if another pickup is hit
+            if (currentEffectCoroutine != null)
+            {
+                StopCoroutine(currentEffectCoroutine);
+            }
+            currentEffectCoroutine = StartCoroutine(TemporarySurfaceEffectCoroutine(newParameters, duration));
+        }
+
+        private IEnumerator TemporarySurfaceEffectCoroutine(TinyCarSurfaceParameters effectParameters, float duration)
+        {
+            // Apply the new effect parameters
+            // These will be combined with `triggersParameters` (from OnTriggerStay) in FixedUpdate
+            activePickupParameters = effectParameters.clone();
+            Debug.Log($"Applying temporary surface effect: {effectParameters.getName()} for {duration} seconds. Current Accel (via pickup): {activePickupParameters.accelerationMultiplier}");
+
+            yield return new WaitForSeconds(duration);
+
+            // Effect ended, clear the active pickup parameters
+            activePickupParameters = null;
+            Debug.Log($"Temporary surface effect ended.");
+            currentEffectCoroutine = null; // Clear the reference as the coroutine has finished
+        }
+        // --- END NEW METHODS ---
     }
 }

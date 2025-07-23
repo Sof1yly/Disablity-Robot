@@ -51,9 +51,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Item",
+                    "name": "Brake",
                     "type": "Button",
-                    "id": "2cdf5cb9-ca38-4912-9f5a-bde5ff875e01",
+                    "id": "1a6ef773-2371-46fd-9f5a-6c60d40e4378",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -250,23 +250,12 @@
                 },
                 {
                     "name": "",
-                    "id": "df077aca-e491-44e2-8339-a02add68c04f",
-                    "path": "<Gamepad>/rightShoulder",
+                    "id": "87b966e6-c08d-4155-a63a-9ace4aa13111",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Item",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "72fb26f5-11f1-4c06-8d34-01f594363c0a",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Item",
+                    "action": "Brake",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

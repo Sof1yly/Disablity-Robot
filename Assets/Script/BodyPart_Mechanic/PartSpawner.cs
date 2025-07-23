@@ -6,12 +6,7 @@ public class PartSpawner : MonoBehaviour
 
     public void SpawnPart(Body bodySO)
     {
-        if (bodySO == null)
-        {
-            Debug.LogError("no bodyPart assign");
-            return;
-        }
-
+        
 
     }
 
