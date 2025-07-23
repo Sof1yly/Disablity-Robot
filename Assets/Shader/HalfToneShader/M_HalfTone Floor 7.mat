@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_HalfTone Tree 2
+  m_Name: M_HalfTone Floor 7
   m_Shader: {fileID: -6465566751694194690, guid: e5d6ed9a69166d24e8a5da6703d065c9, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -57,20 +57,20 @@ Material:
     m_Ints: []
     m_Floats:
     - _CircleDensity: 39.7
-    - _FalloutThreshold: 1.73
-    - _LitThreshold: 1.44
+    - _FalloutThreshold: 1.2
+    - _LitThreshold: 1.07
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RimLightStrength: 2.61
+    - _RimLightStrength: 38.53
     - _RimStrength: 0.55
     - _Rotation: 18.2
     - _ShadingMultiplier: 0.725
-    - _Softness: 0.78
+    - _Softness: 1
     - _USESCREENSPACE: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.3539567, b: 0, a: 1}
+    - _BaseColor: {r: 0.9150943, g: 0.8935119, b: 0.8935119, a: 1}
     - _Color: {r: 0.13755384, g: 0.32424015, b: 0.67295593, a: 0}
     - _RimLightColor: {r: 8.240643, g: 12.940862, b: 12.05957, a: 0}
-    - _ShadowTint: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 0}
+    - _ShadowTint: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
