@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 public class HomingMissile : MonoBehaviour
@@ -14,7 +13,7 @@ public class HomingMissile : MonoBehaviour
     public string targetTag = "Player";
 
     [Header("Collision")]
-    public float destroyDelay = 0.25f; 
+    public float destroyDelay = 0.25f;  
 
     private Rigidbody rb;
     private Transform target;
@@ -24,20 +23,21 @@ public class HomingMissile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        Destroy(gameObject, lifeTime);
+        Destroy(gameObject, lifeTime);  
     }
 
     void Update()
     {
+        // Look for target if not already acquired
         if (target == null)
         {
             Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius);
             foreach (var h in hits)
             {
-                if (h.CompareTag(targetTag))
+                if (h.CompareTag(targetTag))  
                 {
                     target = h.transform;
-                    Debug.Log($"[Missile] target acquired: {target.name}");
+                    Debug.Log($"[Missile] Target acquired: {target.name}");
                     break;
                 }
             }
@@ -46,28 +46,40 @@ public class HomingMissile : MonoBehaviour
 
     void FixedUpdate()
     {
+ 
         if (target != null)
         {
             Vector3 dir = (target.position - transform.position).normalized;
             Quaternion look = Quaternion.LookRotation(dir);
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, look, rotateSpeed * Time.fixedDeltaTime));
         }
-        rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
+        rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime); 
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(targetTag))
+        if (other.CompareTag(targetTag)) 
         {
-            other.transform.Rotate(0f, 80f, 0f, Space.Self);
-            Debug.Log("[Missile] Hit and spun player");
-        }
 
-   
-        if (col != null) col.enabled = false;
+            ApplyStunEffect(other.gameObject);
+
+            Debug.Log("[Missile] Hit and stunned the player");
+        }
 
 
         Destroy(gameObject, destroyDelay);
+    }
+
+
+    void ApplyStunEffect(GameObject player)
+    {
+
+        StatusManage statusManage = player.GetComponent<StatusManage>();
+        if (statusManage != null)
+        {
+            statusManage.OnApplyStatus(StatusType.Stun);  
+        }
+ 
     }
 
     void OnDrawGizmosSelected()
