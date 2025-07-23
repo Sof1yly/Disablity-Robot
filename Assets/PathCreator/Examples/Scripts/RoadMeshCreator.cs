@@ -151,5 +151,40 @@ namespace PathCreation.Examples {
             }
         }
 
+
+        [SerializeField] GameObject checkpointPrefab;
+        [SerializeField] float checkpointOffset = 0.5f;
+        [SerializeField] Transform checkpointParent;
+        [SerializeField, Tooltip("Create a checkpoint every N points")]
+        public int checkpointSpacing = 5;
+
+        void SpawnCheckpoints()
+        {
+            for (int i = 0; i < path.NumPoints; i += checkpointSpacing)
+            {
+                Vector3 localUp = (path.space == PathSpace.xyz && flattenSurface) ? path.up : Vector3.Cross(path.GetTangent(i), path.GetNormal(i));
+                Vector3 localRight = (path.space == PathSpace.xyz && flattenSurface) ? Vector3.Cross(localUp, path.GetTangent(i)) : path.GetNormal(i);
+
+                Vector3 point = path.GetPoint(i);
+                Vector3 left = point - localRight * checkpointOffset;
+                Vector3 right = point + localRight * checkpointOffset;
+
+                if (checkpointPrefab != null)
+                {
+                    GameObject leftObj = Instantiate(checkpointPrefab, left, Quaternion.LookRotation(localRight));
+                    GameObject rightObj = Instantiate(checkpointPrefab, right, Quaternion.LookRotation(-localRight));
+
+                    if (checkpointParent != null)
+                    {
+                        leftObj.transform.parent = checkpointParent;
+                        rightObj.transform.parent = checkpointParent;
+                    }
+                }
+            }
+        }
+
+
     }
+
+
 }
