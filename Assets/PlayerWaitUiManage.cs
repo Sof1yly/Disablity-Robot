@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class PlayerWaitUiManage : MonoBehaviour
 {
     [Header("Set Up")]
-    [SerializeField] PlayerCheck playerCheck;
+    [SerializeField] PlayerCheck Player;
     [SerializeField] CountDown timer;
     [SerializeField] UnityEvent OnStart;
     [Header("Wait Player Input Phase")]
@@ -24,7 +24,7 @@ public class PlayerWaitUiManage : MonoBehaviour
             timer = FindAnyObjectByType<CountDown>();
         }
 
-        playerCheck.StateUpdater += playerInputStateHolder;
+        Player.StateUpdater += playerInputStateHolder;
         timer.onStartTimer += OnStartTimer;
         timer.TimerUpdate += TimerUpdate;
         timer.OnFinshCountDown += onFinishTimer;
