@@ -48,13 +48,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2499075739285377438, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
-      propertyPath: m_Mass
-      value: 10
+    - target: {fileID: 4651099274819636084, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: OnRankingUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5862597954542335796, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
       propertyPath: m_Name
       value: Player1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6901194487115291267, guid: 60f8e9a61226a844593af97e135c7a47, type: 3}
+      propertyPath: m_TagString
+      value: Obstruct
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

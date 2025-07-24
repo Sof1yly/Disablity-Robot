@@ -10,7 +10,6 @@ public class TrackerFolder : MonoBehaviour
         foreach (Tracker tracker in TrackerList)
         {
             tracker.SetTrackerIndex(index);
-            tracker.transform.rotation = Quaternion.Euler(0, this.transform.rotation.y + 180, 0);
             index++;
             if (index <= TrackerList.Length - 1)
             {

@@ -67,7 +67,14 @@ namespace DavidJalbert
                     RaycastHit hit;
                     if (Physics.Raycast(startCast, cameraWorldDirection, out hit, directionMagnitude))
                     {
-                        targetPosition = followPosition + directionVectorNormal * Mathf.Max(thirdPersonSkinWidth, hit.distance - thirdPersonSkinWidth);
+                        if (hit.collider.gameObject.layer != 13)
+                        {
+                            targetPosition = followPosition + directionVectorNormal * Mathf.Max(thirdPersonSkinWidth, hit.distance - thirdPersonSkinWidth);
+                        }
+                        else
+                        {
+                            targetPosition = directionVector + followPosition;
+                        }
                     }
                     else
                     {

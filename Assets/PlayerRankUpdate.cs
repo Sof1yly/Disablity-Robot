@@ -22,6 +22,7 @@ public class PlayerRankUpdate : MonoBehaviour
         for (int i = 0; i < trackerList.Count; i++)
         {
             trackerList[i].UpdateRanking(i + 1);
+            
         }
 
     }
