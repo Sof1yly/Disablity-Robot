@@ -33,7 +33,7 @@ public class PlayerCheck : MonoBehaviour
     }
 
     [ContextMenu("Active Player Input")]
-    void Complier()
+    void computeState()
     {
         inputState = true;
         OnActive?.Invoke();
@@ -45,7 +45,7 @@ public class PlayerCheck : MonoBehaviour
     {
         if (stateNewState != inputState)
         {
-            Complier();
+            computeState();
         }
     }
 }
