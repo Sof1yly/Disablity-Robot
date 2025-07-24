@@ -8,7 +8,11 @@ public class BananaTrapTrigger : MonoBehaviour
     public float spinDuration = 1f;
     public float spinSpeed = 360f;
 
+    public float destroyTime;
+
     bool used = false;
+
+    [SerializeField] GameObject vfx;
 
     void OnTriggerEnter(Collider other)
     {
@@ -19,8 +23,9 @@ public class BananaTrapTrigger : MonoBehaviour
         if (other.TryGetComponent<StatusManage>(out StatusManage manage))
         {
             manage.OnApplyStatus(StatusType.Stun);
+            vfx.SetActive(true);
         }
-        Destroy(this.gameObject);
+        Destroy(this.gameObject, destroyTime);
     }
 
     IEnumerator SpinCoroutine(Transform t)
