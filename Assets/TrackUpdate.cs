@@ -12,9 +12,11 @@ public class TrackUpdate : MonoBehaviour
     int finalRank = 5;
     public int FinalRank => finalRank;
     public int CurrentRank { get; private set; }
+    
 
     IsGameEnd gameEndController;
     [SerializeField] UnityEvent<int> OnRankingUpdate;
+    [SerializeField] UnityEvent<int> OnLapUpdate;
     [SerializeField] float RestartCD = 1;
 
     Rigidbody rb;
@@ -45,6 +47,7 @@ public class TrackUpdate : MonoBehaviour
     public void OnFinishOneRound()
     {
         currentRoundPlay++;
+        OnLapUpdate?.Invoke(currentRoundPlay);
         if (currentRoundPlay >= MaxRound)
         {
             gameEndController.OnPlayerFinishAllRound(this);
@@ -60,7 +63,8 @@ public class TrackUpdate : MonoBehaviour
     {
         CurrentRank = Rank;
         Debug.Log($"Player  {playerInput.playerIndex} , Current Rank {Rank}");
-        this.transform.parent.gameObject.name = $"Player : {playerInput.playerIndex} Rank : {Rank}";
+        this.transform.parent.gameObject.name = $"Player : {playerInput.playerIndex + 1} Rank : {Rank}";
         OnRankingUpdate?.Invoke(Rank);
     }
+    
 }
