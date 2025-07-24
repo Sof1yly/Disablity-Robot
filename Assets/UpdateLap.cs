@@ -13,6 +13,6 @@ public class UpdateLap : MonoBehaviour
     public void UpdateLapText(int Lap)
     {
         Lap.ToString();
-        textMeshProgui.text = ($"{Lap} / 3");
+        textMeshProgui.text = ($"{Lap + 1} / 3");
     }
 }
