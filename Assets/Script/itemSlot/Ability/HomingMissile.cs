@@ -13,17 +13,22 @@ public class HomingMissile : MonoBehaviour
     public string targetTag = "Player";
 
     [Header("Collision")]
-    public float destroyDelay = 0.25f;  
+    public float destroyDelay = 0.25f;
 
     private Rigidbody rb;
     private Transform target;
     private Collider col;
 
+    [SerializeField] GameObject stunvfx;
+    MeshRenderer mr;
+
+    bool isDead = false;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        Destroy(gameObject, lifeTime);  
+        mr = GetComponent<MeshRenderer>();
+        Destroy(gameObject, lifeTime);
     }
 
     void Update()
@@ -34,7 +39,7 @@ public class HomingMissile : MonoBehaviour
             Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius);
             foreach (var h in hits)
             {
-                if (h.CompareTag(targetTag))  
+                if (h.CompareTag(targetTag))
                 {
                     target = h.transform;
                     Debug.Log($"[Missile] Target acquired: {target.name}");
@@ -46,27 +51,29 @@ public class HomingMissile : MonoBehaviour
 
     void FixedUpdate()
     {
- 
-        if (target != null)
+        if (!isDead)
         {
-            Vector3 dir = (target.position - transform.position).normalized;
-            Quaternion look = Quaternion.LookRotation(dir);
-            rb.MoveRotation(Quaternion.Slerp(rb.rotation, look, rotateSpeed * Time.fixedDeltaTime));
+            if (target != null)
+            {
+                Vector3 dir = (target.position - transform.position).normalized;
+                Quaternion look = Quaternion.LookRotation(dir);
+                rb.MoveRotation(Quaternion.Slerp(rb.rotation, look, rotateSpeed * Time.fixedDeltaTime));
+            }
+            rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
         }
-        rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime); 
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(targetTag)) 
+        if (other.CompareTag(targetTag))
         {
 
             ApplyStunEffect(other.gameObject);
-
             Debug.Log("[Missile] Hit and stunned the player");
         }
-
-
+        isDead = true;
+        mr.enabled = false;
+        stunvfx.SetActive(true);
         Destroy(gameObject, destroyDelay);
     }
 
@@ -77,9 +84,9 @@ public class HomingMissile : MonoBehaviour
         StatusManage statusManage = player.GetComponent<StatusManage>();
         if (statusManage != null)
         {
-            statusManage.OnApplyStatus(StatusType.Stun);  
+            statusManage.OnApplyStatus(StatusType.Stun);
         }
- 
+
     }
 
     void OnDrawGizmosSelected()
