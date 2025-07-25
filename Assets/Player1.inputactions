@@ -7,12 +7,12 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "a032fcc1-387f-4d40-97f8-7a9d8b49f7c7",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Boost",
@@ -54,6 +54,15 @@
                     "name": "Brake",
                     "type": "Button",
                     "id": "1a6ef773-2371-46fd-9f5a-6c60d40e4378",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Item",
+                    "type": "Button",
+                    "id": "2f5ae4aa-3b95-4d47-9049-6f1ec5e19c9d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -256,6 +265,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Brake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b5b3523b-1e64-4aec-bfee-77815a5547ad",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Item",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6feb8617-25bf-4b44-88c3-baa1aba76aac",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Item",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
