@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BananaTrapSO
   m_EditorClassIdentifier: 
   bananaPrefab: {fileID: 5865936196366216021, guid: 4cde0727ed8c89b48851402a7e17bca4, type: 3}
-  throwForce: 5
-  spawnDistance: 3
-  spawnPosition: {x: 0, y: 10, z: 3}
+  throwForce: 7
+  spawnDistance: 7
+  spawnHeight: 5
+  arcFactor: 0.5
