@@ -1,20 +1,20 @@
 using TMPro;
 using UnityEngine;
+
 public class UpdateRank : MonoBehaviour
 {
-    TextMeshProUGUI textMeshProgui;
+    private TextMeshProUGUI textMeshPro;
 
-    private void Start()
+    private void Awake()
     {
-        textMeshProgui = GetComponent<TextMeshProUGUI>();
+        textMeshPro = GetComponent<TextMeshProUGUI>();
     }
 
-    public void OnEnable()
+    public void UpdateRankText(int rank)
     {
-        textMeshProgui = GetComponent<TextMeshProUGUI>();
-    }
-    public void UpdateRankText(int Rank)
-    {
-        textMeshProgui.text = Rank.ToString();
+        if (textMeshPro == null)
+            textMeshPro = GetComponent<TextMeshProUGUI>();
+
+        textMeshPro.text = rank.ToString();
     }
 }
