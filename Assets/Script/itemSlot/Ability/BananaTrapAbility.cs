@@ -1,25 +1,31 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Inventory/Ability/BananaItem")]
 public class BananaSpawn : ItemAbility
 {
-    public GameObject bananaPrefab;  
-    public float throwForce = 12f;   
+    public GameObject bananaPrefab;
+    [Tooltip("Initial launch speed")]
+    public float throwForce = 12f;
+    [Tooltip("How far in front of the player to spawn")]
     public float spawnDistance = 4.5f;
-    public Vector3 spawnPosition = new Vector3(0,3,3);
+    [Tooltip("How high above the ground to spawn")]
+    public float spawnHeight = 1f;
+    [Tooltip("Extra upward component to the throw")]
+    public float arcFactor = 0.5f;
 
     public override void Activate(GameObject target)
     {
-        Vector3 spawnPos = target.transform.position + target.transform.forward * spawnDistance + spawnPosition;
-        spawnPos.y = target.transform.position.y; 
+        Vector3 basePos = target.transform.position +target.transform.forward * spawnDistance;
+        Vector3 spawnPos = new Vector3(basePos.x, target.transform.position.y + spawnHeight, basePos.z);
 
- 
+
         GameObject banana = Instantiate(bananaPrefab, spawnPos, Quaternion.identity);
 
-        Rigidbody bananaRb = banana.GetComponent<Rigidbody>();
-     
-        Vector3 throwDirection = target.transform.forward + Vector3.up * 0.5f; 
-        bananaRb.linearVelocity = throwDirection.normalized * throwForce;
+        var rb = banana.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 dir = (target.transform.forward + Vector3.up * arcFactor).normalized;
+            rb.linearVelocity = dir * throwForce;
+        }
     }
 }
