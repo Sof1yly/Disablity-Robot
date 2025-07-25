@@ -336,12 +336,12 @@ GameObject:
   - component: {fileID: 4207576479873066461}
   - component: {fileID: 7414399650250826768}
   m_Layer: 5
-  m_Name: MMFPlayerFinishLine
+  m_Name: 04_MMFPlayerFinishLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4207576479873066461
 RectTransform:
   m_ObjectHideFlags: 0
@@ -380,7 +380,7 @@ MonoBehaviour:
   Direction: 0
   AutoChangeDirectionOnEnd: 0
   AutoPlayOnStart: 0
-  AutoPlayOnEnable: 0
+  AutoPlayOnEnable: 1
   ForceTimescaleMode: 0
   ForcedTimescaleMode: 1
   DurationMultiplier: 1
@@ -793,8 +793,8 @@ MonoBehaviour:
           CooldownDuration: 0
           InterruptsOnStop: 1
           NumberOfRepeats: 0
-          RepeatForever: 0
-          DelayBetweenRepeats: 1
+          RepeatForever: 1
+          DelayBetweenRepeats: 0
           PlayCount: 2
           LimitPlayCount: 0
           MaxPlayCount: 3
@@ -1712,8 +1712,8 @@ MonoBehaviour:
           CooldownDuration: 0
           InterruptsOnStop: 1
           NumberOfRepeats: 0
-          RepeatForever: 0
-          DelayBetweenRepeats: 1
+          RepeatForever: 1
+          DelayBetweenRepeats: 0
           PlayCount: 2
           LimitPlayCount: 0
           MaxPlayCount: 3
