@@ -5,8 +5,7 @@ public class TeachRocket : MonoBehaviour
 {
     [Header("Movement")]
     public float speed = 20f;  
-    public float lifeTime = 5f; 
-    public float pushForce = 10f;  
+    public float lifeTime = 5f;   
 
 
     private Rigidbody rb;
@@ -30,8 +29,6 @@ public class TeachRocket : MonoBehaviour
         {
             ApplyStunEffect(other.gameObject);
 
-  
-            PushObject(other.gameObject);
 
         }
 
@@ -44,17 +41,6 @@ public class TeachRocket : MonoBehaviour
         if (statusManage != null)
         {
             statusManage.OnApplyStatus(StatusType.Stun);  
-        }
-    }
-
-    void PushObject(GameObject obj)
-    {
-        Rigidbody objRb = obj.GetComponent<Rigidbody>();
-        if (objRb != null)
-        {
-            // Apply force to push the object
-            Vector3 pushDirection = obj.transform.position - transform.position;  
-            objRb.AddForce(pushDirection.normalized * pushForce, ForceMode.Impulse);
         }
     }
 

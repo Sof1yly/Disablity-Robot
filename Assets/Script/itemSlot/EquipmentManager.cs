@@ -16,7 +16,12 @@ public class EquipmentManager : MonoBehaviour
 
     void Update()
     {
-       
+        if (Input.GetKeyDown(KeyCode.JoystickButton4)) //will change to input action later dont worry my nigga
+        {
+            Debug.Log("use item");
+            UseMain();
+        }
+
     }
 
     public bool HasFreeSlot()
