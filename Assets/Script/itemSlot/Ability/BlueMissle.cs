@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Inventory/Ability/BlueMissile")]
 public class BlueMissle : ItemAbility
 {
-    [Tooltip("Prefab with the HomingMissile component")]
+    [Tooltip("Prefab with the BlueMissleScript component")]
     public GameObject missilePrefab;
 
     [Tooltip("How many to fire when used")]
@@ -14,12 +14,18 @@ public class BlueMissle : ItemAbility
 
     public override void Activate(GameObject user)
     {
-        Vector3 origin = user.transform.position + spawnOffset;
+        Vector3 origin = user.transform.position + user.transform.TransformDirection(spawnOffset);
         Quaternion rot = user.transform.rotation;
+
         for (int i = 0; i < missileCount; i++)
         {
-            Instantiate(missilePrefab, origin, rot);
+            var go = Instantiate(missilePrefab, origin, rot);
+            if (go.TryGetComponent<BlueMissleScript>(out var script))
+            {
+                script.owner = user;
+            }
         }
-        Debug.Log($"Spawned {missileCount} homing missiles");
+
+        Debug.Log($"Spawned {missileCount} homing missiles (owner set)");
     }
 }
