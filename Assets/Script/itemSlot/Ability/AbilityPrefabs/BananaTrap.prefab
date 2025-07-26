@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4422817442477102949}
   - component: {fileID: 7052242610647782038}
   - component: {fileID: 4056132286318720586}
-  - component: {fileID: 4657640717910474252}
-  - component: {fileID: 4946063745328808956}
+  - component: {fileID: 641746433392757589}
+  - component: {fileID: 7045308252332219571}
   m_Layer: 0
   m_Name: BananaTrap
   m_TagString: Untagged
@@ -105,11 +105,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.7, y: 1.7, z: 1.7}
+  m_Size: {x: 1.4, y: 1.4, z: 1.4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4056132286318720586
 MonoBehaviour:
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e1e43b042f8664fa1d357f973ad0eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &4657640717910474252
+--- !u!54 &641746433392757589
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,9 +148,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4946063745328808956
+--- !u!114 &7045308252332219571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,9 +159,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5865936196366216021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad8b1b85b900b9e42b1d128ed3ec1adb, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c87b34d6bb215e49bec99588702a92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatHeight: 0.001
-  floatSpeed: 0.2
-  rotationSpeed: 0
+  gravityScale: 10

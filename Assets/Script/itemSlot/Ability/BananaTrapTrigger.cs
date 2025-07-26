@@ -1,22 +1,31 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class BananaTrapTrigger : MonoBehaviour
 {
     bool used = false;
+    Collider col;
 
-    void OnTriggerEnter(Collider other)
+    void Awake()
     {
- 
-        if (used || !other.TryGetComponent<StatusManage>(out StatusManage manage))
-        {
-            return;
-        }
-   
-        used = true;
-        manage.OnApplyStatus(StatusType.Stun);
-        Debug.Log($"Banana trap stunned {other.name}");
+        col = GetComponent<Collider>();
+        col.isTrigger = false;
+        var rb = GetComponent<Rigidbody>();
+        rb.useGravity = true;
+        rb.isKinematic = false;
+    }
 
-        Destroy(gameObject);
+    void OnCollisionEnter(Collision collision)
+    {
+        if (used) return;
+
+        var other = collision.collider;
+        if (other.TryGetComponent<StatusManage>(out var manage))
+        {
+            used = true;
+            manage.OnApplyStatus(StatusType.Stun);
+            Destroy(gameObject);
+            Debug.Log($"Banana trap stunned {other.name}");
+        }
     }
 }
