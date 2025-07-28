@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 7635722157514959058}
   m_Layer: 0
   m_Name: path
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5435871576345373543
 Transform:
@@ -49,7 +49,7 @@ MonoBehaviour:
     _bezierPath:
       points:
       - {x: 186.09259, y: 0, z: 639.90454}
-      - {x: -158.30884, y: -0.00010993642, z: 780.6492}
+      - {x: -151.27371, y: 0, z: 796.7654}
       - {x: -74.312996, y: 0, z: 606.89966}
       - {x: -184.62549, y: 0, z: 251.57935}
       - {x: -317.84918, y: 0, z: -177.53879}
@@ -71,28 +71,28 @@ MonoBehaviour:
       - {x: -83.5578, y: 0, z: 1063.4275}
       - {x: 243.2445, y: 0, z: 979.827}
       - {x: 526.1262, y: 0, z: 907.46204}
-      - {x: 450.91776, y: 0, z: 1168.9993}
+      - {x: 413.83875, y: 0, z: 1119.6744}
       - {x: 664.4702, y: 0, z: 969.86584}
-      - {x: 1018.0006, y: 0, z: 640.2058}
-      - {x: 1189.3259, y: 0, z: 424.72803}
-      - {x: 729.5896, y: 0, z: 275.3894}
-      - {x: 567.72363, y: 0, z: 222.80963}
-      - {x: 755.4815, y: 0, z: 565.1506}
-      - {x: 604.4487, y: 0, z: 486.70117}
-      - {x: 1.3309326, y: 0, z: 173.43002}
-      - {x: 1333.7672, y: -0.00009830507, z: 188.7688}
+      - {x: 1020.5295, y: 0, z: 757.04047}
+      - {x: 1208.8588, y: 0, z: 781.6085}
+      - {x: 960.30774, y: 0, z: 449.50122}
+      - {x: 804.1392, y: 0, z: 240.83296}
+      - {x: 761.0097, y: 0, z: 735.9227}
+      - {x: 594.2096, y: 0, z: 535.651}
+      - {x: 137.58469, y: 0, z: -12.604431}
+      - {x: 1353.3076, y: -0.00010249626, z: 216.68616}
       - {x: 1007.42773, y: 0, z: -407.37915}
-      - {x: 774.3339, y: 0.000070216156, z: -833.18854}
-      - {x: 660.3898, y: 0.00023331941, z: -849.48895}
+      - {x: 772.10803, y: 0.00006973342, z: -831.9625}
+      - {x: 653.3477, y: 0.00018299962, z: -856.5012}
       - {x: 314.36072, y: 0.00012207031, z: -509.03296}
-      - {x: 180.6195, y: 0.00007907222, z: -377.44574}
-      - {x: 383.5451, y: 0.000010914368, z: -425.02725}
-      - {x: 349.29602, y: 0, z: -240.55798}
-      - {x: 303.90268, y: -0.000014465777, z: 3.9354553}
-      - {x: 237.80481, y: 0.00010611907, z: -166.51906}
-      - {x: 178.35168, y: 0.00012207031, z: 74.94092}
-      - {x: 84.73724, y: 0.00014718702, z: 455.14203}
-      - {x: 548.5507, y: 0.00011570031, z: 491.78082}
+      - {x: 130.69206, y: 0.00008905782, z: -320.76904}
+      - {x: 468.48975, y: 0.000048704635, z: -382.20822}
+      - {x: 378.69922, y: 0, z: -134.99347}
+      - {x: 300.0614, y: -0.00004265513, z: 81.51523}
+      - {x: 210.58092, y: 0, z: -133.8929}
+      - {x: 125.25903, y: 0, z: 80.06995}
+      - {x: -19.29129, y: 0, z: 442.56076}
+      - {x: 539.96124, y: 0, z: 475.3708}
       isClosed: 1
       space: 2
       controlMode: 3
@@ -153,14 +153,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathCreator: {fileID: 817528827596967900}
-  autoUpdate: 1
-  roadWidth: 40.21
+  autoUpdate: 0
+  roadWidth: 50
   thickness: 0.15
-  flattenSurface: 0
-  roadMaterial: {fileID: 2100000, guid: b5df4735192845740bd11076dc9cdc99, type: 2}
+  flattenSurface: 1
+  roadMaterial: {fileID: 2100000, guid: c7cb48b9ae83360449c677def0d72e54, type: 2}
   undersideMaterial: {fileID: 2100000, guid: c1d8d882244c5344fa86a8fd23246f81, type: 2}
   textureTiling: 1
   meshHolder: {fileID: 3052656772794196168}
+  checkpointPrefab: {fileID: 0}
+  checkpointOffset: 0
+  checkpointParent: {fileID: 0}
+  checkpointSpacing: 20
 --- !u!1 &2377854501049790474
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2377854501049790474}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 73.82489, y: 31.043941, z: -519.68494}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -205,10 +209,12 @@ GameObject:
   - component: {fileID: 6041054161519797141}
   - component: {fileID: 427806825116172447}
   - component: {fileID: 1237201323938214263}
-  - component: {fileID: 7993814925344326760}
+  - component: {fileID: 4126386098763464700}
+  - component: {fileID: 7955005245772628964}
+  - component: {fileID: 266733538345396008}
   m_Layer: 0
   m_Name: Road Mesh Holder
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,7 +265,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b5df4735192845740bd11076dc9cdc99, type: 2}
+  - {fileID: 2100000, guid: 9bcd7eb22bfce484a832c53cf345a3c9, type: 2}
   - {fileID: 2100000, guid: c1d8d882244c5344fa86a8fd23246f81, type: 2}
   - {fileID: 2100000, guid: c1d8d882244c5344fa86a8fd23246f81, type: 2}
   m_StaticBatchInfo:
@@ -283,7 +289,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7993814925344326760
+--- !u!64 &4126386098763464700
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,3 +311,35 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &7955005245772628964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052656772794196168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cfed3c268cc8954786bcd9204872a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshCollider: {fileID: 4126386098763464700}
+  objectPool: {fileID: 266733538345396008}
+  spawnInterval: 1
+  maxTries: 10
+  spawnOffsetHeight: 10
+  spawnPos: []
+--- !u!114 &266733538345396008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052656772794196168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53ca054d5bccb4498394007e17d7357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 3541160734447035825, guid: fe3089f44d890d24898dd83a25d57304, type: 3}
+  poolSize: 15
