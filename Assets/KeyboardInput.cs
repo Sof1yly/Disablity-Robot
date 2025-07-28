@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class KeyboardInput : MonoBehaviour
 {
@@ -14,9 +13,8 @@ public class KeyboardInput : MonoBehaviour
     [SerializeField] Vector2Int currentMoveIndex = Vector2Int.zero;
     [SerializeField] UnityEvent<string> OnUpdateText;
     [SerializeField] UnityEvent OnOffKeyboard;
-    Image currentImage;
     string currentText = "";
-
+    ButtonAction currentButtonAction;
 
     private void Start()
     {
@@ -78,21 +76,19 @@ public class KeyboardInput : MonoBehaviour
             if (Time.time < currentTimer) return;
 
             currentTimer = Time.time + PressDelay;
-            Transform row = this.transform.GetChild(currentMoveIndex.y);
-            RectTransform colume = row.GetChild(currentMoveIndex.x).GetComponent<RectTransform>();
-            colume.GetComponent<ButtonAction>().OnPress();
+            currentButtonAction.OnPress();
         }
     }
 
     void ApplyPosition()
     {
-        if (currentImage != null) currentImage.color = Color.white;
+        if (currentButtonAction != null) currentButtonAction.OnDeselect();
 
         Transform row = this.transform.GetChild(currentMoveIndex.y);
-        RectTransform colume = row.GetChild(currentMoveIndex.x).GetComponent<RectTransform>();
 
-        currentImage = colume.GetComponent<Image>();
-        currentImage.color = Color.gray;
+        currentButtonAction = row.GetChild(currentMoveIndex.x).GetComponent<ButtonAction>();
+
+        currentButtonAction.OnSelect();
     }
 
     public void AddLetter(char newLetter)
