@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36710be3feac742409238a4d826843ed, type: 3}
   m_Name: BananaTrapSO
   m_EditorClassIdentifier: 
-  trapPrefab: {fileID: 5865936196366216021, guid: 4cde0727ed8c89b48851402a7e17bca4, type: 3}
+  bananaPrefab: {fileID: 5865936196366216021, guid: 4cde0727ed8c89b48851402a7e17bca4, type: 3}
+  throwForce: 7
   spawnDistance: 7
+  spawnHeight: 5
+  arcFactor: 0.5
