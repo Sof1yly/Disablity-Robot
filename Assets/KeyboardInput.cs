@@ -10,15 +10,14 @@ public class KeyboardInput : MonoBehaviour
     float currenPressTimer;
 
     [SerializeField] PlayerInput playerInput;
-    [SerializeField] Vector2Int currentMoveIndex = Vector2Int.zero;
     [SerializeField] UnityEvent<string> OnUpdateText;
     [SerializeField] UnityEvent OnOffKeyboard;
+    Vector2Int currentMoveIndex = Vector2Int.zero;
     string currentText = "";
     ButtonAction currentButtonAction;
 
     private void Start()
     {
-        playerInput.SwitchCurrentActionMap("Ui");
         ApplyPosition();
         OnUpdateText?.Invoke(currentText);
     }
@@ -69,7 +68,7 @@ public class KeyboardInput : MonoBehaviour
     private void pressButton()
     {
 
-        InputAction moveAction = playerInput.actions["Press"];
+        InputAction moveAction = playerInput.actions["Restart"];
 
         if (moveAction.IsPressed())
         {
@@ -114,7 +113,6 @@ public class KeyboardInput : MonoBehaviour
     public void OnFinish()
     {
         OnOffKeyboard?.Invoke();
-        playerInput.SwitchCurrentActionMap("Ui");
         this.gameObject.SetActive(false);
     }
 }
