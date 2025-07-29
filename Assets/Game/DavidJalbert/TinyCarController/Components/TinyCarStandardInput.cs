@@ -13,6 +13,7 @@ namespace DavidJalbert
         private InputAction accelerateAction; // Action for acceleration (Right Trigger)
         private InputAction brakeAction;    // Action for braking (Left Trigger)
         private InputAction Restart;
+        private InputAction Item; // Action for using items
         public float boostDuration = 1;
         public float boostCoolOff = 2;  // Time to wait before the next boost is available
         public float boostMultiplier = 2;
@@ -24,6 +25,7 @@ namespace DavidJalbert
         [SerializeField] string MoveScheme = "Move";
 
         [SerializeField] TrackUpdate Restarter;
+        [SerializeField] EquipmentManager equipmentManager;
         void Awake()
         {
             // Get PlayerInput component and bind actions
@@ -38,6 +40,7 @@ namespace DavidJalbert
             accelerateAction = playerInput.actions["Accelerate"]; // "Accelerate" (Right Trigger)
             brakeAction = playerInput.actions["Brake"];  // "Brake" action (Left Trigger)
             Restart = playerInput.actions["Restart"];
+            Item = playerInput.actions["Item"]; // "Item" action (for using items)
         }
 
         void Update()
@@ -57,6 +60,13 @@ namespace DavidJalbert
             {
                 Restarter.RestartCar();
             }
+
+            if (Item.IsPressed())
+            {
+                equipmentManager.UseMain();
+            }
+
+            
 
             // Check if the Left Trigger is pressed for reverse movement
             if (brakeDelta >= triggerFullyPressed)  // Left trigger is pressed

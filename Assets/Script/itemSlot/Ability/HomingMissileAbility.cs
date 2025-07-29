@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Inventory/Ability/HomingMissile")]
@@ -14,11 +15,15 @@ public class HomingMissileAbility : ItemAbility
 
     public override void Activate(GameObject user)
     {
-        Vector3 origin = user.transform.position + spawnOffset;
+        Vector3 origin = user.transform.position + user.transform.TransformDirection(spawnOffset);
         Quaternion rot = user.transform.rotation;
         for (int i = 0; i < missileCount; i++)
         {
-            Instantiate(missilePrefab, origin, rot);
+            GameObject missile = Instantiate(missilePrefab, origin, rot);
+            if (missile.TryGetComponent<HomingMissile>(out var homing))
+            {
+                homing.owner = user;
+            }
         }
         Debug.Log($"Spawned {missileCount} homing missiles");
     }

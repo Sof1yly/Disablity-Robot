@@ -1,40 +1,80 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Collider))]
 public class RndItemPickUp : MonoBehaviour
 {
+    [Header("Item Settings")]
     public List<ItemSO> itemList = new List<ItemSO>();
+
+
+    public float respawnMinTime = 3f;
+    public float respawnMaxTime = 5f;
+
+    private Collider pickupCollider;
+    private Renderer[] renderers;
+
+    void Awake()
+    {
+        pickupCollider = GetComponent<Collider>();
+        renderers = GetComponentsInChildren<Renderer>(true);
+    }
 
     void OnTriggerEnter(Collider other)
     {
         var eq = other.GetComponent<EquipmentManager>();
-        if(eq == null)
+        if (eq == null)
+            return;
+
+        if (!eq.HasFreeSlot())
         {
+            Debug.Log("Slot full — can't pick up item");
             return;
         }
 
-        if (!eq.HasFreeSlot()) 
+        if (itemList == null || itemList.Count == 0)
         {
-            Debug.Log("slot full");
+            Debug.LogWarning("No items in itemList!");
             return;
         }
-        if(itemList.Count == 0)
-        {
-            Debug.Log("forgot to put item in list");
-            return;
 
-        }
-
+        // Pick a random item
         int idx = Random.Range(0, itemList.Count);
         ItemSO picked = itemList[idx];
 
         eq.PickupItem(picked);
-        Debug.Log($"Picked up item: {picked.name} ");
+        Debug.Log($"Picked up item: {picked.name}");
 
-        Destroy(gameObject);
+        StartCoroutine(RespawnRoutine());
     }
 
+    IEnumerator RespawnRoutine()
+    {
+
+        if (pickupCollider != null)
+        {
+            pickupCollider.enabled = false;
+        }
+
+        foreach (var rend in renderers)
+        {
+            rend.enabled = false;
+        }
 
 
+        float delay = Random.Range(respawnMinTime, respawnMaxTime);
+        yield return new WaitForSeconds(delay);
+
+
+        if (pickupCollider != null)
+        {
+            pickupCollider.enabled = true;
+        }
+            
+        foreach (var rend in renderers)
+        {
+            rend.enabled = true;
+        }
+    }
 }

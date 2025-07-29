@@ -31,12 +31,12 @@ namespace CarInput
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""a032fcc1-387f-4d40-97f8-7a9d8b49f7c7"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Boost"",
@@ -78,6 +78,15 @@ namespace CarInput
                     ""name"": ""Brake"",
                     ""type"": ""Button"",
                     ""id"": ""1a6ef773-2371-46fd-9f5a-6c60d40e4378"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Item"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f5ae4aa-3b95-4d47-9049-6f1ec5e19c9d"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -282,6 +291,28 @@ namespace CarInput
                     ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5b3523b-1e64-4aec-bfee-77815a5547ad"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Item"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6feb8617-25bf-4b44-88c3-baa1aba76aac"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""Item"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -319,6 +350,7 @@ namespace CarInput
             m_TinyCarInputSystem_Accelerate = m_TinyCarInputSystem.FindAction("Accelerate", throwIfNotFound: true);
             m_TinyCarInputSystem_Restart = m_TinyCarInputSystem.FindAction("Restart", throwIfNotFound: true);
             m_TinyCarInputSystem_Brake = m_TinyCarInputSystem.FindAction("Brake", throwIfNotFound: true);
+            m_TinyCarInputSystem_Item = m_TinyCarInputSystem.FindAction("Item", throwIfNotFound: true);
         }
 
         ~@Player1()
@@ -391,6 +423,7 @@ namespace CarInput
         private readonly InputAction m_TinyCarInputSystem_Accelerate;
         private readonly InputAction m_TinyCarInputSystem_Restart;
         private readonly InputAction m_TinyCarInputSystem_Brake;
+        private readonly InputAction m_TinyCarInputSystem_Item;
         public struct TinyCarInputSystemActions
         {
             private @Player1 m_Wrapper;
@@ -401,6 +434,7 @@ namespace CarInput
             public InputAction @Accelerate => m_Wrapper.m_TinyCarInputSystem_Accelerate;
             public InputAction @Restart => m_Wrapper.m_TinyCarInputSystem_Restart;
             public InputAction @Brake => m_Wrapper.m_TinyCarInputSystem_Brake;
+            public InputAction @Item => m_Wrapper.m_TinyCarInputSystem_Item;
             public InputActionMap Get() { return m_Wrapper.m_TinyCarInputSystem; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -428,6 +462,9 @@ namespace CarInput
                 @Brake.started += instance.OnBrake;
                 @Brake.performed += instance.OnBrake;
                 @Brake.canceled += instance.OnBrake;
+                @Item.started += instance.OnItem;
+                @Item.performed += instance.OnItem;
+                @Item.canceled += instance.OnItem;
             }
 
             private void UnregisterCallbacks(ITinyCarInputSystemActions instance)
@@ -450,6 +487,9 @@ namespace CarInput
                 @Brake.started -= instance.OnBrake;
                 @Brake.performed -= instance.OnBrake;
                 @Brake.canceled -= instance.OnBrake;
+                @Item.started -= instance.OnItem;
+                @Item.performed -= instance.OnItem;
+                @Item.canceled -= instance.OnItem;
             }
 
             public void RemoveCallbacks(ITinyCarInputSystemActions instance)
@@ -493,6 +533,7 @@ namespace CarInput
             void OnAccelerate(InputAction.CallbackContext context);
             void OnRestart(InputAction.CallbackContext context);
             void OnBrake(InputAction.CallbackContext context);
+            void OnItem(InputAction.CallbackContext context);
         }
     }
 }
