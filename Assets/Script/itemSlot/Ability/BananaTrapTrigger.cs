@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(Collider))]
+[RequireComponent(typeof(Collider))]
 public class BananaTrapTrigger : MonoBehaviour
 {
     bool used = false;
@@ -9,10 +9,7 @@ public class BananaTrapTrigger : MonoBehaviour
     void Awake()
     {
         col = GetComponent<Collider>();
-        col.isTrigger = false;
-        var rb = GetComponent<Rigidbody>();
-        rb.useGravity = true;
-        rb.isKinematic = false;
+
     }
 
     void OnCollisionEnter(Collision collision)
