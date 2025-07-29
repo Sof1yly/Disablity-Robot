@@ -24,7 +24,7 @@ public class SoundPlayer : MonoBehaviour
         options = MMSoundManagerPlayOptions.Default;
 
         options.SpatialBlend = 1;
-        options.Location = Sources[source--].transform.position;
+        options.Location = Sources[source].transform.position;
 
         MMSoundManagerSoundPlayEvent.Trigger(sfx, options);
     }

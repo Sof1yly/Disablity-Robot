@@ -1,8 +1,10 @@
+using DavidJalbert;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class BananaTrapTrigger : MonoBehaviour
 {
+    [SerializeField] private AudioClip sfx;
     bool used = false;
     Collider col;
 
@@ -17,6 +19,7 @@ public class BananaTrapTrigger : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        SoundPlayer.Instance.PlaySound(sfx, collision.transform.parent.GetComponentInChildren<TinyCarAudio>().player);
         if (used) return;
 
         var other = collision.collider;

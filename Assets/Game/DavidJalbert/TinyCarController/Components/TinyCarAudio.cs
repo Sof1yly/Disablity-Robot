@@ -10,7 +10,7 @@ namespace DavidJalbert
     {
         [Header("Player Number")]
         [Tooltip("Links to Audio Source for Spatial Sound")]
-        [SerializeField] private int player;
+        public int player;
         GameObject audioSource;
 
         public TinyCarController carController;
