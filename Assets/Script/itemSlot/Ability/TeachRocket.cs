@@ -27,12 +27,8 @@ public class TeachRocket : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            ApplyStunEffect(other.gameObject);
+        ApplyStunEffect(other.gameObject);
 
-
-        }
 
     }
 

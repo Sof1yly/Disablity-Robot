@@ -151,12 +151,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85aeee8335923d2418cee1147d8b0379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 125
+  speed: 100
   rotateSpeed: 20
   lifeTime: 6
-  detectionRadius: 75
-  targetTag: Player
+  detectionRadius: 90
   destroyDelay: 0.2
+  owner: {fileID: 0}
+  stunvfx: {fileID: 0}
 --- !u!198 &6699183526168150757
 ParticleSystem:
   m_ObjectHideFlags: 0
