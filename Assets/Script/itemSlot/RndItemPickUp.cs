@@ -37,7 +37,6 @@ public class RndItemPickUp : MonoBehaviour
 
         if (itemList == null || itemList.Count == 0)
         {
-            Debug.LogWarning("No items in itemList!");
             return;
         }
 
