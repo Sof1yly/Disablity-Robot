@@ -19,9 +19,9 @@ public class SpeedBoostEffect : MonoBehaviour
             return;
         }
         // Store the original speed
-        originalMaxSpeed = carController.maxSpeedForward;
+        originalMaxSpeed = carController.maxAccelerationForward;
         // Apply boost
-        carController.maxSpeedForward = originalMaxSpeed * multiplier;
+        carController.maxAccelerationForward = originalMaxSpeed * multiplier;
         // Schedule removal
         StartCoroutine(RemoveAfterDelay());
     }
@@ -29,7 +29,7 @@ public class SpeedBoostEffect : MonoBehaviour
     IEnumerator RemoveAfterDelay()
     {
         yield return new WaitForSeconds(duration);
-        carController.maxSpeedForward = originalMaxSpeed;
+        carController.maxAccelerationForward = originalMaxSpeed;
         Destroy(this);
     }
 }
