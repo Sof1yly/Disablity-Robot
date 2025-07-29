@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 namespace DavidJalbert
 {
     [RequireComponent(typeof(AudioSource))]
     public class TinyCarAudio : MonoBehaviour
     {
+        [Header("Player Number")]
+        [Tooltip("Links to Audio Source for Spatial Sound")]
+        public int player;
+        GameObject audioSource;
+
         public TinyCarController carController;
         [Header("Engine audio")]
         [Tooltip("Looping engine sound clip.")]
@@ -55,18 +61,20 @@ namespace DavidJalbert
 
         void Start()
         {
-            audioSourceTemplate = GetComponent<AudioSource>();
+            //setting up audioSource linked to this player
+            audioSource = SoundPlayer.Instance.Sources[player].gameObject;
+            audioSourceTemplate = audioSource.GetComponent<AudioSource>();
 
-            sourceEngine = carController.gameObject.AddComponent<AudioSource>();
+            sourceEngine = audioSource.gameObject.AddComponent<AudioSource>();
             setAudioSourceFromTemplate(ref sourceEngine, audioSourceTemplate);
             sourceEngine.playOnAwake = false;
             sourceEngine.loop = true;
             sourceEngine.clip = engineSoundClip;
-            sourceEngine.volume = 1;
+            sourceEngine.volume = 0.5f;
 
             sourceEngine.Play();
 
-            sourceBrake = carController.gameObject.AddComponent<AudioSource>();
+            sourceBrake = audioSource.gameObject.AddComponent<AudioSource>();
             setAudioSourceFromTemplate(ref sourceBrake, audioSourceTemplate);
             sourceBrake.playOnAwake = false;
             sourceBrake.loop = true;
@@ -75,7 +83,7 @@ namespace DavidJalbert
 
             sourceBrake.Play();
 
-            sourceGrinding = carController.gameObject.AddComponent<AudioSource>();
+            sourceGrinding = audioSource.gameObject.AddComponent<AudioSource>();
             setAudioSourceFromTemplate(ref sourceGrinding, audioSourceTemplate);
             sourceGrinding.playOnAwake = false;
             sourceGrinding.loop = true;
@@ -84,13 +92,13 @@ namespace DavidJalbert
 
             sourceGrinding.Play();
 
-            sourceBump = carController.gameObject.AddComponent<AudioSource>();
+            sourceBump = audioSource.gameObject.AddComponent<AudioSource>();
             setAudioSourceFromTemplate(ref sourceBump, audioSourceTemplate);
             sourceBump.playOnAwake = false;
             sourceBump.loop = false;
             sourceBump.clip = bumpSound;
 
-            sourceLanding = carController.gameObject.AddComponent<AudioSource>();
+            sourceLanding = audioSource.gameObject.AddComponent<AudioSource>();
             setAudioSourceFromTemplate(ref sourceLanding, audioSourceTemplate);
             sourceLanding.playOnAwake = false;
             sourceLanding.loop = false;
