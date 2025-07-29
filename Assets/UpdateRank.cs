@@ -9,10 +9,6 @@ public class UpdateRank : MonoBehaviour
         textMeshProgui = GetComponent<TextMeshProUGUI>();
     }
 
-    public void OnEnable()
-    {
-        textMeshProgui = GetComponent<TextMeshProUGUI>();
-    }
     public void UpdateRankText(int Rank)
     {
         textMeshProgui.text = Rank.ToString();
