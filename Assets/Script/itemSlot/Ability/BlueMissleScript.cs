@@ -24,6 +24,8 @@ public class BlueMissleScript : MonoBehaviour
     private TrackUpdate[] players;
     private TrackUpdate ownerTrack;
 
+    //ajarn Born
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
