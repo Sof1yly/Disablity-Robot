@@ -46,10 +46,10 @@ public class BlueMissleScript : MonoBehaviour
 
 
             TrackUpdate targetPlayer = null;
-            if (shooter != null && shooter.CurrentRank == 0)
+            if (shooter != null && shooter.CurrentRank == 1)
             {
       
-                targetPlayer = players.OrderBy(player => player.CurrentRank).Skip(0) .FirstOrDefault();
+                targetPlayer = players.OrderBy(player => player.CurrentRank).Skip(1) .FirstOrDefault();
             }
             else
             {
