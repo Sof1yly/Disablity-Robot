@@ -17,6 +17,7 @@ public class TrackUpdate : MonoBehaviour
     IsGameEnd gameEndController;
     [SerializeField] UnityEvent<int> OnRankingUpdate;
     [SerializeField] UnityEvent<int> OnLapUpdate;
+    [SerializeField] UnityEvent<int> OnPlayerFinishRound;
     [SerializeField] float RestartCD = 1;
 
     Rigidbody rb;
@@ -48,14 +49,21 @@ public class TrackUpdate : MonoBehaviour
     {
         currentRoundPlay++;
         OnLapUpdate?.Invoke(currentRoundPlay);
+
         if (currentRoundPlay >= MaxRound)
         {
-            gameEndController.OnPlayerFinishAllRound(this);
+            OnFinishEveryRound();
         }
     }
     public void UpdateFinalRanking(int FinalRank)
     {
         finalRank = FinalRank;
+    }
+    public void OnFinishEveryRound()
+    {
+        gameEndController.OnPlayerFinishAllRound(this);
+        OnPlayerFinishRound?.Invoke(FinalRank);
+          
     }
 
     PlayerInput playerInput;

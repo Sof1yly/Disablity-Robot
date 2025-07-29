@@ -18,7 +18,7 @@ public class IsGameEnd : MonoBehaviour
         int ranking = finishedList.IndexOf(Player);
         Player.UpdateFinalRanking(ranking + 1);
         isGameEnd();
-        Debug.Log("Yippe! , Player Finish da Game NOWWWWWW");
+        //Debug.Log("Yippe! , Player Finish da Game NOWWWWWW");
     }
 
     public void isGameEnd()
