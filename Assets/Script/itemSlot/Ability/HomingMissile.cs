@@ -16,14 +16,19 @@ public class HomingMissile : MonoBehaviour
 
     [HideInInspector] public GameObject owner;  // set by the spawner
 
-    Rigidbody rb;
-    Transform target;
-    Collider col;
+    private Rigidbody rb;
+    private Transform target;
+    private Collider col;
+
+    [SerializeField] GameObject stunvfx;
+    MeshRenderer mr;
+
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+        mr = GetComponent<MeshRenderer>();
         Destroy(gameObject, lifeTime);
     }
 
@@ -72,7 +77,8 @@ public class HomingMissile : MonoBehaviour
             manage.OnApplyStatus(StatusType.Stun);
             Debug.Log($"[Missile] Stunned {other.name}");
         }
-
+        mr.enabled = false;
+        stunvfx.SetActive(true);
         col.enabled = false;  // prevent re-entry
         Destroy(gameObject, destroyDelay);
     }

@@ -155,8 +155,9 @@ MonoBehaviour:
   rotateSpeed: 20
   lifeTime: 6
   detectionRadius: 75
-  targetTag: Player
   destroyDelay: 0.2
+  owner: {fileID: 0}
+  stunvfx: {fileID: 0}
 --- !u!198 &6699183526168150757
 ParticleSystem:
   m_ObjectHideFlags: 0
