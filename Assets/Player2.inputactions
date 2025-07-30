@@ -114,6 +114,54 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Ui",
+            "id": "213f71d1-fb3f-47d3-8d9f-f16592775817",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "f596ddea-a1b1-42d4-94ca-20fad93dd1fd",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Press",
+                    "type": "Button",
+                    "id": "792fd9f2-9dfc-475d-8a54-423c7376dc8a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "03036551-00f0-4f1d-aa07-a087955e30ad",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea08d283-c761-4572-b961-b58e091b4297",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

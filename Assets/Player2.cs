@@ -138,6 +138,54 @@ namespace CarInput
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Ui"",
+            ""id"": ""213f71d1-fb3f-47d3-8d9f-f16592775817"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""f596ddea-a1b1-42d4-94ca-20fad93dd1fd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Press"",
+                    ""type"": ""Button"",
+                    ""id"": ""792fd9f2-9dfc-475d-8a54-423c7376dc8a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""03036551-00f0-4f1d-aa07-a087955e30ad"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ea08d283-c761-4572-b961-b58e091b4297"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -169,11 +217,16 @@ namespace CarInput
             m_TinyCarInputSystem = asset.FindActionMap("TinyCarInputSystem", throwIfNotFound: true);
             m_TinyCarInputSystem_Move = m_TinyCarInputSystem.FindAction("Move", throwIfNotFound: true);
             m_TinyCarInputSystem_Boost = m_TinyCarInputSystem.FindAction("Boost", throwIfNotFound: true);
+            // Ui
+            m_Ui = asset.FindActionMap("Ui", throwIfNotFound: true);
+            m_Ui_Move = m_Ui.FindAction("Move", throwIfNotFound: true);
+            m_Ui_Press = m_Ui.FindAction("Press", throwIfNotFound: true);
         }
 
         ~@Player2()
         {
             UnityEngine.Debug.Assert(!m_TinyCarInputSystem.enabled, "This will cause a leak and performance issues, Player2.TinyCarInputSystem.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Ui.enabled, "This will cause a leak and performance issues, Player2.Ui.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -285,6 +338,60 @@ namespace CarInput
             }
         }
         public TinyCarInputSystemActions @TinyCarInputSystem => new TinyCarInputSystemActions(this);
+
+        // Ui
+        private readonly InputActionMap m_Ui;
+        private List<IUiActions> m_UiActionsCallbackInterfaces = new List<IUiActions>();
+        private readonly InputAction m_Ui_Move;
+        private readonly InputAction m_Ui_Press;
+        public struct UiActions
+        {
+            private @Player2 m_Wrapper;
+            public UiActions(@Player2 wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Move => m_Wrapper.m_Ui_Move;
+            public InputAction @Press => m_Wrapper.m_Ui_Press;
+            public InputActionMap Get() { return m_Wrapper.m_Ui; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(UiActions set) { return set.Get(); }
+            public void AddCallbacks(IUiActions instance)
+            {
+                if (instance == null || m_Wrapper.m_UiActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_UiActionsCallbackInterfaces.Add(instance);
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Press.started += instance.OnPress;
+                @Press.performed += instance.OnPress;
+                @Press.canceled += instance.OnPress;
+            }
+
+            private void UnregisterCallbacks(IUiActions instance)
+            {
+                @Move.started -= instance.OnMove;
+                @Move.performed -= instance.OnMove;
+                @Move.canceled -= instance.OnMove;
+                @Press.started -= instance.OnPress;
+                @Press.performed -= instance.OnPress;
+                @Press.canceled -= instance.OnPress;
+            }
+
+            public void RemoveCallbacks(IUiActions instance)
+            {
+                if (m_Wrapper.m_UiActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IUiActions instance)
+            {
+                foreach (var item in m_Wrapper.m_UiActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_UiActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public UiActions @Ui => new UiActions(this);
         private int m_KeyboardSchemeIndex = -1;
         public InputControlScheme KeyboardScheme
         {
@@ -307,6 +414,11 @@ namespace CarInput
         {
             void OnMove(InputAction.CallbackContext context);
             void OnBoost(InputAction.CallbackContext context);
+        }
+        public interface IUiActions
+        {
+            void OnMove(InputAction.CallbackContext context);
+            void OnPress(InputAction.CallbackContext context);
         }
     }
 }
