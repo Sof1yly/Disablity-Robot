@@ -13,6 +13,7 @@ public class BananaSpawn : ItemAbility
     public float spawnHeight = 1f;
     [Tooltip("Extra upward component to the throw")]
     public float arcFactor = 0.5f;
+  
 
     public override void Activate(GameObject target)
     {
