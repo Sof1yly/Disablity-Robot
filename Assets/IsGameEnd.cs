@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -21,11 +22,13 @@ public class IsGameEnd : MonoBehaviour
         //Debug.Log("Yippe! , Player Finish da Game NOWWWWWW");
     }
     [SerializeField] AudioClip allFinish;
+    [SerializeField] MMF_Player mmfPlayer;
     public void isGameEnd()
     {
         if (finishedList.Count == debugMaxPlayer)
         {
             SoundPlayer.Instance.PlaySound(allFinish, 0);
+            mmfPlayer.PlayFeedbacks();
             Debug.Log("Game Ended");
             OnGameFinish?.Invoke();
         }

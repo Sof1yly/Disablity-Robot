@@ -1,15 +1,19 @@
 using CarInput;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using static Unity.VisualScripting.Member;
 
 public class SoundPlayer : MonoBehaviour
 {
     public static SoundPlayer Instance; private void Awake() { if (Instance != null) Destroy(this.gameObject); else DontDestroyOnLoad(this.gameObject); Instance = this; }
 
     public AudioSource[] Sources;
+
+    [SerializeField] private MMF_Player mmfPlayer;
 
     /// <summary>
     /// Plays sound: AudioClip, Speaker number
@@ -118,5 +122,9 @@ public class SoundPlayer : MonoBehaviour
     void BitchSound4()
     {
         PlaySound(SYS_NAME_CONFIRM, 4);
+    }
+    private void Start()
+    {
+        mmfPlayer.PlayFeedbacks();
     }
 }
