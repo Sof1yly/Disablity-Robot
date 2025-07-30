@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c20df9a5a82194fb5903f002d491ae, type: 3}
   m_Name: SpeedBoostSO
   m_EditorClassIdentifier: 
-  boostMultiplier: 1.8
-  boostDuration: 5
+  effectDuration: 3
+  effectParameters:
+    name: SpeedUp
+    steeringMultiplier: 2
+    accelerationMultiplier: 2
+    speedMultiplier: 2
+    forwardFrictionMultiplier: 2
+    lateralFrictionMultiplier: 1
+    sideFrictionMultiplier: 1
