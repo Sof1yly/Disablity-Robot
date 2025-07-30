@@ -1302,6 +1302,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8752918470361331701}
   - {fileID: 1006617304803295629}
   - {fileID: 2751593855935488727}
   - {fileID: 7626927690355632536}
@@ -2534,7 +2535,6 @@ RectTransform:
   - {fileID: 3667643239828570359}
   - {fileID: 5038287224410673263}
   - {fileID: 6777354171393892038}
-  - {fileID: 8752918470361331701}
   - {fileID: 4385469062270357076}
   - {fileID: 3864654993362927927}
   - {fileID: 2492070437507881705}
@@ -2755,7 +2755,7 @@ RectTransform:
   m_Children:
   - {fileID: 6743684098435293950}
   - {fileID: 7754391143588383536}
-  m_Father: {fileID: 7693543490527224380}
+  m_Father: {fileID: 6777354171393892038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5916,6 +5916,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1659999126679586379, guid: 7356c3f876cfed642b6546e0c382fd58, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1659999126679586379, guid: 7356c3f876cfed642b6546e0c382fd58, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1659999126679586379, guid: 7356c3f876cfed642b6546e0c382fd58, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1659999126679586379, guid: 7356c3f876cfed642b6546e0c382fd58, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2124425684173295198, guid: 7356c3f876cfed642b6546e0c382fd58, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7105,6 +7121,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1223582579566921923, guid: 7356c3f876cfed642b6546e0c382fd58, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1659999126679586379, guid: 7356c3f876cfed642b6546e0c382fd58, type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2124425684173295198, guid: 7356c3f876cfed642b6546e0c382fd58, type: 3}
