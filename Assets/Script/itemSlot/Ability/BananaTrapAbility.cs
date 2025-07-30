@@ -14,7 +14,6 @@ public class BananaSpawn : ItemAbility
     [Tooltip("Extra upward component to the throw")]
     public float arcFactor = 0.5f;
 
-    [SerializeField] private AudioClip powerSound;
     public override void Activate(GameObject target)
     {
         Vector3 basePos = target.transform.position + target.transform.forward * spawnDistance;
@@ -23,7 +22,6 @@ public class BananaSpawn : ItemAbility
 
         GameObject banana = Instantiate(bananaPrefab, spawnPos, Quaternion.identity);
 
-        PlayThrowSound(target);
 
         var rb = banana.GetComponent<Rigidbody>();
         if (rb != null)
@@ -33,12 +31,4 @@ public class BananaSpawn : ItemAbility
         }
     }
 
-    private void PlayThrowSound(GameObject target)
-    {
-        // Get the player's index to play the sound on the correct AudioSource
-        int playerIndex = target.GetComponentInChildren<TinyCarAudio>().player;
-
-        // Play the sound through the SoundPlayer
-        SoundPlayer.Instance.PlaySound(powerSound, playerIndex);
-    }
 }

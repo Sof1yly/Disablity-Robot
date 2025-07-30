@@ -8,13 +8,11 @@ using UnityEngine;
 public class InvisibleAbility :ItemAbility
 {
     [SerializeField] private float invincibleDuration = 5f;
-    [SerializeField] private AudioClip invinsibleSound;
     public override void Activate(GameObject target)
     {
         StatusManage statusManage = target.GetComponent<StatusManage>();
         if(statusManage != null)
         {
-            SoundPlayer.Instance.PlaySound(invinsibleSound,target.GetComponentInChildren<TinyCarAudio>().player);
             statusManage.OnApplyStatus(StatusType.Invincible);
 
             var targetMono = target.GetComponent<MonoBehaviour>();

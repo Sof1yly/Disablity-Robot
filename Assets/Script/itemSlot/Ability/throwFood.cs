@@ -5,10 +5,8 @@ using DavidJalbert;
 [CreateAssetMenu(menuName = "Inventory/Ability/ThrowFood")]
 public class throwFood : ItemAbility
 {
-    [SerializeField] private AudioClip powerSound;
     public override void Activate(GameObject target)
     {
-        PlayThrowSound(target);
         var statusManage = target.GetComponent<StatusManage>();
         if (statusManage != null)
         {
@@ -17,12 +15,4 @@ public class throwFood : ItemAbility
         }
     }
 
-    private void PlayThrowSound(GameObject target)
-    {
-        // Get the player's index to play the sound on the correct AudioSource
-        int playerIndex = target.GetComponentInChildren<TinyCarAudio>().player;
-
-        // Play the sound through the SoundPlayer
-        SoundPlayer.Instance.PlaySound(powerSound, playerIndex);
-    }
 }
