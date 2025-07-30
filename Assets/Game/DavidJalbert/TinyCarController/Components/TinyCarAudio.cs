@@ -70,7 +70,7 @@ namespace DavidJalbert
             sourceEngine.playOnAwake = false;
             sourceEngine.loop = true;
             sourceEngine.clip = engineSoundClip;
-            sourceEngine.volume = 1f;
+            sourceEngine.volume = 0.5f;
 
             sourceEngine.Play();
 
