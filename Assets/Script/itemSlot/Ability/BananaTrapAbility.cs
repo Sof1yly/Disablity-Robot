@@ -1,3 +1,4 @@
+using DavidJalbert;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Inventory/Ability/BananaItem")]
@@ -13,13 +14,16 @@ public class BananaSpawn : ItemAbility
     [Tooltip("Extra upward component to the throw")]
     public float arcFactor = 0.5f;
 
+    [SerializeField] private AudioClip powerSound;
     public override void Activate(GameObject target)
     {
-        Vector3 basePos = target.transform.position +target.transform.forward * spawnDistance;
+        Vector3 basePos = target.transform.position + target.transform.forward * spawnDistance;
         Vector3 spawnPos = new Vector3(basePos.x, target.transform.position.y + spawnHeight, basePos.z);
 
 
         GameObject banana = Instantiate(bananaPrefab, spawnPos, Quaternion.identity);
+
+        PlayThrowSound(target);
 
         var rb = banana.GetComponent<Rigidbody>();
         if (rb != null)
@@ -27,5 +31,14 @@ public class BananaSpawn : ItemAbility
             Vector3 dir = (target.transform.forward + Vector3.up * arcFactor).normalized;
             rb.linearVelocity = dir * throwForce;
         }
+    }
+
+    private void PlayThrowSound(GameObject target)
+    {
+        // Get the player's index to play the sound on the correct AudioSource
+        int playerIndex = target.GetComponentInChildren<TinyCarAudio>().player;
+
+        // Play the sound through the SoundPlayer
+        SoundPlayer.Instance.PlaySound(powerSound, playerIndex);
     }
 }
