@@ -9,16 +9,19 @@ public class Stun : Status
     [SerializeField] Rigidbody _rb;
     [SerializeField] TinyCarStandardInput input;
     [SerializeField] TinyCarController carController;
+    [SerializeField] GameObject stunVFX;
     protected override void OnActive()
     {
         carController.enabled = false;
         input.enabled = false;
         _rb.linearVelocity = Vector3.zero;
+        stunVFX.SetActive(true);
     }
 
     protected override void OffActive()
     {
         carController.enabled = true;
         input.enabled = true;
+        stunVFX.SetActive(false);
     }
 }

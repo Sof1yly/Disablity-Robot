@@ -5,6 +5,7 @@ public class BananaTrapTrigger : MonoBehaviour
 {
     private SoundPlayer soundPlayer;
     bool used = false;
+    [SerializeField] GameObject vfx;
 
     void OnTriggerEnter(Collider other)
     {
@@ -18,9 +19,7 @@ public class BananaTrapTrigger : MonoBehaviour
         soundPlayer.PlaySound(SoundPlayer.Instance.Sources[0].clip, 0); 
         manage.OnApplyStatus(StatusType.Stun);
         Debug.Log($"Banana trap stunned {other.name}");
-
+        vfx.SetActive(true);
         Destroy(gameObject);
     }
 }
-
-//yhfgh
