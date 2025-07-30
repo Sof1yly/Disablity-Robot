@@ -5,7 +5,8 @@ using DavidJalbert; // We still need this to access TinyCarController
 [RequireComponent(typeof(PooledObject))] // Ensure this component is present
 public class PickupEffect : MonoBehaviour
 {
-    
+
+    [SerializeField] private AudioClip powerSound;
 
     [Header("Effect Settings")]
     [Tooltip("The duration for which the surface effect on the car lasts.")]
@@ -19,6 +20,7 @@ public class PickupEffect : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         ApplySurfaceEffectToPlayer(other.gameObject); // Apply the surface effect
+        PlayThrowSound(other.gameObject); 
         ReturnPickupObjectToPool();
     }
 
@@ -55,5 +57,14 @@ public class PickupEffect : MonoBehaviour
             Debug.LogError("PickupEffect: PooledObject component missing on pickup item " + gameObject.name + ". Destroying directly.", this);
             Destroy(gameObject);
         }
+    }
+
+    private void PlayThrowSound(GameObject user)
+    {
+        // Get the player's index to play the sound on the correct AudioSource
+        int playerIndex = user.GetComponentInChildren<TinyCarAudio>().player;
+
+        // Play the sound through the SoundPlayer
+        SoundPlayer.Instance.PlaySound(powerSound, playerIndex);
     }
 }
