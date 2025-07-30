@@ -512,7 +512,7 @@ Transform:
   m_GameObject: {fileID: 2710969091300885488}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -44.299988, y: -166, z: 94.30005}
+  m_LocalPosition: {x: -44.300003, y: -166, z: 94.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -627,7 +627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9d7eb8904348f4cb27b8304eaad95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 0
   carController: {fileID: 5541850699763743252}
   engineSoundClip: {fileID: 8300000, guid: addc7495b750e694ebafd7ea80210fd4, type: 3}
   enginePitchOverSpeed:
@@ -20585,9 +20584,6 @@ MonoBehaviour:
   OnLapUpdate:
     m_PersistentCalls:
       m_Calls: []
-  OnPlayerFinishRound:
-    m_PersistentCalls:
-      m_Calls: []
   RestartCD: 0.25
 --- !u!114 &4717458299473137942
 MonoBehaviour:
@@ -25570,7 +25566,6 @@ MonoBehaviour:
   triggerFullyPressed: 1
   MoveScheme: Move
   Restarter: {fileID: 4651099274819636084}
-  equipmentManager: {fileID: 0}
 --- !u!114 &6526617969604317129
 MonoBehaviour:
   m_ObjectHideFlags: 0

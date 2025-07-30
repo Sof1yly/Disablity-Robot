@@ -3,8 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class TeachRocket : MonoBehaviour
 {
-
-    //new rockert
     [Header("Movement")]
     public float speed = 20f;  
     public float lifeTime = 5f;   
@@ -27,8 +25,12 @@ public class TeachRocket : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        ApplyStunEffect(other.gameObject);
+        if (other.CompareTag("Player"))
+        {
+            ApplyStunEffect(other.gameObject);
 
+
+        }
 
     }
 

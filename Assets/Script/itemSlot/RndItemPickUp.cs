@@ -1,12 +1,10 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using DavidJalbert;
 
 [RequireComponent(typeof(Collider))]
 public class RndItemPickUp : MonoBehaviour
 {
-    [SerializeField] AudioClip pickupSfx;
     [Header("Item Settings")]
     public List<ItemSO> itemList = new List<ItemSO>();
 
@@ -27,10 +25,8 @@ public class RndItemPickUp : MonoBehaviour
     {
         var eq = other.GetComponent<EquipmentManager>();
         if (eq == null)
-        {
             return;
-        }
-  
+
         if (!eq.HasFreeSlot())
         {
             Debug.Log("Slot full — can't pick up item");
@@ -39,6 +35,7 @@ public class RndItemPickUp : MonoBehaviour
 
         if (itemList == null || itemList.Count == 0)
         {
+            Debug.LogWarning("No items in itemList!");
             return;
         }
 
@@ -47,8 +44,6 @@ public class RndItemPickUp : MonoBehaviour
         ItemSO picked = itemList[idx];
 
         eq.PickupItem(picked);
-        Debug.Log(other);
-        SoundPlayer.Instance.PlaySound(pickupSfx, other.transform.parent.GetComponentInChildren<TinyCarAudio>().player);
         Debug.Log($"Picked up item: {picked.name}");
 
         StartCoroutine(RespawnRoutine());

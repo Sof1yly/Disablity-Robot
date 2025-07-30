@@ -9,43 +9,33 @@ public class HomingMissile : MonoBehaviour
     public float lifeTime = 5f;
 
     [Header("Target-finding")]
-    public float detectionRadius = 80f;
+    public float detectionRadius = 5f;
+    public string targetTag = "Player";
 
     [Header("Collision")]
-    public float destroyDelay = 0.25f;
-
-    [HideInInspector] public GameObject owner;  // set by the spawner
+    public float destroyDelay = 0.25f;  
 
     private Rigidbody rb;
     private Transform target;
     private Collider col;
 
-    [SerializeField] GameObject stunvfx;
-    MeshRenderer mr;
-
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        mr = GetComponent<MeshRenderer>();
-        Destroy(gameObject, lifeTime);
+        Destroy(gameObject, lifeTime);  
     }
 
     void Update()
     {
+        // Look for target if not already acquired
         if (target == null)
         {
-            // Find anything with a StatusManage component in the detection radius
             Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius);
             foreach (var h in hits)
             {
-                if (h.TryGetComponent<StatusManage>(out var sm))
+                if (h.CompareTag(targetTag))  
                 {
-                    // Ignore the shooter even if they have StatusManage
-                    if (h.gameObject == owner)
-                        continue;
-
-                    // Assign the first valid target
                     target = h.transform;
                     Debug.Log($"[Missile] Target acquired: {target.name}");
                     break;
@@ -56,34 +46,40 @@ public class HomingMissile : MonoBehaviour
 
     void FixedUpdate()
     {
+ 
         if (target != null)
         {
             Vector3 dir = (target.position - transform.position).normalized;
             Quaternion look = Quaternion.LookRotation(dir);
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, look, rotateSpeed * Time.fixedDeltaTime));
         }
-        rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
+        rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime); 
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Ignore hits on the shooter
-        if (other.gameObject == owner)
-            return;
-
-        // Apply stun effect to the target if it has a StatusManage component
-        if (other.TryGetComponent<StatusManage>(out var manage))
+        if (other.CompareTag(targetTag)) 
         {
-            manage.OnApplyStatus(StatusType.Stun);
-            Debug.Log($"[Missile] Stunned {other.name}");
+
+            ApplyStunEffect(other.gameObject);
+
+            Debug.Log("[Missile] Hit and stunned the player");
         }
 
-        // Disable visual effects and collision for the missile after impact
-        mr.enabled = false;
-        stunvfx.SetActive(true);
-        col.enabled = false;  // Prevent re-entry
 
         Destroy(gameObject, destroyDelay);
+    }
+
+
+    void ApplyStunEffect(GameObject player)
+    {
+
+        StatusManage statusManage = player.GetComponent<StatusManage>();
+        if (statusManage != null)
+        {
+            statusManage.OnApplyStatus(StatusType.Stun);  
+        }
+ 
     }
 
     void OnDrawGizmosSelected()
