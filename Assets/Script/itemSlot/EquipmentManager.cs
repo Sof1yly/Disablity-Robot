@@ -12,7 +12,7 @@ public class EquipmentManager : MonoBehaviour
     ItemSO supSlot;
 
     private bool isCooldownActive = false;  
-    private float cooldownTime = 4f; 
+    private float cooldownTime = 0.15f; 
 
     void Update()
     {

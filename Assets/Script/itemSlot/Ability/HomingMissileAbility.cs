@@ -18,7 +18,12 @@ public class HomingMissileAbility : ItemAbility
         Quaternion rot = user.transform.rotation;
         for (int i = 0; i < missileCount; i++)
         {
-            Instantiate(missilePrefab, origin, rot);
+            GameObject missile = Instantiate(missilePrefab, origin, rot);
+            HomingMissile missileScript = missile.GetComponent<HomingMissile>();
+            if(missileScript != null)
+            {
+                missileScript.SetOwner(user);
+            }
         }
         Debug.Log($"Spawned {missileCount} homing missiles");
     }
