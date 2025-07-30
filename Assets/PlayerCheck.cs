@@ -26,12 +26,16 @@ public class PlayerCheck : MonoBehaviour
 
     private void Start()
     {
+       // playerInput.SwitchCurrentControlScheme("Gamepad", Gamepad.current);
+        playerInput.neverAutoSwitchControlSchemes = true;
         StateUpdater?.Invoke(inputState);
         OffActive?.Invoke();
     }
 
     private void Update()
     {
+     
+
         if (playerInput.user != null && playerInput.actions["Restart"].ReadValue<float>() > 0)
         {
             UpdateState(true);

@@ -11,7 +11,7 @@ public class KeyboardInput : MonoBehaviour
 
     [SerializeField] PlayerInput playerInput;
     [SerializeField] UnityEvent<string> OnUpdateText;
-    [SerializeField] UnityEvent OnOffKeyboard;
+    [SerializeField] UnityEvent OnEnterKeyboard;
     Vector2Int currentMoveIndex = Vector2Int.zero;
     string currentText = "";
     ButtonAction currentButtonAction;
@@ -112,7 +112,7 @@ public class KeyboardInput : MonoBehaviour
 
     public void OnFinish()
     {
-        OnOffKeyboard?.Invoke();
+        OnEnterKeyboard?.Invoke(); playerInput.GetComponent<PlayerCheck>().UpdateState();
         this.gameObject.SetActive(false);
     }
 }
