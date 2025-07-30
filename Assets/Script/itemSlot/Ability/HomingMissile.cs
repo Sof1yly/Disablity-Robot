@@ -1,3 +1,4 @@
+using DavidJalbert;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -23,6 +24,7 @@ public class HomingMissile : MonoBehaviour
     private TrackUpdate[] players;
 
     [SerializeField] GameObject stunvfx;
+    [SerializeField] AudioClip missileHitSound;  // Serialized field to assign the sound clip
     MeshRenderer mr;
 
     void Awake()
@@ -68,8 +70,8 @@ public class HomingMissile : MonoBehaviour
             Vector3 dir = (target.position - transform.position).normalized;
             Quaternion look = Quaternion.LookRotation(dir);
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, look, rotateSpeed * Time.fixedDeltaTime));
+            rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
         }
-        rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
     }
 
     void OnTriggerEnter(Collider other)
@@ -78,8 +80,16 @@ public class HomingMissile : MonoBehaviour
         if (other.gameObject == owner)
             return;
 
-        ApplyStunEffect(other.gameObject);
-        Destroy(gameObject, destroyDelay);
+        // Only apply the stun effect if the object has a StatusManage component
+        if (other.TryGetComponent<StatusManage>(out var manage))
+        {
+            // Play sound when missile hits a valid target
+            int playerIndex = other.transform.parent.GetComponentInChildren<TinyCarAudio>().player;
+            SoundPlayer.Instance.PlaySound(missileHitSound, playerIndex);
+
+            ApplyStunEffect(other.gameObject);
+            Destroy(gameObject, destroyDelay); // Destroy the missile after applying the stun effect
+        }
     }
 
     void ApplyStunEffect(GameObject player)
@@ -90,8 +100,8 @@ public class HomingMissile : MonoBehaviour
             statusManage.OnApplyStatus(StatusType.Stun);
         }
         mr.enabled = false;
-        stunvfx.SetActive(true);
-        col.enabled = false;
+        stunvfx.SetActive(true);  // Show the stun effect
+        col.enabled = false;  // Disable the collider to prevent further triggers
     }
 
     void OnDrawGizmosSelected()

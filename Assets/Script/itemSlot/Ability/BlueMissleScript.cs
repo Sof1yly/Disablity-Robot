@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+using DavidJalbert;
 
 [RequireComponent(typeof(Rigidbody))]
 public class BlueMissleScript : MonoBehaviour
@@ -19,6 +20,8 @@ public class BlueMissleScript : MonoBehaviour
     private TrackUpdate[] players;
 
     [SerializeField] GameObject stunvfx;
+    [SerializeField] AudioClip missileHitSound;  // Sound to play when the missile hits a player
+    [SerializeField] AudioClip runningSound;
     MeshRenderer mr;
 
     // Variable to track the shooter's rank
@@ -43,13 +46,11 @@ public class BlueMissleScript : MonoBehaviour
         {
             // Ensure the shooter is not targeted by the missile
             TrackUpdate targetPlayer = null;
-
+            SoundPlayer.Instance.PlaySound(runningSound, 0);
             if (shooter != null && shooter.CurrentRank == 1)
             {
                 // Skip the shooter and get the second-ranked player
-                targetPlayer = players.OrderBy(player => player.CurrentRank)
-                                       .Where(player => player != shooter) 
-                                       .FirstOrDefault();
+                targetPlayer = players.OrderBy(player => player.CurrentRank).Where(player => player != shooter).FirstOrDefault();
             }
             else
             {
@@ -82,8 +83,17 @@ public class BlueMissleScript : MonoBehaviour
         if (other.gameObject == shooter.gameObject)
             return;
 
-        ApplyStunEffect(other.gameObject);
-        Destroy(gameObject, destroyDelay);
+        // Only apply the stun effect if the object has a StatusManage component
+        if (other.TryGetComponent<StatusManage>(out StatusManage manage))
+        {
+            // Play the sound when the missile hits the player
+            int playerIndex = other.transform.parent.GetComponentInChildren<TinyCarAudio>().player;
+            SoundPlayer.Instance.PlaySound(missileHitSound, playerIndex);
+
+            // Apply the stun effect and destroy the missile
+            ApplyStunEffect(other.gameObject);
+            Destroy(gameObject, destroyDelay);
+        }
     }
 
     void ApplyStunEffect(GameObject player)
@@ -94,8 +104,8 @@ public class BlueMissleScript : MonoBehaviour
             statusManage.OnApplyStatus(StatusType.Stun);
         }
         mr.enabled = false;
-        stunvfx.SetActive(true);
-        col.enabled = false;
+        stunvfx.SetActive(true);  // Show the stun effect
+        col.enabled = false;  // Disable the collider to prevent further triggers
     }
 
     void OnDrawGizmosSelected()

@@ -130,13 +130,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85aeee8335923d2418cee1147d8b0379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 70
-  rotateSpeed: 20
+  speed: 85
+  rotateSpeed: 25
   lifeTime: 10
-  detectionRadius: 300
+  detectionRadius: 150
   destroyDelay: 0.2
   owner: {fileID: 0}
   stunvfx: {fileID: 2441823585537353003}
+  missileHitSound: {fileID: 8300000, guid: 8770e9c0b3937674e82bc0950af4b3ba, type: 3}
 --- !u!65 &3755298711901342123
 BoxCollider:
   m_ObjectHideFlags: 0

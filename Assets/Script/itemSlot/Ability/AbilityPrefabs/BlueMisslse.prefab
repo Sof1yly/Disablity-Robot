@@ -4968,6 +4968,8 @@ MonoBehaviour:
   lifeTime: 15
   destroyDelay: 0.25
   stunvfx: {fileID: 3962302758831344447}
+  missileHitSound: {fileID: 8300000, guid: 5514b8182a7f16d40b4965b946ab3dd3, type: 3}
+  runningSound: {fileID: 8300000, guid: 126a4f1457389b047980dad1deafc5cd, type: 3}
 --- !u!136 &2597043731622941279
 CapsuleCollider:
   m_ObjectHideFlags: 0
