@@ -18,11 +18,18 @@ public class BlueMissleScript : MonoBehaviour
 
     private TrackUpdate[] players;
 
+    [SerializeField] GameObject stunvfx;
+    MeshRenderer mr;
+
+    // Variable to track the shooter's rank
+    private TrackUpdate shooter;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        Destroy(gameObject, lifeTime);  
+        mr = GetComponent<MeshRenderer>();
+        Destroy(gameObject, lifeTime);
     }
 
     void Start()
@@ -34,12 +41,27 @@ public class BlueMissleScript : MonoBehaviour
     {
         if (target == null)
         {
-            var targetPlayer = players.OrderBy(player => player.CurrentRank).FirstOrDefault();
+            // Get the shooter, assuming it's the player who launches the missile
+            shooter = GetComponentInParent<TrackUpdate>();
+
+            TrackUpdate targetPlayer = null;
+
+            // If the shooter is ranked 1, target the second ranked player, else target the first ranked player
+            if (shooter != null && shooter.CurrentRank == 1)
+            {
+                // Skip the shooter and get the second-ranked player
+                targetPlayer = players.OrderBy(player => player.CurrentRank).Where(player => player != shooter) .FirstOrDefault();
+            }
+            else
+            {
+                // If the shooter is not ranked 1, target the first ranked player
+                targetPlayer = players.OrderBy(player => player.CurrentRank).FirstOrDefault();
+            }
 
             if (targetPlayer != null)
             {
                 target = targetPlayer.transform;
-                Debug.Log($"[Missile] Target acquired: {target.name}");
+                Debug.Log($"[Missile] Target acquired: {target.name} (Rank {targetPlayer.CurrentRank})");
             }
         }
     }
@@ -57,29 +79,29 @@ public class BlueMissleScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            ApplyStunEffect(other.gameObject);
-        }
+        // Ignore collision with the shooter
+        if (other.gameObject == shooter.gameObject)
+            return;
 
-   
-
+        ApplyStunEffect(other.gameObject);
         Destroy(gameObject, destroyDelay);
     }
 
- 
     void ApplyStunEffect(GameObject player)
     {
         StatusManage statusManage = player.GetComponent<StatusManage>();
         if (statusManage != null)
         {
-            statusManage.OnApplyStatus(StatusType.Stun);  
+            statusManage.OnApplyStatus(StatusType.Stun);
         }
+        mr.enabled = false;
+        stunvfx.SetActive(true);
+        col.enabled = false;
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, 5f); 
+        Gizmos.DrawWireSphere(transform.position, 5f);
     }
 }
