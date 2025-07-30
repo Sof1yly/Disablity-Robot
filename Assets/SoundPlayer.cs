@@ -58,8 +58,9 @@ public class SoundPlayer : MonoBehaviour
     [SerializeField] AudioClip SYS_UI_SELECT;
     [SerializeField] AudioClip SYS_UI_CONFIRM;
     //to anyone reading this, it was 3:31 am honestly at this point fuck naming conventions
-    private void Update()
+    private void Start()
     {
+        mmfPlayer.PlayFeedbacks();
         player1KeyInput.OnUpdateText?.AddListener(BitchSound1);//Confirm Character
         player2KeyInput.OnUpdateText?.AddListener(BitchSound2);
         player3KeyInput.OnUpdateText?.AddListener(BitchSound3);
@@ -123,8 +124,5 @@ public class SoundPlayer : MonoBehaviour
     {
         PlaySound(SYS_NAME_CONFIRM, 4);
     }
-    private void Start()
-    {
-        mmfPlayer.PlayFeedbacks();
-    }
+
 }
