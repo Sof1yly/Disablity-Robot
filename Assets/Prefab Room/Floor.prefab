@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3386333875688363713}
   - component: {fileID: 374266821512852}
   - component: {fileID: 1383194601037440080}
+  - component: {fileID: 3794722100227263838}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3237568369242678839}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.62424177, y: -0.33214954, z: -0.33214918, w: -0.6242402}
+  m_LocalRotation: {x: 0.62423974, y: -0.3321517, z: -0.3321517, w: -0.62423974}
   m_LocalPosition: {x: 147, y: -2, z: -179}
   m_LocalScale: {x: 3131.6648, y: 3066.7212, z: 18.312618}
   m_ConstrainProportionsScale: 0
@@ -65,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 656fee0d2b1483f4c9bfd95155b74d51, type: 2}
+  - {fileID: 2100000, guid: fc22f975fd96ded4ea38e37e4e6976b0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,3 +109,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3794722100227263838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3237568369242678839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ecd6ce9b24b0f4ab3fc0aa96c7073c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameters:
+    name: Mud
+    steeringMultiplier: 0.5
+    accelerationMultiplier: 0.5
+    speedMultiplier: 0.5
+    forwardFrictionMultiplier: 0
+    lateralFrictionMultiplier: 1
+    sideFrictionMultiplier: 1

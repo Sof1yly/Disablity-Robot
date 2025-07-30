@@ -15,17 +15,27 @@ public class PlayerCheck : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
     }
 
+    public void UpdateState()
+    {
+        inputState = true;
+        StateUpdater?.Invoke(inputState);
+    }
+
 
     public bool inputState { get; private set; }
 
     private void Start()
     {
+       // playerInput.SwitchCurrentControlScheme("Gamepad", Gamepad.current);
+        playerInput.neverAutoSwitchControlSchemes = true;
         StateUpdater?.Invoke(inputState);
         OffActive?.Invoke();
     }
 
     private void Update()
     {
+     
+
         if (playerInput.user != null && playerInput.actions["Restart"].ReadValue<float>() > 0)
         {
             UpdateState(true);
@@ -45,7 +55,7 @@ public class PlayerCheck : MonoBehaviour
     {
         if (stateNewState != inputState)
         {
-            computeState();
+            //  computeState();
         }
     }
 }
