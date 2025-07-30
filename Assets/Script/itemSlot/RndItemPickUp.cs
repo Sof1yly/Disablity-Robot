@@ -27,10 +27,8 @@ public class RndItemPickUp : MonoBehaviour
     {
         var eq = other.GetComponent<EquipmentManager>();
         if (eq == null)
-        {
             return;
-        }
-  
+
         if (!eq.HasFreeSlot())
         {
             Debug.Log("Slot full — can't pick up item");
@@ -39,6 +37,7 @@ public class RndItemPickUp : MonoBehaviour
 
         if (itemList == null || itemList.Count == 0)
         {
+            Debug.LogWarning("No items in itemList!");
             return;
         }
 
