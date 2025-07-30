@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36710be3feac742409238a4d826843ed, type: 3}
-  m_Name: BananaTrapSO
+  m_Script: {fileID: 11500000, guid: 37805400260036b4aadf6816f1e39032, type: 3}
+  m_Name: SpeedBoost
   m_EditorClassIdentifier: 
-  bananaPrefab: {fileID: 4300868251209000738, guid: 23f96c6f17e0d5b4bacaf839fb197387, type: 3}
-  throwForce: 220
-  spawnDistance: 11
-  spawnHeight: 7
-  arcFactor: 0.6
+  itemName: Speed
+  icon: {fileID: 21300276, guid: 2ff73f8ec41810449a91b230f0a9216c, type: 3}
+  ability: {fileID: 11400000, guid: 2c9c22bc10bbc52449c647a5c5857a9b, type: 2}
