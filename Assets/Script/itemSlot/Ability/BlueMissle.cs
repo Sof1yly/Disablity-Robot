@@ -14,11 +14,17 @@ public class BlueMissle : ItemAbility
 
     public override void Activate(GameObject user)
     {
+     
         Vector3 origin = user.transform.position + spawnOffset;
         Quaternion rot = user.transform.rotation;
         for (int i = 0; i < missileCount; i++)
         {
-            Instantiate(missilePrefab, origin, rot);
+            GameObject missile = Instantiate(missilePrefab, origin, rot);
+            BlueMissleScript missleScript = missile.GetComponent<BlueMissleScript>();
+            if(missleScript != null)
+            {
+                missleScript.SetOwner(user);
+            }
         }
         Debug.Log($"Spawned {missileCount} homing missiles");
     }

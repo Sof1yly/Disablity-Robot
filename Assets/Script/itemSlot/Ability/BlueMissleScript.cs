@@ -41,16 +41,15 @@ public class BlueMissleScript : MonoBehaviour
     {
         if (target == null)
         {
-            // Get the shooter, assuming it's the player who launches the missile
-            shooter = GetComponentInParent<TrackUpdate>();
-
+            // Ensure the shooter is not targeted by the missile
             TrackUpdate targetPlayer = null;
 
-            // If the shooter is ranked 1, target the second ranked player, else target the first ranked player
             if (shooter != null && shooter.CurrentRank == 1)
             {
                 // Skip the shooter and get the second-ranked player
-                targetPlayer = players.OrderBy(player => player.CurrentRank).Where(player => player != shooter) .FirstOrDefault();
+                targetPlayer = players.OrderBy(player => player.CurrentRank)
+                                       .Where(player => player != shooter) 
+                                       .FirstOrDefault();
             }
             else
             {
@@ -103,5 +102,11 @@ public class BlueMissleScript : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, 5f);
+    }
+
+    // Method to set the owner (shooter)
+    public void SetOwner(GameObject owner)
+    {
+        shooter = owner.GetComponent<TrackUpdate>();
     }
 }

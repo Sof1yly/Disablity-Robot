@@ -1,19 +1,22 @@
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using DavidJalbert;
 
 [CreateAssetMenu(menuName = "Inventory/Ability/SpeedBoost")]
 public class SpeedBoost : ItemAbility
 {
-    [Tooltip("How many times faster the player goes")]
-    public float boostMultiplier = 2f;
-    [Tooltip("How long the boost lasts (seconds)")]
-    public float boostDuration = 7f;
+    public float effectDuration = 3f;
 
+    public TinyCarSurfaceParameters effectParameters = new TinyCarSurfaceParameters();
     public override void Activate(GameObject target)
     {
-        // Attach the SpeedBoostEffect to the player at runtime
-        var effect = target.AddComponent<SpeedBoostEffect>();
-        effect.multiplier = boostMultiplier;
-        effect.duration = boostDuration;
-        Debug.Log($"Speed boost x{boostMultiplier} for {boostDuration}s applied to {target.name}");
+        DavidJalbert.TinyCarController carController = target.GetComponent<DavidJalbert.TinyCarController>();
+        if (carController != null)
+        {
+            // Pass the directly defined effectParameters to the car controller
+            carController.ApplyTemporarySurfaceEffect(effectParameters, effectDuration);
+        }
+
+
     }
 }
