@@ -45,13 +45,30 @@ public class TrackUpdate : MonoBehaviour
     {
         currentTracker = newTracker;
     }
+    [SerializeField] AudioClip Lap1;
+    [SerializeField] AudioClip Lap2;
+    [SerializeField] AudioClip Lap3;
+    [SerializeField] AudioClip PlayerFinish;
     public void OnFinishOneRound()
     {
         currentRoundPlay++;
         OnLapUpdate?.Invoke(currentRoundPlay);
+        if(currentRoundPlay == 1)
+        {
+            SoundPlayer.Instance.PlaySound(Lap1, 0);
+        }
+        else if (currentRoundPlay == 2)
+        {
+            SoundPlayer.Instance.PlaySound(Lap2, 0);
+        }
+        else if (currentRoundPlay == 3)
+        {
+            SoundPlayer.Instance.PlaySound(Lap3, 0);
+        }
 
         if (currentRoundPlay >= MaxRound)
         {
+            SoundPlayer.Instance.PlaySound(PlayerFinish, 0);
             OnFinishEveryRound();
         }
     }

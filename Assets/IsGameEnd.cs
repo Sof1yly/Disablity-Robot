@@ -20,11 +20,12 @@ public class IsGameEnd : MonoBehaviour
         isGameEnd();
         //Debug.Log("Yippe! , Player Finish da Game NOWWWWWW");
     }
-
+    [SerializeField] AudioClip allFinish;
     public void isGameEnd()
     {
         if (finishedList.Count == debugMaxPlayer)
         {
+            SoundPlayer.Instance.PlaySound(allFinish, 0);
             Debug.Log("Game Ended");
             OnGameFinish?.Invoke();
         }
