@@ -1,5 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &440649043537656397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1313186455321783691}
+  - component: {fileID: 5494502481330831410}
+  - component: {fileID: 1214468395758644343}
+  m_Layer: 5
+  m_Name: Decoration (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1313186455321783691
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440649043537656397}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3.4, y: 3.4, z: 3.4}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 8179274725599106987}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -37.09314, y: 141.90756}
+  m_SizeDelta: {x: 449.8064, y: 324.2631}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5494502481330831410
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440649043537656397}
+  m_CullTransparentMesh: 1
+--- !u!114 &1214468395758644343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440649043537656397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.015686275}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: a8c694f4b6eec1243bcbdc8150fc1535, type: 3}
+  m_Type: 2
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 4.7
 --- !u!1 &1775400251001550105
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,6 +105,7 @@ RectTransform:
   m_Children:
   - {fileID: 242354134670576386}
   - {fileID: 6213516045095652111}
+  - {fileID: 1313186455321783691}
   m_Father: {fileID: 5634777851642477408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1016,7 +1092,7 @@ MonoBehaviour:
   InScriptDrivenPause: 0
   FeedbacksList:
   - rid: 8789976973820035263
-  - rid: 8789977133473071220
+  - rid: 8789977133473071281
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   RestoreInitialValuesOnDisable: 0
@@ -1281,13 +1357,13 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    - rid: 8789977133473071220
-      type: {class: MMF_Image, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+    - rid: 8789977133473071281
+      type: {class: MMF_Rotation, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
         Active: 1
-        UniqueID: 1508970431
-        Label: Image
-        OriginalLabel: Image
+        UniqueID: 1886218606
+        Label: Rotation
+        OriginalLabel: Rotation
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -1302,7 +1378,7 @@ MonoBehaviour:
           NumberOfRepeats: 0
           RepeatForever: 1
           DelayBetweenRepeats: 0
-          PlayCount: 0
+          PlayCount: 2
           LimitPlayCount: 0
           MaxPlayCount: 3
           SetPlayCountToZeroOnReset: 0
@@ -1355,46 +1431,188 @@ MonoBehaviour:
           ButtonText: 
         Owner: {fileID: 5107073991856115041}
         DebugActive: 0
-        BoundImage: {fileID: 6715938999824425962}
+        AnimateRotationTarget: {fileID: 1313186455321783691}
         Mode: 0
-        Duration: 15
+        RotationSpace: 1
+        MovementMode: 0
+        AnimateRotationDuration: 60
+        AnimatePositionSpeed: 1
+        RemapCurveZero: 0
+        RemapCurveOne: 360
+        AnimateX: 0
+        AnimateRotationTweenX:
+          MMTweenDefinitionType: 1
+          MMTweenCurve: 4
+          Curve:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 0.3
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          Initialized: 0
+          ConditionPropertyName: AnimateX
+          EnumConditionPropertyName: 
+          EnumConditions: 0000000000000000000000000000000000000000000000000000000000000000
+        AnimateY: 0
+        AnimateRotationTweenY:
+          MMTweenDefinitionType: 1
+          MMTweenCurve: 4
+          Curve:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 0.3
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          Initialized: 0
+          ConditionPropertyName: AnimateY
+          EnumConditionPropertyName: 
+          EnumConditions: 0000000000000000000000000000000000000000000000000000000000000000
+        AnimateZ: 1
+        AnimateRotationTweenZ:
+          MMTweenDefinitionType: 1
+          MMTweenCurve: 4
+          Curve:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 1
+              outSlope: 1
+              tangentMode: 34
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 1
+              outSlope: 1
+              tangentMode: 34
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          Initialized: 0
+          ConditionPropertyName: AnimateZ
+          EnumConditionPropertyName: 
+          EnumConditions: 0000000000000000000000000000000000000000000000000000000000000000
         AllowAdditivePlays: 0
-        ModifyColor: 1
-        ColorOverTime:
+        DetermineRotationOnPlay: 0
+        ToDestinationSpace: 0
+        DestinationAngles: {x: 0, y: 180, z: 0}
+        ToDestinationTransform: {fileID: 0}
+        ToDestinationTween:
+          MMTweenDefinitionType: 0
+          MMTweenCurve: 10
+          Curve:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          Initialized: 0
+          ConditionPropertyName: 
+          EnumConditionPropertyName: Mode
+          EnumConditions: 0000010000000000000000000000000000000000000000000000000000000000
+        AnimateRotationX:
           serializedVersion: 2
-          key0: {r: 0.056603774, g: 0.057053324, b: 0.0754717, a: 1}
-          key1: {r: 0.3439573, g: 0.022739422, b: 0.6886792, a: 1}
-          key2: {r: 1, g: 0, b: 0.10764694, a: 0}
-          key3: {r: 0.9902236, g: 1, b: 0.6745283, a: 0}
-          key4: {r: 0, g: 0, b: 0, a: 0}
-          key5: {r: 0, g: 0, b: 0, a: 0}
-          key6: {r: 0, g: 0, b: 0, a: 0}
-          key7: {r: 0, g: 0, b: 0, a: 0}
-          ctime0: 0
-          ctime1: 12466
-          ctime2: 35261
-          ctime3: 55562
-          ctime4: 0
-          ctime5: 0
-          ctime6: 0
-          ctime7: 0
-          atime0: 0
-          atime1: 65535
-          atime2: 0
-          atime3: 0
-          atime4: 0
-          atime5: 0
-          atime6: 0
-          atime7: 0
-          m_Mode: 0
-          m_ColorSpace: -1
-          m_NumColorKeys: 4
-          m_NumAlphaKeys: 2
-        InstantColor: {r: 0, g: 0, b: 0, a: 0}
-        DisableOnInit: 0
-        EnableOnPlay: 1
-        DisableOnSequenceEnd: 0
-        DisableOnStop: 0
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        AnimateRotationY:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        AnimateRotationZ:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        ToDestinationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1001 &4427856541002193479
 PrefabInstance:
   m_ObjectHideFlags: 0
