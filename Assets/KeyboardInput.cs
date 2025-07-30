@@ -10,8 +10,9 @@ public class KeyboardInput : MonoBehaviour
     float currenPressTimer;
 
     [SerializeField] PlayerInput playerInput;
-    [SerializeField] UnityEvent<string> OnUpdateText;
-    [SerializeField] UnityEvent OnEnterKeyboard;
+    public UnityEvent<string> OnUpdateText;
+    public UnityEvent OnEnterKeyboard;
+    public UnityEvent OnApplyMovement;
     Vector2Int currentMoveIndex = Vector2Int.zero;
     string currentText = "";
     ButtonAction currentButtonAction;
@@ -81,6 +82,7 @@ public class KeyboardInput : MonoBehaviour
 
     void ApplyPosition()
     {
+        OnApplyMovement.Invoke();
         if (currentButtonAction != null) currentButtonAction.OnDeselect();
 
         Transform row = this.transform.GetChild(currentMoveIndex.y);

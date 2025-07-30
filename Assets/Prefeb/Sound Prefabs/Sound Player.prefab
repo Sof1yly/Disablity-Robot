@@ -691,6 +691,17 @@ MonoBehaviour:
   - {fileID: 6557801960953919245}
   - {fileID: 6685140221888385165}
   - {fileID: 1705005214104414546}
+  player1KeyInput: {fileID: 0}
+  player2KeyInput: {fileID: 0}
+  player3KeyInput: {fileID: 0}
+  player4KeyInput: {fileID: 0}
+  RC_PAUSE: {fileID: 8300000, guid: 8f981fba63c24d94c96be71dce50721e, type: 3}
+  RC_UNPAUSE: {fileID: 8300000, guid: 0e7334bd32eb3984e810056d8a99a2db, type: 3}
+  SYS_NAME_SELECT: {fileID: 8300000, guid: 87d49351f3aa0ac4abbdcbf3bc7c3a46, type: 3}
+  SYS_NAME_PICK: {fileID: 8300000, guid: 5bef04b9b5b50204eae2fa372a6293d2, type: 3}
+  SYS_NAME_CONFIRM: {fileID: 8300000, guid: 0440bb1732b2b2040ae6fad2a1126e67, type: 3}
+  SYS_UI_SELECT: {fileID: 8300000, guid: a02754439aabe894eb14928c5129b408, type: 3}
+  SYS_UI_CONFIRM: {fileID: 8300000, guid: 7d37d6520eb383746ae8f1674a9a720a, type: 3}
 --- !u!114 &4064044121966888489
 MonoBehaviour:
   m_ObjectHideFlags: 0
