@@ -28,7 +28,7 @@ public class CreditController : MonoBehaviour
         if (speedKeyPressed)
         {
             Debug.Log("Space");
-            if (x4Delay <= 2)
+            if (x4Delay <= 5f)
             {
                 Time.timeScale = 2;
                 x4Delay += Time.deltaTime;
