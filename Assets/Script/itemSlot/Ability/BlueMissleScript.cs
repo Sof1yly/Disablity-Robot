@@ -44,16 +44,17 @@ public class BlueMissleScript : MonoBehaviour
             // Get the shooter, assuming it's the player who launches the missile
             shooter = GetComponentInParent<TrackUpdate>();
 
-
             TrackUpdate targetPlayer = null;
+
+            // If the shooter is ranked 1, target the second ranked player, else target the first ranked player
             if (shooter != null && shooter.CurrentRank == 1)
             {
-      
-                targetPlayer = players.OrderBy(player => player.CurrentRank).Skip(1) .FirstOrDefault();
+                // Skip the shooter and get the second-ranked player
+                targetPlayer = players.OrderBy(player => player.CurrentRank).Where(player => player != shooter) .FirstOrDefault();
             }
             else
             {
-
+                // If the shooter is not ranked 1, target the first ranked player
                 targetPlayer = players.OrderBy(player => player.CurrentRank).FirstOrDefault();
             }
 
@@ -78,6 +79,10 @@ public class BlueMissleScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        // Ignore collision with the shooter
+        if (other.gameObject == shooter.gameObject)
+            return;
+
         ApplyStunEffect(other.gameObject);
         Destroy(gameObject, destroyDelay);
     }

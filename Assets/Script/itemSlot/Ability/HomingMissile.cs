@@ -9,7 +9,7 @@ public class HomingMissile : MonoBehaviour
     public float lifeTime = 5f;
 
     [Header("Target-finding")]
-    public float detectionRadius = 5f;
+    public float detectionRadius = 80f;
 
     [Header("Collision")]
     public float destroyDelay = 0.25f;
@@ -22,7 +22,6 @@ public class HomingMissile : MonoBehaviour
 
     [SerializeField] GameObject stunvfx;
     MeshRenderer mr;
-    //real
 
     void Awake()
     {
@@ -36,16 +35,17 @@ public class HomingMissile : MonoBehaviour
     {
         if (target == null)
         {
-            // find anything with a StatusManage
+            // Find anything with a StatusManage component in the detection radius
             Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius);
             foreach (var h in hits)
             {
                 if (h.TryGetComponent<StatusManage>(out var sm))
                 {
-                    // ignore the shooter
+                    // Ignore the shooter even if they have StatusManage
                     if (h.gameObject == owner)
                         continue;
 
+                    // Assign the first valid target
                     target = h.transform;
                     Debug.Log($"[Missile] Target acquired: {target.name}");
                     break;
@@ -67,19 +67,22 @@ public class HomingMissile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // ignore hits on the shooter
+        // Ignore hits on the shooter
         if (other.gameObject == owner)
             return;
 
-
+        // Apply stun effect to the target if it has a StatusManage component
         if (other.TryGetComponent<StatusManage>(out var manage))
         {
             manage.OnApplyStatus(StatusType.Stun);
             Debug.Log($"[Missile] Stunned {other.name}");
         }
+
+        // Disable visual effects and collision for the missile after impact
         mr.enabled = false;
         stunvfx.SetActive(true);
-        col.enabled = false;  // prevent re-entry
+        col.enabled = false;  // Prevent re-entry
+
         Destroy(gameObject, destroyDelay);
     }
 
