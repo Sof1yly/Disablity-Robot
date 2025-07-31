@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 4207576479873066461}
   - component: {fileID: 7414399650250826768}
   m_Layer: 5
-  m_Name: 04_MMFPlayerFinishLine
+  m_Name: 02_MMFPlayerFinishLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2296,7 +2296,7 @@ GameObject:
   - component: {fileID: 6065558829528433668}
   - component: {fileID: 2933736670054132748}
   m_Layer: 5
-  m_Name: P04 Rank
+  m_Name: P02 Rank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2446,8 +2446,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorApplier: {fileID: 2933736670054132748}
   rankTextUpdater: {fileID: 2184135935389429427}
-  rankImage: {fileID: 0}
-  rankSprites: []
 --- !u!114 &2933736670054132748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2535,8 +2533,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -747.3281, y: -497.4851}
-  m_SizeDelta: {x: 2382.855, y: 1486.9456}
+  m_AnchoredPosition: {x: -828.24, y: -406.24}
+  m_SizeDelta: {x: 3169.148, y: 2718.7346}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4202419401019116081
 CanvasRenderer:
@@ -2566,7 +2564,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a8c694f4b6eec1243bcbdc8150fc1535, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6955aed317f3bab4ab882849534e60b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
