@@ -20,8 +20,8 @@ public class PickupEffect : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         ApplySurfaceEffectToPlayer(other.gameObject); // Apply the surface effect 
-        int playerIndex = other.transform.parent.GetComponentInChildren<TinyCarAudio>().player;
-        SoundPlayer.Instance.PlaySound(powerSound, playerIndex);
+        /*int playerIndex = other.transform.parent.GetComponentInChildren<TinyCarAudio>().player;
+        SoundPlayer.Instance.PlaySound(powerSound, playerIndex);*/
         ReturnPickupObjectToPool();
     }
 
