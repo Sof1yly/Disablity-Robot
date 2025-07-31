@@ -163,7 +163,7 @@ namespace CarInput
                 {
                     ""name"": """",
                     ""id"": ""b5b3523b-1e64-4aec-bfee-77815a5547ad"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
