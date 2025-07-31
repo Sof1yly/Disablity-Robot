@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using DavidJalbert;
 
 [CreateAssetMenu(menuName = "Inventory/Ability/ThrowFood")]
 public class throwFood : ItemAbility
@@ -10,7 +11,8 @@ public class throwFood : ItemAbility
         if (statusManage != null)
         {
             statusManage.OnApplyStatus(StatusType.VisualObscured);
-            
+
         }
     }
+
 }

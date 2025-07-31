@@ -1,3 +1,4 @@
+using DavidJalbert;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Inventory/Ability/BananaItem")]
@@ -12,14 +13,16 @@ public class BananaSpawn : ItemAbility
     public float spawnHeight = 1f;
     [Tooltip("Extra upward component to the throw")]
     public float arcFactor = 0.5f;
+  
 
     public override void Activate(GameObject target)
     {
-        Vector3 basePos = target.transform.position +target.transform.forward * spawnDistance;
+        Vector3 basePos = target.transform.position + target.transform.forward * spawnDistance;
         Vector3 spawnPos = new Vector3(basePos.x, target.transform.position.y + spawnHeight, basePos.z);
 
 
         GameObject banana = Instantiate(bananaPrefab, spawnPos, Quaternion.identity);
+
 
         var rb = banana.GetComponent<Rigidbody>();
         if (rb != null)
@@ -28,4 +31,5 @@ public class BananaSpawn : ItemAbility
             rb.linearVelocity = dir * throwForce;
         }
     }
+
 }

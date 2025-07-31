@@ -5,7 +5,8 @@ using DavidJalbert; // We still need this to access TinyCarController
 [RequireComponent(typeof(PooledObject))] // Ensure this component is present
 public class PickupEffect : MonoBehaviour
 {
-    
+
+    [SerializeField] private AudioClip powerSound;
 
     [Header("Effect Settings")]
     [Tooltip("The duration for which the surface effect on the car lasts.")]
@@ -18,7 +19,9 @@ public class PickupEffect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        ApplySurfaceEffectToPlayer(other.gameObject); // Apply the surface effect
+        ApplySurfaceEffectToPlayer(other.gameObject); // Apply the surface effect 
+        int playerIndex = other.transform.parent.GetComponentInChildren<TinyCarAudio>().player;
+        SoundPlayer.Instance.PlaySound(powerSound, playerIndex);
         ReturnPickupObjectToPool();
     }
 
@@ -56,4 +59,5 @@ public class PickupEffect : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }

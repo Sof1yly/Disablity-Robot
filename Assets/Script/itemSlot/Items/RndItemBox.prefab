@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 754.42, y: 1.4, z: 1632.87}
-  m_LocalScale: {x: 4.2288, y: 4.2288, z: 4.2288}
+  m_LocalScale: {x: 4.5, y: 4.5, z: 4.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -108,7 +108,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.25, y: 1.25, z: 1.25}
+  m_Size: {x: 1.8, y: 1.2, z: 1.8}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2957477109747677245
 MonoBehaviour:
@@ -122,15 +122,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66bcae78404ee3843a58d5315efd37d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSfx: {fileID: 8300000, guid: 577a82a555b32cd4b9c5740518a1644a, type: 3}
+  pickupSfx: {fileID: 8300000, guid: c2ac69f4212293a41b19c8f89c820b34, type: 3}
   itemList:
   - {fileID: 11400000, guid: 0e67defdc8e817741994270a533c7a0a, type: 2}
   - {fileID: 11400000, guid: 5e0979b29b4c0ec4ea88bacd573a3c5e, type: 2}
   - {fileID: 11400000, guid: 066d8764a1bee5c48b25d2b2b6b7f1f4, type: 2}
   - {fileID: 11400000, guid: 8779518bbe4fd5c4d85a04ae273613e7, type: 2}
   - {fileID: 11400000, guid: b018202fca799234585f593fd824a1f0, type: 2}
+  - {fileID: 11400000, guid: 016d2c62fa979454eaa82d8f13b23ec5, type: 2}
   respawnMinTime: 3
-  respawnMaxTime: 5
+  respawnMaxTime: 6
 --- !u!114 &6434058644269908550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8b1b85b900b9e42b1d128ed3ec1adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatHeight: 0.5
+  floatHeight: 0.6
   floatSpeed: 1
-  rotationSpeed: 20
+  rotationSpeed: 25

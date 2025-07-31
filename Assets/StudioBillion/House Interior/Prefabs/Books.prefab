@@ -235,7 +235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e1e43b042f8664fa1d357f973ad0eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfx: {fileID: 0}
+  bookTrapSound: {fileID: 8300000, guid: 523767c9d21609043859004c3493dd57, type: 3}
+  stunvfx: {fileID: 8322457082251054748}
+  destroyDelay: 0.28
 --- !u!54 &5924451581064998282
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -352,5 +354,10 @@ PrefabInstance:
 --- !u!4 &2181905688698968395 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3963309495545540781, guid: 7d6357086745b1745bd539c1ff8e0549, type: 3}
+  m_PrefabInstance: {fileID: 2974398122037537254}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8322457082251054748 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6501053582364698490, guid: 7d6357086745b1745bd539c1ff8e0549, type: 3}
   m_PrefabInstance: {fileID: 2974398122037537254}
   m_PrefabAsset: {fileID: 0}

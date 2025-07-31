@@ -1,3 +1,4 @@
+using DavidJalbert;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Inventory/Ability/CallTeacher")]
@@ -18,4 +19,5 @@ public class CallTeach : ItemAbility
             Instantiate(teacherPrefab, origin, rot);
         }
     }
+
 }
