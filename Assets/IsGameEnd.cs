@@ -28,7 +28,7 @@ public class IsGameEnd : MonoBehaviour
         if (finishedList.Count == debugMaxPlayer)
         {
             SoundPlayer.Instance.PlaySound(allFinish, 0);
-            mmfPlayer.PlayFeedbacks();
+            // mmfPlayer.PlayFeedbacks();
             Debug.Log("Game Ended");
             OnGameFinish?.Invoke();
         }

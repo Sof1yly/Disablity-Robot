@@ -12,7 +12,7 @@ public class TrackUpdate : MonoBehaviour
     int finalRank = 5;
     public int FinalRank => finalRank;
     public int CurrentRank { get; private set; }
-    
+
 
     IsGameEnd gameEndController;
     [SerializeField] UnityEvent<int> OnRankingUpdate;
@@ -49,11 +49,14 @@ public class TrackUpdate : MonoBehaviour
     [SerializeField] AudioClip Lap2;
     [SerializeField] AudioClip Lap3;
     [SerializeField] AudioClip PlayerFinish;
+
+    [ContextMenu("On Finish 1 Lap")]
+
     public void OnFinishOneRound()
     {
         currentRoundPlay++;
         OnLapUpdate?.Invoke(currentRoundPlay);
-        if(currentRoundPlay == 1)
+        if (currentRoundPlay == 1)
         {
             SoundPlayer.Instance.PlaySound(Lap1, 0);
         }
@@ -72,15 +75,18 @@ public class TrackUpdate : MonoBehaviour
             OnFinishEveryRound();
         }
     }
+
+
     public void UpdateFinalRanking(int FinalRank)
     {
         finalRank = FinalRank;
     }
+
     public void OnFinishEveryRound()
     {
         gameEndController.OnPlayerFinishAllRound(this);
         OnPlayerFinishRound?.Invoke(FinalRank);
-          
+
     }
 
     PlayerInput playerInput;
@@ -91,5 +97,5 @@ public class TrackUpdate : MonoBehaviour
         this.transform.parent.gameObject.name = $"Player : {playerInput.playerIndex + 1} Rank : {Rank}";
         OnRankingUpdate?.Invoke(Rank);
     }
-    
+
 }
