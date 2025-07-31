@@ -499,7 +499,7 @@ MonoBehaviour:
           NumberOfRepeats: 0
           RepeatForever: 0
           DelayBetweenRepeats: 1
-          PlayCount: 2
+          PlayCount: 0
           LimitPlayCount: 0
           MaxPlayCount: 3
           SetPlayCountToZeroOnReset: 0
@@ -796,7 +796,7 @@ MonoBehaviour:
           NumberOfRepeats: 0
           RepeatForever: 1
           DelayBetweenRepeats: 0
-          PlayCount: 2
+          PlayCount: 0
           LimitPlayCount: 0
           MaxPlayCount: 3
           SetPlayCountToZeroOnReset: 0
@@ -1052,7 +1052,7 @@ MonoBehaviour:
           NumberOfRepeats: 0
           RepeatForever: 0
           DelayBetweenRepeats: 1
-          PlayCount: 2
+          PlayCount: 0
           LimitPlayCount: 0
           MaxPlayCount: 3
           SetPlayCountToZeroOnReset: 0
@@ -1602,7 +1602,7 @@ MonoBehaviour:
           NumberOfRepeats: 0
           RepeatForever: 0
           DelayBetweenRepeats: 1
-          PlayCount: 2
+          PlayCount: 0
           LimitPlayCount: 0
           MaxPlayCount: 3
           SetPlayCountToZeroOnReset: 0
@@ -1715,7 +1715,7 @@ MonoBehaviour:
           NumberOfRepeats: 0
           RepeatForever: 1
           DelayBetweenRepeats: 0
-          PlayCount: 2
+          PlayCount: 0
           LimitPlayCount: 0
           MaxPlayCount: 3
           SetPlayCountToZeroOnReset: 0
@@ -1971,7 +1971,7 @@ MonoBehaviour:
           NumberOfRepeats: 0
           RepeatForever: 1
           DelayBetweenRepeats: 0
-          PlayCount: 2
+          PlayCount: 0
           LimitPlayCount: 0
           MaxPlayCount: 3
           SetPlayCountToZeroOnReset: 0
@@ -2446,6 +2446,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorApplier: {fileID: 2933736670054132748}
   rankTextUpdater: {fileID: 2184135935389429427}
+  rankImage: {fileID: 0}
+  rankSprites: []
 --- !u!114 &2933736670054132748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2490,8 +2492,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9203198143205102773}
-  - {fileID: 4361501077612723687}
   - {fileID: 6337442121147061756}
+  - {fileID: 4361501077612723687}
   m_Father: {fileID: 5940188567159003003}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2533,8 +2535,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -826.2317, y: -406.23746}
-  m_SizeDelta: {x: 615, y: 615}
+  m_AnchoredPosition: {x: -747.3281, y: -497.4851}
+  m_SizeDelta: {x: 2382.855, y: 1486.9456}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4202419401019116081
 CanvasRenderer:
@@ -2557,7 +2559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.019607844}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
