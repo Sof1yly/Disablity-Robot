@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: SpeedBoostSO
   m_EditorClassIdentifier: 
   effectDuration: 3
-  powerSound: {fileID: 8300000, guid: 56787e32f9fde05459f7bb99e1df90f7, type: 3}
   effectParameters:
     name: SpeedUp
-    steeringMultiplier: 2
-    accelerationMultiplier: 2
-    speedMultiplier: 2
-    forwardFrictionMultiplier: 2
+    steeringMultiplier: 2.5
+    accelerationMultiplier: 2.5
+    speedMultiplier: 2.5
+    forwardFrictionMultiplier: 2.5
     lateralFrictionMultiplier: 1
     sideFrictionMultiplier: 1
